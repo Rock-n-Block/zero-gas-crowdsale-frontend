@@ -1,0 +1,13 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.mainWrapper {
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+  min-height: 100vh;
+}
+
+.pageWrapper {
+  @include container;
+}

@@ -1,0 +1,85 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.button {
+  height: 52px;
+  border-radius: $borderRadius;
+  border: 1px solid;
+  padding: 0 15px;
+  font-size: 14px;
+  transition: 0.4s ease;
+  @include flex(row, center, center);
+  width: 100%;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+
+  --current-color: #1969ff;
+
+  background: var(--current-color);
+  border-color: var(--current-color);
+  color: var(--current-color);
+
+  // colors
+  &.blue {
+    --current-color: #1969ff;
+  }
+  &.darkBlue {
+    --current-color: #32335a;
+  }
+  &.purple {
+    --current-color: #bb83ed;
+  }
+  &.green {
+    --current-color: #4fafad;
+  }
+
+  // animations
+  &:hover:not(:disabled),
+  &:active,
+  &:focus-visible {
+    &.filled {
+      filter: saturate(300%);
+    }
+    &.outlined {
+      background: var(--current-color);
+      color: #fff;
+    }
+    &.text {
+      // filter: brightness(80%);
+    }
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    filter: brightness(70%);
+  }
+}
+
+.link {
+  flex-grow: 1;
+}
+
+.startIcon {
+  margin-right: 8px;
+  display: inline-flex;
+}
+
+.loader {
+  margin-left: 8px;
+  height: 26px;
+}
+
+// variants
+.filled {
+  color: #fff;
+}
+.outlined {
+  background: transparent;
+}
+.text {
+  background: transparent;
+  height: fit-content;
+  width: fit-content;
+  border: none;
+  padding: 0;
+}

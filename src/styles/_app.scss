@@ -1,0 +1,44 @@
+* {
+  box-sizing: border-box;
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 2px;
+  }
+  &::-webkit-scrollbar-track {
+    background: #fff;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #1969ff;
+    border: 3px solid #1969ff;
+  }
+  scrollbar-width: thin;
+  scrollbar-color: #1969ff #161313;
+}
+
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: $textMain;
+
+  span,
+  div {
+    font-feature-settings: 'liga' off;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}

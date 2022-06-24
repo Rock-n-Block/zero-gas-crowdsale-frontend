@@ -1,0 +1,89 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.inputWrapper {
+  position: relative;
+}
+
+.input {
+  border-radius: $borderRadius;
+  padding: 17px 20px;
+  border: none;
+  color: $darkBlue;
+  font-size: 18px;
+  font-weight: 500;
+  transition: 0.4s ease;
+  width: 100%;
+  font-family: inherit;
+
+  &:disabled {
+    opacity: 0.6;
+  }
+
+  &:hover {
+    box-shadow: 0 0 0 1px $blue inset;
+  }
+
+  &.withIcon {
+    padding: 17px 20px 17px 48px;
+  }
+
+  &.gray {
+    background: $inputGrayBg;
+  }
+  &.white {
+    background: #fff;
+  }
+  &.rounded {
+    border-radius: 20px;
+    height: 40px;
+    font-size: 16px;
+    & + .startIcon {
+      bottom: -4px;
+    }
+  }
+
+  &:focus {
+    padding: 17px 20px;
+    box-shadow: 0 0 0 1px $blue inset;
+  }
+  &:focus + .startIcon {
+    transform: translateY(-50%) scale(0);
+  }
+}
+
+.labelWrapper {
+  @include flex(row, space-between, center, wrap);
+  margin-bottom: 7px;
+  @include b(530) {
+    gap: 10px;
+  }
+}
+.label,
+.labelEnd {
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: 500;
+  color: $darkBlue;
+  text-transform: uppercase;
+}
+
+.startIcon {
+  transition: 0.4s ease;
+  position: absolute;
+  bottom: 4px;
+  left: 20px;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  font-size: 24px;
+  text-align: center;
+  transform-origin: center left;
+  @include flex(row, center, center);
+
+  svg {
+    width: 24px;
+    height: 24px;
+    color: $darkBlue;
+  }
+}
