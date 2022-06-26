@@ -1,6 +1,52 @@
 @import 'mixins/helpers';
 
-@include font-face('Montserrat', '../../assets/fonts/Montserrat-Regular', 400, normal, 'ttf');
-@include font-face('Montserrat', '../../assets/fonts/Montserrat-Medium', 500, normal, 'ttf');
-@include font-face('Montserrat', '../../assets/fonts/Montserrat-SemiBold', 600, normal, 'ttf');
-@include font-face('Montserrat', '../../assets/fonts/Montserrat-Bold', 700, normal, 'ttf');
+/* Poppins */
+@include font-face('Poppins', '../../assets/fonts/Poppins/Poppins-Black', 900, normal, 'ttf');
+@include font-face('Poppins', '../../assets/fonts/Poppins/Poppins-BlackItalic', 900, italic, 'ttf');
+@include font-face('Poppins', '../../assets/fonts/Poppins/Poppins-ExtraBold', 800, normal, 'ttf');
+@include font-face('Poppins', '../../assets/fonts/Poppins/Poppins-ExtraBoldItalic', 800, italic, 'ttf');
+@include font-face('Poppins', '../../assets/fonts/Poppins/Poppins-Bold', 700, normal, 'ttf');
+@include font-face('Poppins', '../../assets/fonts/Poppins/Poppins-BoldItalic', 700, italic, 'ttf');
+@include font-face('Poppins', '../../assets/fonts/Poppins/Poppins-SemiBold', 600, normal, 'ttf');
+@include font-face('Poppins', '../../assets/fonts/Poppins/Poppins-SemiBoldItalic', 600, italic, 'ttf');
+@include font-face('Poppins', '../../assets/fonts/Poppins/Poppins-Medium', 500, normal, 'ttf');
+@include font-face('Poppins', '../../assets/fonts/Poppins/Poppins-MediumItalic', 500, italic, 'ttf');
+@include font-face('Poppins', '../../assets/fonts/Poppins/Poppins-Regular', 400, normal, 'ttf');
+@include font-face('Poppins', '../../assets/fonts/Poppins/Poppins-Light', 300, normal, 'ttf');
+@include font-face('Poppins', '../../assets/fonts/Poppins/Poppins-LightItalic', 300, italic, 'ttf');
+@include font-face('Poppins', '../../assets/fonts/Poppins/Poppins-ExtraLight', 200, normal, 'ttf');
+@include font-face('Poppins', '../../assets/fonts/Poppins/Poppins-ExtraLightItalic', 200, italic, 'ttf');
+@include font-face('Poppins', '../../assets/fonts/Poppins/Poppins-Thin', 100, normal, 'ttf');
+@include font-face('Poppins', '../../assets/fonts/Poppins/Poppins-ThinItalic', 100, italic, 'ttf');
+
+/* PP Right Sans */
+@include font-face('PP Right Sans Spatial', '../../assets/fonts/PPRightSans/PPRightSans-SpatialBlack', 900, normal, 'otf');
+@include font-face('PP Right Sans Spatial', '../../assets/fonts/PPRightSans/PPRightSans-SpatialBlackItalic', 900, italic, 'otf');
+@include font-face('PP Right Sans Spatial', '../../assets/fonts/PPRightSans/PPRightSans-SpatialFine', 100, normal, 'otf');
+
+@include font-face('PP Right Sans Compact', '../../assets/fonts/PPRightSans/PPRightSans-CompactBlack', 900, normal, 'otf');
+@include font-face('PP Right Sans Compact', '../../assets/fonts/PPRightSans/PPRightSans-CompactDark', 800, italic, 'otf');
+@include font-face('PP Right Sans Compact', '../../assets/fonts/PPRightSans/PPRightSans-CompactFineItalic', 100, italic, 'otf');
+
+@include font-face('PP Right Sans', '../../assets/fonts/PPRightSans/PPRightSans-Medium', 500, normal, 'otf');
+@include font-face('PP Right Sans', '../../assets/fonts/PPRightSans/PPRightSans-MediumItalic', 500, italic, 'otf');
+@include font-face('PP Right Sans', '../../assets/fonts/PPRightSans/PPRightSans-Light', 300, normal, 'otf');
+
+@include font-face('PP Right Sans Narrow', '../../assets/fonts/PPRightSans/PPRightSans-NarrowLight', 300, normal, 'otf');
+
+@include font-face('PP Right Sans Tall', '../../assets/fonts/PPRightSans/PPRightSans-TallRegular', 400, normal, 'otf');
+@include font-face('PP Right Sans Tall', '../../assets/fonts/PPRightSans/PPRightSans-TallFine', 100, normal, 'otf');
+
+@include font-face('PP Right Sans Wide', '../../assets/fonts/PPRightSans/PPRightSans-WideBlack', 900, normal, 'otf');
+@include font-face('PP Right Sans Wide', '../../assets/fonts/PPRightSans/PPRightSans-WideMedium', 500, normal, 'otf');
+@include font-face('PP Right Sans Wide', '../../assets/fonts/PPRightSans/PPRightSans-WideMediumItalic', 500, italic, 'otf');
+
+/* DrukCyr */
+@include font-face('DrukCyr', '../../assets/fonts/DrukCyr/DrukCyr-Super', 900, normal, 'ttf');
+@include font-face('DrukCyr', '../../assets/fonts/DrukCyr/DrukCyr-SuperItalic', 900, italic, 'ttf');
+@include font-face('DrukCyr', '../../assets/fonts/DrukCyr/DrukCyr-Heavy', 800, normal, 'ttf');
+@include font-face('DrukCyr', '../../assets/fonts/DrukCyr/DrukCyr-HeavyItalic', 800, italic, 'ttf');
+@include font-face('DrukCyr', '../../assets/fonts/DrukCyr/DrukCyr-Medium', 700, normal, 'ttf');
+@include font-face('DrukCyr', '../../assets/fonts/DrukCyr/DrukCyr-MediumItalic', 700, italic, 'ttf');
+@include font-face('DrukCyr', '../../assets/fonts/DrukCyr/DrukCyr-Medium', 500, normal, 'ttf');
+@include font-face('DrukCyr', '../../assets/fonts/DrukCyr/DrukCyr-MediumItalic', 500, italic, 'ttf');

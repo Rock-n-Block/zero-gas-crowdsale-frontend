@@ -1,0 +1,47 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.infinityLine {
+  max-width: 100%;
+  overflow: hidden;
+  &Container {
+    width: fit-content;
+    @include flex(row, flex-start, center);
+  }
+  &Item {
+    animation-duration: calc(var(--duration) * 1s);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-fill-mode: forwards;
+    &.ltr {
+      animation-name: ltrMove;
+    }
+    &.rtl {
+      animation-name: rtlMove;
+    }
+  }
+}
+
+@keyframes ltrMove {
+  0% {
+    transform: translate(100%, 0);
+  }
+
+  50% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    transform: translate(-100%, 0);
+  }
+}
+
+@keyframes rtlMove {
+  0% {
+    transform: translate(0%, 0);
+  }
+
+  100% {
+    transform: translate(-100%, 0);
+  }
+}
