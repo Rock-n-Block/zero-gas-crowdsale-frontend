@@ -1,4 +1,4 @@
-import { ReactElement, useCallback, FC } from 'react';
+import { FC, ReactElement, useCallback } from 'react';
 import cn from 'clsx';
 
 import { Loader } from '@/assets/img';
@@ -9,17 +9,11 @@ import s from './styles.module.scss';
 export interface InputProps {
   onChange: (newValue: string) => void;
   value: string;
-  color?: 'gray' | 'white';
   placeholder?: string;
-  label?: ReactElement | string;
-  labelEnd?: ReactElement | string;
-  variant?: 'default' | 'rounded';
-  startIcon?: ReactElement | string;
   loading?: boolean;
   disabled?: boolean;
   onlyNumbers?: boolean;
   className?: string;
-  labelEndClassName?: string;
   inputClassName?: string;
 }
 
@@ -42,16 +36,10 @@ export const Input: FC<InputProps> = ({
   className,
   value,
   onChange,
-  label,
-  startIcon,
   loading,
   disabled,
-  color = 'gray',
-  variant = 'default',
-  labelEnd,
   onlyNumbers,
   placeholder = '',
-  labelEndClassName,
   inputClassName,
 }) => {
   const handleChangeInput = useCallback(
@@ -65,26 +53,14 @@ export const Input: FC<InputProps> = ({
 
   return (
     <div className={cn(s.inputWrapper, className)}>
-      {(label || labelEnd) && (
-        <div className={s.labelWrapper}>
-          <span className={cn(s.label)}>{label}</span>
-          <span className={cn(s.labelEnd, labelEndClassName)}>{labelEnd}</span>
-        </div>
-      )}
       <input
         placeholder={placeholder}
         value={value}
         disabled={disabled || loading}
         onChange={(e) => handleChangeInput(e.target.value)}
-        className={cn(
-          s.input,
-          s[color],
-          s[variant],
-          { [s.withIcon]: startIcon || loading },
-          inputClassName,
-        )}
+        className={cn(s.input, { [s.withIcon]: loading }, inputClassName)}
       />
-      <span className={cn(s.startIcon)}>{(loading && <Loader />) || startIcon}</span>
+      <span className={cn(s.startIcon)}>{loading && <Loader />}</span>
     </div>
   );
 };

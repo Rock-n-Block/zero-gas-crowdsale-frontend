@@ -14,7 +14,7 @@
   }
 }
 
-@mixin flex($direction: row, $justification: normal, $alignment: normal, $wrap: wrap) {
+@mixin flex($direction: row, $justification: normal, $alignment: normal, $wrap: nowrap) {
   display: flex;
   flex-direction: $direction;
   justify-content: $justification;
@@ -29,11 +29,20 @@
   gap: $gap;
 }
 
-@mixin text-control(
-  $size: 14px,
-  $height: 15px,
-  $weight: normal,
-) {
+@mixin Poppins() {
+  font-family: 'Poppins';
+}
+
+$PPRightSansVariants: ('Spatial', 'Compact', 'Narrow', 'Tall', 'Wide', '');
+@mixin PPRightSans($variant) {
+  font-family: 'PPRightSans' + ' ' + $variant;
+}
+
+@mixin DrukCyr {
+  font-family: 'DrukCyr';
+}
+
+@mixin text-control($size: 14px, $height: 15px, $weight: normal) {
   font-size: $size;
   font-weight: $weight;
   line-height: $height;

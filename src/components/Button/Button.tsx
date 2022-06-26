@@ -4,13 +4,16 @@ import cn from 'clsx';
 
 import { Loader } from '@/assets/img';
 
+import { ColorTheme, VariantTheme } from './types';
+
 import s from './styles.module.scss';
 
 export interface ButtonProps {
   onClick?: () => void;
-  color?: 'blue' | 'purple' | 'darkBlue' | 'green';
-  variant?: 'filled' | 'outlined' | 'text';
+  color?: ColorTheme;
+  variant?: VariantTheme;
   startIcon?: ReactElement;
+  endIcon?: ReactElement;
   className?: string;
   disabled?: boolean;
   loading?: boolean;
@@ -19,8 +22,8 @@ export interface ButtonProps {
 }
 
 /**
- * @param {'blue' | 'purple' | 'darkBlue' | 'green'} [color = 'blue'] - main color
- * @param {'filled' | 'outlined' | 'text'} [variant = 'filled'] - variant
+ * @param {ColorTheme} [color = 'blue'] - main color
+ * @param {VariantTheme} [variant = 'filled'] - variant
  * * filled - with background
  * * outlined - only border
  * * text - button with only text [no padding, height, bg, etc]
@@ -35,9 +38,10 @@ export interface ButtonProps {
  */
 export const Button: FC<PropsWithChildren<ButtonProps>> = ({
   className,
-  color = 'blue',
+  color = 'common',
   variant = 'filled',
   startIcon,
+  endIcon,
   children,
   onClick,
   disabled,
@@ -53,9 +57,9 @@ export const Button: FC<PropsWithChildren<ButtonProps>> = ({
       type="button"
       className={cn(s.button, s[color], s[variant], !to && !href && className)}
     >
-      {startIcon && <span className={s.startIcon}>{startIcon}</span>}
+      {startIcon && <div className={s.startIcon}>{startIcon}</div>}
       {children}
-      {loading && <Loader className={s.loader} />}
+      {endIcon && <div className={s.endIcon}>{loading ? <Loader /> : endIcon}</div>}
     </button>
   );
 
