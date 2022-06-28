@@ -1,0 +1,25 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.wrapper {
+  padding: 22px 0;
+  .content {
+    text-transform: uppercase;
+    text-decoration: underline;
+    white-space: nowrap;
+    width: fit-content;
+    margin-right: 120px;
+    position: relative;
+    @include text-control(20px, 24px);
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 80px;
+      left: calc(100% + 20px);
+      height: 1.5px;
+      background: $dark-0;
+      transform: translateY(-50%);
+    }
+  }
+}

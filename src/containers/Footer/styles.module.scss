@@ -1,0 +1,70 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.wrapper {
+  width: 100%;
+  background: $accent;
+  padding: 60px 0 0 0;
+  .container {
+    @include container;
+    @include flex(column, flex-start, center);
+    .title {
+      font-size: 12vw;
+      text-transform: uppercase;
+      @include flex(row, center, center);
+      .zGasIcon {
+        padding: 0 10px;
+        flex: 0 0 15%;
+      }
+    }
+    .communicationTitle {
+      margin-top: 100px;
+    }
+    .bottom {
+      margin-top: 68px;
+      width: 100%;
+      padding: 20px 0;
+      border-top: 2px solid $dark-0;
+      &Container {
+        @include container;
+        @include flex(row, space-between, center, wrap);
+        .terms {
+          @include flex(row, flex-start, center);
+          &Link {
+            &:not(:last-child) {
+              margin-right: 60px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@include large-tablet {
+  .wrapper {
+    padding: 30px 0 0;
+    .container {
+      .communicationTitle {
+        margin-top: 40px;
+      }
+      .bottom {
+        margin-top: 40px;
+      }
+    }
+  }
+}
+
+@include large-mobile {
+  .wrapper {
+    padding: 20px 0 0;
+    .container {
+      .communicationTitle {
+        margin-top: 20px;
+      }
+      .bottom {
+        margin-top: 20px;
+      }
+    }
+  }
+}

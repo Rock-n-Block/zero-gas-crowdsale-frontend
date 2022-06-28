@@ -1,6 +1,6 @@
 import type { CrowdSaleState, State } from '@/types';
 
-const CrowdSaleSelectors = {
+const crowdSaleSelectors = {
   getCrowdSale: (state: State): CrowdSaleState => state.CrowdSale,
   getProp:
     <T extends keyof CrowdSaleState>(propKey: T) =>
@@ -8,4 +8,4 @@ const CrowdSaleSelectors = {
       state.CrowdSale[propKey],
 };
 
-export default CrowdSaleSelectors;
+export default crowdSaleSelectors;

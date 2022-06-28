@@ -1,0 +1,30 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.wrapper {
+  width: 100%;
+  .container {
+    position: relative;
+    @include container;
+    margin-bottom: 120px;
+    @include flex(column, flex-start, center);
+    .title{
+        margin: 125px 0 85px;
+    }
+    .roadMap{
+        width: 100%;
+        max-width: 1110px;
+    }
+  }
+}
+
+@include middle-tablet{
+    .wrapper{
+        .container{
+            margin-bottom: 60px;
+            .title{
+                margin: 60px 20px;
+            }
+        }
+    }
+}

@@ -4,10 +4,11 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { PersistGate } from 'redux-persist/integration/react';
 
-import { App } from '@/containers';
+import { App, OverlayProvider } from '@/containers';
 import { WalletConnectContext } from '@/services';
 
 import store from './store/configureStore';
+import { Buy } from './pages';
 
 import 'react-toastify/dist/ReactToastify.css';
 import '@/styles/index.scss';
@@ -18,8 +19,12 @@ const app = (
     <PersistGate loading={null} persistor={store.persistor}>
       <Router>
         <WalletConnectContext>
-          <ToastContainer hideProgressBar />
-          <App />
+          <OverlayProvider overlayChildren={[<Buy key="buy" />]}>
+            <>
+              <ToastContainer hideProgressBar />
+              <App />
+            </>
+          </OverlayProvider>
         </WalletConnectContext>
       </Router>
     </PersistGate>

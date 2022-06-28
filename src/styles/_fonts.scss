@@ -50,3 +50,7 @@
 @include font-face('DrukCyr', '../../assets/fonts/DrukCyr/DrukCyr-MediumItalic', 700, italic, 'ttf');
 @include font-face('DrukCyr', '../../assets/fonts/DrukCyr/DrukCyr-Medium', 500, normal, 'ttf');
 @include font-face('DrukCyr', '../../assets/fonts/DrukCyr/DrukCyr-MediumItalic', 500, italic, 'ttf');
+
+/* DrykCyr Wide */
+@include font-face('DrukCyr Wide', '../../assets/fonts/DrukCyrWide/DrukWide-Bold', 700, normal, 'ttf');
+@include font-face('DrukCyr Wide', '../../assets/fonts/DrukCyrWide/DrukWide-Medium', 500, italic, 'ttf');

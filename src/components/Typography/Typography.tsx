@@ -1,4 +1,4 @@
-import { createElement, FC, PropsWithChildren } from 'react';
+import { createElement, FC, PropsWithChildren, ReactElement } from 'react';
 import cn from 'clsx';
 
 import { cssVariable } from '@/utils';
@@ -21,13 +21,14 @@ enum Types {
 }
 
 export interface TypographyProps {
-  type: keyof typeof Types;
+  type?: keyof typeof Types;
   align?: 'center' | 'left' | 'right';
   weight?: 400 | 500 | 600 | 700 | 800 | 900;
   lineHeight?: string;
-  fontFamily?: 'Poppins' | 'DrukCyr' | 'PPRightSans';
+  fontFamily?: 'Poppins' | 'DrukCyr' | 'DrukCyr Wide' | 'PPRightSans';
   color?: 'dark-0';
   className?: string;
+  customTag?: keyof HTMLElementTagNameMap;
 }
 
 /**
@@ -39,7 +40,7 @@ export interface TypographyProps {
  * @param {'normal' | 'medium' | 'semiBold' | 'bold'} [type = ''] - text type
  */
 export const Typography: FC<PropsWithChildren<TypographyProps>> = ({
-  type,
+  type = 'body1',
   align = 'left',
   weight,
   color = 'default',
@@ -47,6 +48,7 @@ export const Typography: FC<PropsWithChildren<TypographyProps>> = ({
   children,
   lineHeight,
   fontFamily = 'Poppins',
+  customTag,
   ...rest
 }) => {
   const props = {
@@ -60,5 +62,5 @@ export const Typography: FC<PropsWithChildren<TypographyProps>> = ({
     },
     ...rest,
   };
-  return createElement(Types[type], props, children);
+  return createElement(customTag || Types[type], props, children);
 };

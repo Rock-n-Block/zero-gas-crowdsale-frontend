@@ -34,12 +34,13 @@
 }
 
 $PPRightSansVariants: ('Spatial', 'Compact', 'Narrow', 'Tall', 'Wide', '');
-@mixin PPRightSans($variant) {
-  font-family: 'PPRightSans' + ' ' + $variant;
+@mixin PPRightSans($variant: '') {
+  font-family: 'PP Right Sans' + ' ' + $variant;
 }
 
-@mixin DrukCyr {
-  font-family: 'DrukCyr';
+$DrykCyrVariants: ('Wide', '');
+@mixin DrukCyr($variant) {
+  font-family: 'DrukCyr' + ' ' + $variant;
 }
 
 @mixin text-control($size: 14px, $height: 15px, $weight: normal) {

@@ -4,11 +4,13 @@ import { useLocation } from 'react-router-dom';
 interface UseAnchorLinkArgs {
   scrollToTopOnEmpty?: boolean;
   behavior?: ScrollBehavior;
+  offset?: number;
 }
 
 const defaultConfig: Required<UseAnchorLinkArgs> = {
   scrollToTopOnEmpty: true,
   behavior: 'smooth',
+  offset: 0,
 };
 
 function useAnchorLink(): void;
@@ -23,8 +25,9 @@ function useAnchorLink(props?: UseAnchorLinkArgs) {
     () => ({
       scrollToTopOnEmpty: props?.scrollToTopOnEmpty || defaultConfig.scrollToTopOnEmpty,
       behavior: props?.behavior || defaultConfig.behavior,
+      offset: props?.offset || defaultConfig.offset,
     }),
-    [props?.behavior, props?.scrollToTopOnEmpty],
+    [props?.behavior, props?.offset, props?.scrollToTopOnEmpty],
   );
   const { pathname, hash, key } = useLocation();
 

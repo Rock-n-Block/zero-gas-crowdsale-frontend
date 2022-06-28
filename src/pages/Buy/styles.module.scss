@@ -1,0 +1,34 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.wrapper{
+    position: absolute;
+    min-height: calc(100vh - 54px);
+    background: $light-8;
+    top: 54px;
+    left: 0;
+    width: 100%;
+    padding: 50px;
+    transition: 1000ms ease-in-out;
+    transform: translateY(100%);
+    &.open{
+        transform: translateY(0);
+    }
+    .head{
+        margin-bottom: 20px;
+        @include flex(row, flex-end, center);
+        .exit{
+            background: transparent;
+        }
+    }
+    .content{
+        height: auto;
+        @include flex(row, center, center);
+    }
+}
+
+@include middle-tablet{
+    .wrapper{
+        padding: 25px 15px;
+    }
+}

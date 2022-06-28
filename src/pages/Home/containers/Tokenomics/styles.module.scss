@@ -1,0 +1,116 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.wrapper {
+  width: 100%;
+  position: relative;
+  .under {
+    position: absolute;
+    z-index: -1;
+    top: 10%;
+    &Text {
+      -webkit-text-stroke: 2px $dark-0;
+      -webkit-text-fill-color: transparent;
+      @include text-control(280px, 614px);
+    }
+  }
+  .container {
+    position: relative;
+    @include container;
+    @include flex(column, flex-start, center);
+    .title{
+        margin: 88px 0 70px;
+    }
+    .chart {
+      &Wrapper {
+        width: 100%;
+        position: relative;
+        .overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          &Content {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            .percentFirst {
+              position: absolute;
+              top: 0;
+              left: 0;
+            }
+            .percentSecond {
+              position: absolute;
+              top: 0;
+              right: 0;
+            }
+            .percentThird {
+              position: absolute;
+              bottom: 0;
+              left: 0;
+            }
+            .percentFourth {
+              position: absolute;
+              bottom: 0;
+              right: 0;
+            }
+          }
+        }
+      }
+      &Content {
+        position: relative;
+        .chart {
+          margin: 0 auto;
+          transform: rotate(-25deg);
+          max-width: 600px;
+          svg {
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .icon {
+          position: absolute;
+          width: 180px;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+    }
+  }
+}
+
+.label {
+  &Wrapper {
+    &.right {
+      @include flex(row-reverse, flex-start, center);
+      .labelData {
+        @include flex(column, flex-start, flex-end);
+      }
+    }
+    &.left {
+      @include flex(row, flex-start, center);
+    }
+  }
+  &Circle {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 1px solid $dark-0;
+    padding: 14px;
+    &Color {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: var(--bgColor);
+    }
+    &Area {
+      padding: 0 24px;
+    }
+  }
+  &Percent {
+    font-style: italic;
+    @include PPRightSans('Wide');
+  }
+}

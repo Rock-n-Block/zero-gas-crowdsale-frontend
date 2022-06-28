@@ -1,0 +1,75 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.wrapper {
+  margin-top: 24px;
+  .container {
+    @include container;
+    @include flex(column, flex-start, center);
+    margin-bottom: 100px;
+    .info {
+      &Highlight {
+        font-style: italic;
+        @include PPRightSans('Wide');
+      }
+    }
+    .advantageBlock {
+      margin-top: 76px;
+      margin-bottom: 100px;
+      @include flex(row, space-evenly, center, wrap);
+      .chart {
+        flex: 0 0 50%;
+        @include flex(row, center, center);
+      }
+      .advantages {
+        flex: 0 0 50%;
+        &List {
+          list-style: outside;
+          padding-left: 16px;
+          margin: 24px 0;
+          &Element {
+            margin: 8px 0;
+          }
+        }
+      }
+    }
+    .technologyText {
+      margin-bottom: 40px;
+    }
+  }
+}
+
+.readMore {
+  &HeadWrapper {
+    @include flex(row, flex-start, center);
+  }
+  &Title {
+    text-decoration: underline;
+    text-transform: uppercase;
+  }
+  &Icon {
+    transition: 400ms ease-in-out;
+    margin-left: 25px;
+    &.active {
+      transform: rotate(45deg);
+    }
+  }
+}
+
+@include middle-tablet {
+  .wrapper {
+    .container {
+      .advantageBlock {
+        margin-top: 56px;
+        margin-bottom: 56px;
+        .advantages,
+        .chart {
+          flex: 0 0 100%;
+        }
+        .advantages {
+          margin-top: 30px;
+        }
+      }
+    }
+  }
+}

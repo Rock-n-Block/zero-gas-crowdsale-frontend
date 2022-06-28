@@ -1,5 +1,5 @@
 /* eslint-disable no-plusplus */
-import { FC, PropsWithChildren, useEffect, useMemo, useRef, useState } from 'react';
+import { FC, PropsWithChildren, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import cn from 'clsx';
 
 import { cssVariable, logger } from '@/utils';
@@ -72,7 +72,7 @@ export const InfinityLine: FC<PropsWithChildren<InfinityLineProps>> = ({
     };
   }, []);
 
-  useEffect(() => {
+  const calcElements = useCallback(() => {
     if (wrapperRef.current && containerRef.current) {
       const wrapperWidth = wrapperRef.current.offsetWidth;
       const contentWidth = containerRef.current.offsetWidth;
@@ -81,6 +81,14 @@ export const InfinityLine: FC<PropsWithChildren<InfinityLineProps>> = ({
       }
     }
   }, [countOfCopies]);
+
+  useEffect(() => {
+    calcElements();
+    window.addEventListener('resize', calcElements);
+    return () => {
+      window.removeEventListener('resize', calcElements);
+    };
+  }, [calcElements]);
 
   if (!children) {
     logger({
@@ -91,7 +99,7 @@ export const InfinityLine: FC<PropsWithChildren<InfinityLineProps>> = ({
     return null;
   }
 
-  const queue = new Array(countOfCopies + 1).fill(children).map((child, id) => {
+  const queue = new Array(countOfCopies).fill(children).map((child, id) => {
     return (
       <div
         className={cn(
