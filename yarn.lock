@@ -4,10 +4,10 @@
 
 "@amfi/connect-wallet@https://github.com/Rock-n-Block/connect-wallet-lib.git#feature/modular-wallet":
   version "1.1.24"
-  resolved "https://github.com/Rock-n-Block/connect-wallet-lib.git#6b4ca23b30f8c96b79d148dce418e0286260b0de"
+  resolved "https://github.com/Rock-n-Block/connect-wallet-lib.git#f8852be04a7370fd0d263fc07e43c649800acbd6"
   dependencies:
     "@walletconnect/web3-provider" "^1.7.8"
-    rxjs "~6.6.0"
+    rxjs "^7.5.5"
     tslib "^2.0.0"
     walletlink "^2.1.11"
     web3 "^1.6.1"

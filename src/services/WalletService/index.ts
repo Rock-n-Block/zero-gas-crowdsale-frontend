@@ -19,7 +19,6 @@ export class WalletService {
     chainName: Chains,
   ): Promise<boolean | unknown> {
     const { provider, network, settings } = connectWalletConfig(chainName);
-
     try {
       const connecting = await this.connectWallet.connect(
         provider[providerName],
