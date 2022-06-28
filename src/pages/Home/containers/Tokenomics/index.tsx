@@ -52,6 +52,10 @@ export const Tokenomics = () => {
           TOKENOMICS
         </Typography>
         <div className={s.chartWrapper}>
+          <div className={s.chartContent}>
+            <Chart className={s.chart} data={tokenomics} />
+            <img className={s.icon} src={zeroGasGifSrc} alt="zerogas" />
+          </div>
           <div className={s.overlay}>
             <div className={s.overlayContent}>
               <TokenomicLabel className={s.percentFirst} data={tokenomics[3]} />
@@ -59,10 +63,6 @@ export const Tokenomics = () => {
               <TokenomicLabel className={s.percentThird} data={tokenomics[1]} />
               <TokenomicLabel className={s.percentFourth} align="right" data={tokenomics[0]} />
             </div>
-          </div>
-          <div className={s.chartContent}>
-            <Chart className={s.chart} data={tokenomics} />
-            <img className={s.icon} src={zeroGasGifSrc} alt="zerogas" />
           </div>
         </div>
         <Info {...mock} />
