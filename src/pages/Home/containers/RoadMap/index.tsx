@@ -22,7 +22,7 @@ export const RoadMap = () => {
         </div>
       </div>
       <Divider contained={false}>
-        <InfinityLine animation={{ duration: 15 }}>
+        <InfinityLine animation={{ duration: 10 }}>
           <BuyButton />
         </InfinityLine>
       </Divider>

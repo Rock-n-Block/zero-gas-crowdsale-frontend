@@ -37,7 +37,9 @@
       height: 100vh;
       background: $accent;
       transform: translateX(-100%);
+      display: none;
       &.open {
+        display: block;
         transform: translateX(0);
       }
     }

@@ -10,11 +10,12 @@ import s from './styles.module.scss';
 interface LinkItemProps {
   to: string;
   label: string;
+  onClick?: () => void;
 }
 
-export const LinkItem = ({ to, label }: LinkItemProps) => {
+export const LinkItem = ({ to, label, onClick }: LinkItemProps) => {
   return (
-    <Button className={s.linkWrapper} to={to} variant="text">
+    <Button className={s.linkWrapper} to={to} variant="text" onClick={onClick}>
       <Typography weight={900} type="body2" fontFamily="DrukCyr Wide" className={s.linkLabel}>
         {label}
       </Typography>
@@ -42,7 +43,7 @@ export const LinksList = ({ isOpen, setIsOpen }: LinksListProps) => {
         </div>
         <div className={s.listLinks}>
           {anchorLinks.map((link) => (
-            <LinkItem key={link.to} {...link} />
+            <LinkItem key={link.to} {...link} onClick={handleClose} />
           ))}
         </div>
       </div>

@@ -11,7 +11,9 @@
     padding: 50px;
     transition: 1000ms ease-in-out;
     transform: translateY(100%);
+    display: none;
     &.open{
+        display: block;
         transform: translateY(0);
     }
     .head{

@@ -13,7 +13,7 @@ export interface InfinityLineProps {
   className?: TClassNames;
 }
 
-const minimalQueue = 2;
+const minimalQueue = 3;
 
 const defaultConf: Required<TAnimationProps> = {
   direction: 'rtl',

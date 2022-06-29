@@ -41,7 +41,7 @@ export const Tokenomics = () => {
   return (
     <div className={s.wrapper}>
       <div className={s.under}>
-        <InfinityLine animation={{ duration: 15 }}>
+        <InfinityLine animation={{ duration: 20 }}>
           <Typography className={s.underText} type="h1" fontFamily="DrukCyr Wide" weight={900}>
             TOKENOMICS
           </Typography>
@@ -68,7 +68,7 @@ export const Tokenomics = () => {
         <Info {...mock} />
       </div>
       <Divider contained={false}>
-        <InfinityLine animation={{ duration: 15 }}>
+        <InfinityLine animation={{ duration: 50 }}>
           <ProsList />
         </InfinityLine>
       </Divider>
