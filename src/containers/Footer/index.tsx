@@ -28,7 +28,7 @@ const Footer = () => {
             <Typography color="dark-0" type="body2">
               Copyright © {new Date().getFullYear()} LLC. All rights reserved
             </Typography>
-            <div className={s.terms}>
+            {/* <div className={s.terms}>
               <Link className={s.termsLink} to="/privacy-policy">
                 <Typography color="dark-0" type="body2">
                   Privacy Policy
@@ -39,7 +39,7 @@ const Footer = () => {
                   Terms of Service
                 </Typography>
               </Link>
-            </div>
+            </div> */}
           </div>
         </section>
       </div>

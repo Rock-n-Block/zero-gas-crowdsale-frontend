@@ -42,6 +42,7 @@ const Element = ({ title, value, softness = 'soft' }: ElementProps) => {
         fontFamily="Poppins"
         type="body2"
         weight={softness === 'hard' ? 600 : 400}
+        align="right"
       >
         {value}
       </Typography>
