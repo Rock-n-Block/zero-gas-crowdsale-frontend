@@ -23,11 +23,40 @@
     .bottom {
       margin-top: 68px;
       width: 100%;
-      padding: 20px 0;
+      padding: 20px 3%;
       border-top: 2px solid $dark-0;
       &Container {
         @include container;
         @include flex(row, space-between, center, wrap);
+
+        .poweredByContainer {
+          border: 2px solid $dark-0;
+          border-radius: 20px;
+          display: flex;
+          align-items: center;
+          padding: 10px 15px;
+
+          & p {
+            line-height: 20px;
+          }
+
+          .archangelTokenIcon {
+            margin-right: 10px;
+          }
+
+          .poweredBy {
+            font-size: 14px;
+          }
+        }
+        .poweredByRocknblockContainer {
+          flex-direction: column;
+          align-items: flex-end;
+
+          & > p {
+            margin-bottom: 5px;
+          }
+        }
+
         .terms {
           @include flex(row, flex-start, center);
           &Link {
@@ -50,6 +79,22 @@
       }
       .bottom {
         margin-top: 40px;
+
+        &Container {
+          flex-direction: column;
+
+          .copyright {
+            order: 1;
+            margin-bottom: 10px;
+          }
+          .poweredByContainer {
+            order: 2;
+            margin-bottom: 10px;
+          }
+          .poweredByRocknblockContainer {
+            order: 3;
+          }
+        }
       }
     }
   }

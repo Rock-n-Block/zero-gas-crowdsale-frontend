@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
+import cn from 'clsx';
 
-import { ZeroGasIcon } from '@/assets/img';
+import { ArchangelTokenIcon, RockNBlockIcon, ZeroGasIcon } from '@/assets/img';
 import { Typography } from '@/components';
 
 import { Socials } from './components';
@@ -25,9 +26,26 @@ const Footer = () => {
         <Socials />
         <section className={s.bottom}>
           <div className={s.bottomContainer}>
-            <Typography color="dark-0" type="body2">
+            <div className={s.poweredByContainer}>
+              <ArchangelTokenIcon className={s.archangelTokenIcon} />
+              <div>
+                <Typography color="dark-0" type="body2" className={s.poweredBy}>
+                  POWERED BY
+                </Typography>
+                <Typography color="dark-0" type="body2" weight={600}>
+                  Archa Ecosystem
+                </Typography>
+              </div>
+            </div>
+            <Typography color="dark-0" type="body2" className={s.copyright}>
               Copyright © {new Date().getFullYear()} LLC. All rights reserved
             </Typography>
+            <div className={cn(s.poweredByContainer, s.poweredByRocknblockContainer)}>
+              <Typography color="dark-0" type="body2" className={s.poweredBy}>
+                POWERED BY
+              </Typography>
+              <RockNBlockIcon />
+            </div>
             {/* <div className={s.terms}>
               <Link className={s.termsLink} to="/privacy-policy">
                 <Typography color="dark-0" type="body2">

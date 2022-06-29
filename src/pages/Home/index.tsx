@@ -1,6 +1,6 @@
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 
-import { AboutUs, Main, RoadMap, Tokenomics } from './containers';
+import { AboutUs, Main, RoadMap, Tokenomics, Partners } from './containers';
 
 const Home = () => {
   return (
@@ -9,6 +9,7 @@ const Home = () => {
       <AboutUs />
       <Tokenomics />
       <RoadMap />
+      <Partners />
     </>
   );
 };

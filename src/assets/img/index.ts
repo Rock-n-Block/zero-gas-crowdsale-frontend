@@ -10,6 +10,8 @@ export { ReactComponent as TwitterIcon } from './icons/socials/twitter.svg';
 export { ReactComponent as TelegramIcon } from './icons/socials/telegram.svg';
 export { ReactComponent as PlusIcon } from './icons/plus.svg';
 export { ReactComponent as ArrowRightIcon } from './icons/arrowRight.svg';
+export { ReactComponent as ArchangelTokenIcon } from './icons/archangelTokenIcon.svg';
+export { ReactComponent as RockNBlockIcon } from './icons/rocknblockIcon.svg';
 
 export { default as zeroGasGifSrc } from './zeroGasIcon.gif';
 
