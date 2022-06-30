@@ -13,6 +13,7 @@
   &Content {
     position: relative;
     @include flex(row, flex-start, center);
+    padding: 12px 0;
     &Wrapper {
       border-top: 0px solid transparent;
     }
