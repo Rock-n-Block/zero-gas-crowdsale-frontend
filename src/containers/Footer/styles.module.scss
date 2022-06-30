@@ -30,12 +30,10 @@
         @include flex(row, space-between, center, wrap);
 
         .poweredByContainer {
+          @include flex(row, space-between, center);
           width: 230px;
           border: 2px solid $dark-0;
           border-radius: 20px;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
           padding: 10px 15px;
 
           .poweredByIcon {
