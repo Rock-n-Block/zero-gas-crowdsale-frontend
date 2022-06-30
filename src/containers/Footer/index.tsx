@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
+import cn from 'clsx';
 
-import { ZeroGasIcon } from '@/assets/img';
+import { ArchangelTokenIcon, RockNBlockIcon, RockNBlockText, ZeroGasIcon } from '@/assets/img';
 import { Typography } from '@/components';
 
 import { Socials } from './components';
@@ -25,9 +26,30 @@ const Footer = () => {
         <Socials />
         <section className={s.bottom}>
           <div className={s.bottomContainer}>
-            <Typography color="dark-0" type="body2">
-              Copyright © {new Date().getFullYear()} LLC. All rights reserved
+            <div className={s.poweredByContainer}>
+              <ArchangelTokenIcon className={s.poweredByIcon} />
+              <div>
+                <Typography color="dark-0" type="body2" className={s.poweredBy}>
+                  POWERED BY
+                </Typography>
+                <Typography color="dark-0" type="body2" weight={600} className={s.archaEcosystem}>
+                  Archa Ecosystem
+                </Typography>
+              </div>
+            </div>
+            <Typography color="dark-0" type="body2" className={s.copyright}>
+              Copyright © {new Date().getFullYear()} LLC. <br className={s.copyrightBreak} /> All
+              rights reserved
             </Typography>
+            <div className={cn(s.poweredByContainer)}>
+              <RockNBlockIcon width={32} height={32} className={s.poweredByIcon} />
+              <div>
+                <Typography color="dark-0" type="body2" className={s.poweredBy}>
+                  OUR BAKERS
+                </Typography>
+                <RockNBlockText />
+              </div>
+            </div>
             {/* <div className={s.terms}>
               <Link className={s.termsLink} to="/privacy-policy">
                 <Typography color="dark-0" type="body2">

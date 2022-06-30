@@ -26,9 +26,11 @@ const ReadMoreHead = ({ isOpen }: AccordionItemState) => (
 
 const ReadMoreBody = () => (
   <Typography>
-    The platform is developed in a Layer 2 network operated by a group of virtualized subnodes
-    selected from a subset of nodes in the network. They run on all or a subset of each node’s
-    computation and storage resources (multitenancy).
+    ZEROGAS not only makes trading on Ethereum more efficient but provides more speed and security.
+    Faster commitment leads to lower latency, allowing to improve user experience. <br />
+    For now, the project supports the Ethereum network, but it will grow to support other Security
+    Layer blockchains over time and serve as an execution and interoperability layer between
+    isolated decentralized technologies.
   </Typography>
 );
 

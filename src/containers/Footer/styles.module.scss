@@ -23,11 +23,41 @@
     .bottom {
       margin-top: 68px;
       width: 100%;
-      padding: 20px 0;
+      padding: 20px 3%;
       border-top: 2px solid $dark-0;
       &Container {
         @include container;
         @include flex(row, space-between, center, wrap);
+
+        .poweredByContainer {
+          @include flex(row, space-between, center);
+          width: 230px;
+          border: 2px solid $dark-0;
+          border-radius: 20px;
+          padding: 10px 15px;
+
+          .poweredByIcon {
+            margin-right: 10px;
+          }
+
+          .poweredBy {
+            font-size: 14px;
+            line-height: 20px;
+            align-items: flex-end;
+            text-align: end;
+          }
+
+          .archaEcosystem {
+            line-height: 20px;
+          }
+        }
+
+        .copyright {
+          .copyrightBreak {
+            display: none;
+          }
+        }
+
         .terms {
           @include flex(row, flex-start, center);
           &Link {
@@ -50,6 +80,28 @@
       }
       .bottom {
         margin-top: 40px;
+
+        &Container {
+          flex-direction: column;
+
+          .copyright {
+            order: 1;
+            margin-bottom: 10px;
+            text-align: center;
+            white-space: pre-line;
+
+            .copyrightBreak {
+              display: block;
+            }
+          }
+          .poweredByContainer {
+            order: 2;
+            margin-bottom: 10px;
+          }
+          .poweredByRocknblockContainer {
+            order: 3;
+          }
+        }
       }
     }
   }
@@ -59,6 +111,9 @@
   .wrapper {
     padding: 20px 0 0;
     .container {
+      .communicationTitle {
+        font-size: 26px;
+      }
       .communicationTitle {
         margin-top: 20px;
       }

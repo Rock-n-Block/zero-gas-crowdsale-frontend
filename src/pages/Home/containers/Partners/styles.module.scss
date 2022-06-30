@@ -1,0 +1,54 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.wrapper {
+  width: 100%;
+  .container {
+    position: relative;
+    @include container;
+    margin-bottom: 120px;
+    @include flex(column, flex-start, center);
+    .title {
+      margin: 125px 0 85px;
+    }
+
+    .grid {
+      padding: 0 5%;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .partner {
+      flex: 1 1 24%;
+      margin-right: 1%;
+      margin-bottom: 1%;
+      height: 200px;
+
+      border: 2px solid $dark-0;
+      border-radius: 20px;
+    }
+  }
+}
+
+@include middle-tablet {
+  .wrapper {
+    .container {
+      margin-bottom: 60px;
+      .title {
+        margin: 60px 20px;
+      }
+    }
+  }
+}
+
+@include large-tablet {
+  .wrapper {
+    .container {
+      .partner {
+        flex-basis: 49%;
+        margin-right: 1%;
+      }
+    }
+  }
+}
