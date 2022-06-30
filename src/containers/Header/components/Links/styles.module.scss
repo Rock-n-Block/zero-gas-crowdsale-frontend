@@ -22,6 +22,7 @@
 .link {
   &Wrapper {
     &:hover {
+      margin-top: 2px;
       border-bottom: 2px solid $dark-0;
     }
   }
