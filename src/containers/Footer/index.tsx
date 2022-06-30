@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import cn from 'clsx';
 
-import { ArchangelTokenIcon, RockNBlockIcon, ZeroGasIcon } from '@/assets/img';
+import { ArchangelTokenIcon, RockNBlockIcon, RockNBlockText, ZeroGasIcon } from '@/assets/img';
 import { Typography } from '@/components';
 
 import { Socials } from './components';
@@ -27,24 +27,28 @@ const Footer = () => {
         <section className={s.bottom}>
           <div className={s.bottomContainer}>
             <div className={s.poweredByContainer}>
-              <ArchangelTokenIcon className={s.archangelTokenIcon} />
+              <ArchangelTokenIcon className={s.poweredByIcon} />
               <div>
                 <Typography color="dark-0" type="body2" className={s.poweredBy}>
                   POWERED BY
                 </Typography>
-                <Typography color="dark-0" type="body2" weight={600}>
+                <Typography color="dark-0" type="body2" weight={600} className={s.archaEcosystem}>
                   Archa Ecosystem
                 </Typography>
               </div>
             </div>
             <Typography color="dark-0" type="body2" className={s.copyright}>
-              Copyright © {new Date().getFullYear()} LLC. All rights reserved
+              Copyright © {new Date().getFullYear()} LLC. <br className={s.copyrightBreak} /> All
+              rights reserved
             </Typography>
-            <div className={cn(s.poweredByContainer, s.poweredByRocknblockContainer)}>
-              <Typography color="dark-0" type="body2" className={s.poweredBy}>
-                POWERED BY
-              </Typography>
-              <RockNBlockIcon />
+            <div className={cn(s.poweredByContainer)}>
+              <RockNBlockIcon width={32} height={32} className={s.poweredByIcon} />
+              <div>
+                <Typography color="dark-0" type="body2" className={s.poweredBy}>
+                  OUR BAKERS
+                </Typography>
+                <RockNBlockText />
+              </div>
             </div>
             {/* <div className={s.terms}>
               <Link className={s.termsLink} to="/privacy-policy">

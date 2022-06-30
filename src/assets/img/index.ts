@@ -12,6 +12,7 @@ export { ReactComponent as PlusIcon } from './icons/plus.svg';
 export { ReactComponent as ArrowRightIcon } from './icons/arrowRight.svg';
 export { ReactComponent as ArchangelTokenIcon } from './icons/archangelTokenIcon.svg';
 export { ReactComponent as RockNBlockIcon } from './icons/rocknblockIcon.svg';
+export { ReactComponent as RockNBlockText } from './icons/rocknblockText.svg';
 
 export { default as zeroGasGifSrc } from './zeroGasIcon.gif';
 

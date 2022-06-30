@@ -30,30 +30,33 @@
         @include flex(row, space-between, center, wrap);
 
         .poweredByContainer {
+          width: 230px;
           border: 2px solid $dark-0;
           border-radius: 20px;
           display: flex;
           align-items: center;
+          justify-content: space-between;
           padding: 10px 15px;
 
-          & p {
-            line-height: 20px;
-          }
-
-          .archangelTokenIcon {
+          .poweredByIcon {
             margin-right: 10px;
           }
 
           .poweredBy {
             font-size: 14px;
+            line-height: 20px;
+            align-items: flex-end;
+            text-align: end;
+          }
+
+          .archaEcosystem {
+            line-height: 20px;
           }
         }
-        .poweredByRocknblockContainer {
-          flex-direction: column;
-          align-items: flex-end;
 
-          & > p {
-            margin-bottom: 5px;
+        .copyright {
+          .copyrightBreak {
+            display: none;
           }
         }
 
@@ -86,6 +89,12 @@
           .copyright {
             order: 1;
             margin-bottom: 10px;
+            text-align: center;
+            white-space: pre-line;
+
+            .copyrightBreak {
+              display: block;
+            }
           }
           .poweredByContainer {
             order: 2;
@@ -104,6 +113,9 @@
   .wrapper {
     padding: 20px 0 0;
     .container {
+      .communicationTitle {
+        font-size: 26px;
+      }
       .communicationTitle {
         margin-top: 20px;
       }
