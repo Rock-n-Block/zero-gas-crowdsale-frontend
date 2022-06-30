@@ -37,7 +37,7 @@ export const LinksList = ({ isOpen, setIsOpen }: LinksListProps) => {
     <section className={cn(s.listWrapper, { [s.open]: isOpen })}>
       <div className={s.listContent}>
         <div className={s.listClose}>
-          <Button onClick={handleClose} variant="text">
+          <Button onClick={handleClose} variant="outlined">
             <CrossIcon />
           </Button>
         </div>

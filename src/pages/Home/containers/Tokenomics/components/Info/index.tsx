@@ -87,9 +87,9 @@ export const Info = ({
       <Element title="ZEROGAS team " value={`${team}%`} />
       <Element title="Vesting for exchanges" value={`${vesting}%`} />
       <hr />
-      <Element title="Presale price" value={`${price}$`} softness="hard" />
-      <Element title="Min Buy" value={`${minBuy.toLocaleString()}$ Value`} softness="hard" />
-      <Element title="Max Buy" value={`${maxBuy.toLocaleString()}$ Value`} softness="hard" />
+      <Element title="Presale price" value={`$${price}`} softness="hard" />
+      <Element title="Min Buy" value={`$${minBuy.toLocaleString()} Value`} softness="hard" />
+      <Element title="Max Buy" value={`$${maxBuy.toLocaleString()} Value`} softness="hard" />
       <hr />
       <Element
         title="Listing price"
@@ -97,8 +97,8 @@ export const Info = ({
         softness="hard"
       />
       <hr />
-      <Element title="Soft Cap" value={`${softCap.toLocaleString()}$ Value`} softness="hard" />
-      <Element title="Hard Cap" value={`${hardCap.toLocaleString()}$ Value`} softness="hard" />
+      <Element title="Soft Cap" value={`${softCap.toLocaleString()} OGAS Value`} softness="hard" />
+      <Element title="Hard Cap" value={`${hardCap.toLocaleString()} OGAS Value`} softness="hard" />
     </div>
   );
 };

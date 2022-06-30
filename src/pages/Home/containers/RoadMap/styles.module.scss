@@ -10,6 +10,7 @@
     @include flex(column, flex-start, center);
     .title{
         margin: 125px 0 85px;
+        text-transform: uppercase;
     }
     .roadMap{
         width: 100%;

@@ -6,13 +6,10 @@
     .content{
         @include flex(row, space-evenly, center);
         .walletConnect{
-            padding: 2px 0;
+            padding: 8px 8px;
             border-radius: 0;
             border-bottom: 2px solid $dark-0;
             text-transform: uppercase;
-        }
-        .burger{
-            display: none;
         }
     }
 }

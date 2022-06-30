@@ -20,6 +20,11 @@
 }
 
 .link {
+  &Wrapper {
+    &:hover {
+      border-bottom: 2px solid $dark-0;
+    }
+  }
   &Label {
     letter-spacing: 4%;
     text-transform: uppercase;
@@ -48,7 +53,8 @@
       align-self: flex-end;
     }
     &Links {
-      @include flex(column, flex-start, flex-start);
+      width: 100%;
+      @include flex(column, flex-start, center);
     }
   }
 }
