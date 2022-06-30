@@ -6,8 +6,9 @@ import { Address, Button, Typography } from '@/components';
 import { useShallowSelector } from '@/hooks';
 import { useWalletConnectorContext } from '@/services';
 import { updateCrowdSaleOpenState } from '@/store/crowdsale/reducer';
+import { setActiveModal } from '@/store/modals/reducer';
 import userSelector from '@/store/user/selectors';
-import { Chains, WalletProviders } from '@/types';
+import { Chains, Modals, WalletProviders } from '@/types';
 
 import s from './styles.module.scss';
 
@@ -22,11 +23,13 @@ export const Menu = ({ setIsOpen }: MenuProps) => {
 
   const handleClickConnect = useCallback(() => {
     if (userAddress) {
-      // open modal or something else
+      dispatch(setActiveModal({
+        activeModal: Modals.SignIn,
+      }));
     } else {
       connect(WalletProviders.metamask, Chains.Kovan);
     }
-  }, [connect, userAddress]);
+  }, [connect, dispatch, userAddress]);
 
   const handleClickBuy = useCallback(() => {
     if (userAddress) {
