@@ -97,8 +97,8 @@ export const Info = ({
         softness="hard"
       />
       <hr />
-      <Element title="Soft Cap" value={`${softCap.toLocaleString()} OGAS Value`} softness="hard" />
-      <Element title="Hard Cap" value={`${hardCap.toLocaleString()} OGAS Value`} softness="hard" />
+      <Element title="Soft Cap" value={`${softCap.toLocaleString()} 0GAS Value`} softness="hard" />
+      <Element title="Hard Cap" value={`${hardCap.toLocaleString()} 0GAS Value`} softness="hard" />
     </div>
   );
 };
