@@ -9,6 +9,7 @@
     @include flex(row, flex-start, center);
   }
   &Item {
+    position: relative;
     animation-duration: calc(var(--duration) * 1s);
     animation-timing-function: linear;
     animation-iteration-count: infinite;
@@ -38,10 +39,10 @@
 
 @keyframes rtlMove {
   0% {
-    transform: translate(0%, 0);
+    left: 0%;
   }
 
   100% {
-    transform: translate(-100%, 0);
+    left: calc(-100% + 100vw);
   }
 }

@@ -8,6 +8,7 @@
     @include container;
     @include flex(column, flex-start, center);
     .title {
+      padding-top: 36px;
       text-transform: uppercase;
       font-size: 12vw;
       @include flex(row, center, center);

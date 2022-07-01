@@ -22,7 +22,7 @@ export const Partners = () => {
         </div>
       </div>
       <Divider contained={false}>
-        <InfinityLine animation={{ duration: 15 }}>
+        <InfinityLine animation={{ duration: 250 }}>
           <ProsList />
         </InfinityLine>
       </Divider>

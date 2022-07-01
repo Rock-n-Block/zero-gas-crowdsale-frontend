@@ -77,7 +77,7 @@ export const Main = () => {
         </div>
       </div>
       <Divider contained={false}>
-        <InfinityLine animation={{ duration: 50 }}>
+        <InfinityLine animation={{ duration: 250 }}>
           <ProsList />
         </InfinityLine>
       </Divider>

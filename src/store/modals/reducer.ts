@@ -4,7 +4,7 @@ import { Modals, ModalsInitialState, ModalState } from '@/types';
 
 const initialState: ModalsInitialState = {
   modalState: {
-    activeModal: Modals.Wallet,
+    activeModal: Modals.init,
     txHash: '',
     open: false,
   },
