@@ -99,7 +99,8 @@ export const InfinityLine: FC<PropsWithChildren<InfinityLineProps>> = ({
     return null;
   }
 
-  const queue = new Array(countOfCopies).fill(children).map((child, id) => {
+  // Animation will play for 3 window screens
+  const queue = new Array(countOfCopies * 3).fill(children).map((child, id) => {
     return (
       <div
         className={cn(

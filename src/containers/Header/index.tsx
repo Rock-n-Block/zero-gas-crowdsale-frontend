@@ -24,7 +24,7 @@ const Header: FC = () => {
       <Divider classNames={{ container: s.headerContent, wrapper: s.headerContentWrapper }}>
         <>
           <LinksList isOpen={isOpen} setIsOpen={setIsOpen} />
-          <Menu setIsOpen={setIsOpen} />
+          <Menu isOpen={isOpen} setIsOpen={setIsOpen} />
         </>
       </Divider>
     </header>

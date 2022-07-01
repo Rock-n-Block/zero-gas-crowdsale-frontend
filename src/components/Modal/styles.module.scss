@@ -1,2 +1,62 @@
+// REFERENCE: https://github.com/react-component/dialog/blob/master/assets/index/Dialog.less
 @import '/src/styles/variables';
 @import '/src/styles/mixins';
+
+// Native modal styles
+:global(.modal) {
+  z-index: 100;
+  overflow: hidden;
+
+  // Modal overlay
+  &-mask {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+
+    // Page background darken + blur
+    backdrop-filter: blur(3px);
+    background: rgba(0, 0, 0, 0.8);
+  }
+
+  &-wrap {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    @include flex(row, center, center);
+    width: 100%;
+    padding: 50px 0;
+
+    overflow: auto;
+
+    outline: 0;
+  }
+
+  // Main dialog
+  & {
+    position: relative;
+    border-radius: 24px;
+    background: white;
+    padding: 5px;
+    margin: 0 10px;
+  }
+
+  &-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-close {
+    align-self: flex-end;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  &-body {
+  }
+}

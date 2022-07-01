@@ -2,31 +2,37 @@ import { Dispatch, SetStateAction, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { BurgerIcon } from '@/assets/img';
-import { Address, Button, Typography } from '@/components';
-import { useShallowSelector } from '@/hooks';
+import { Address, Button, Typography, Modal } from '@/components';
+import { useModal, useShallowSelector } from '@/hooks';
 import { useWalletConnectorContext } from '@/services';
 import { updateCrowdSaleOpenState } from '@/store/crowdsale/reducer';
+import { setActiveModal } from '@/store/modals/reducer';
 import userSelector from '@/store/user/selectors';
-import { Chains, WalletProviders } from '@/types';
+import { Chains, Modals, WalletProviders } from '@/types';
 
 import s from './styles.module.scss';
 
 interface MenuProps {
+  isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export const Menu = ({ setIsOpen }: MenuProps) => {
+export const Menu = ({ isOpen, setIsOpen }: MenuProps) => {
   const userAddress = useShallowSelector(userSelector.getProp('address'));
   const dispatch = useDispatch();
   const { connect } = useWalletConnectorContext();
 
   const handleClickConnect = useCallback(() => {
     if (userAddress) {
-      // open modal or something else
+      dispatch(
+        setActiveModal({
+          activeModal: Modals.Wallet,
+        }),
+      );
     } else {
       connect(WalletProviders.metamask, Chains.Kovan);
     }
-  }, [connect, userAddress]);
+  }, [connect, dispatch, userAddress]);
 
   const handleClickBuy = useCallback(() => {
     if (userAddress) {
@@ -48,14 +54,16 @@ export const Menu = ({ setIsOpen }: MenuProps) => {
             {userAddress ? <Address address={userAddress} /> : 'Connect wallet'}
           </Typography>
         </Button>
-        <Button onClick={handleClickBuy} className={s.buy}>
+        <Button onClick={handleClickBuy} variant="outlined" className={s.buy}>
           <Typography type="body2" weight={900} fontFamily="DrukCyr Wide">
             Buy
           </Typography>
         </Button>
-        <Button className={s.burger} variant="text" onClick={handleBurgerClick}>
-          <BurgerIcon />
-        </Button>
+        {!isOpen && (
+          <Button className={s.burger} variant="outlined" onClick={handleBurgerClick}>
+            <BurgerIcon />
+          </Button>
+        )}
       </div>
     </section>
   );

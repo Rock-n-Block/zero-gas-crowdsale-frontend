@@ -28,7 +28,7 @@ module.exports = {
     'no-use-before-define': 'off',
     'no-debugger': 'warn',
     'no-shadow': 'off',
-    'import/no-extraneous-dependencies': ['error', {'devDependencies': true}],
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     'simple-import-sort/imports': [
       'warn',
       {

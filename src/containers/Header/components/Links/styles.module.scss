@@ -2,16 +2,25 @@
 @import '/src/styles/mixins';
 
 .list {
+  border-bottom: 2px solid transparent;
+  &:hover {
+    border-color: $dark-0;
+  }
   &Wrapper {
     transition: 400ms ease-in-out;
     flex: 0 0 70%;
   }
   &Content {
+    margin-top: 8px;
+    margin-right: 2px;
     padding-right: 60px;
     @include flex(row, flex-start, flex-start);
   }
   &Close {
     display: none;
+    & > button {
+      padding: 4px;
+    }
   }
   &Links {
     flex: 1;
@@ -21,9 +30,9 @@
 
 .link {
   &Wrapper {
+    border-bottom: 2px solid transparent;
     &:hover {
-      margin-top: 2px;
-      border-bottom: 2px solid $dark-0;
+      border-color: $dark-0;
     }
   }
   &Label {

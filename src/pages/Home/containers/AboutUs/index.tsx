@@ -102,7 +102,7 @@ export const AboutUs = () => {
         />
       </div>
       <Divider contained={false}>
-        <InfinityLine>
+        <InfinityLine animation={{ duration: 50 }}>
           <BuyButton />
         </InfinityLine>
       </Divider>
