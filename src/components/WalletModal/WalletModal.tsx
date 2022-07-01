@@ -1,23 +1,42 @@
-import { FC, PropsWithChildren, useCallback } from 'react';
+import { FC, useCallback } from 'react';
 import cn from 'clsx';
 
 import s from './styles.module.scss';
 import { Modal, ModalProps } from '../Modal';
 import { Typography } from '../Typography';
 import { Button } from '../Button';
-import { CrossIcon } from '@/assets/img';
-import { Address } from '../Address';
+import { CopyIcon, CrossIcon } from '@/assets/img';
+import { useShallowSelector } from '@/hooks';
+import userSelector from '@/store/user/selectors';
 import { copyToClipboard } from '@/utils';
+import { Address } from '../Address';
+import { useWalletConnectorContext } from '@/services';
+import { useDispatch } from 'react-redux';
+import { setActiveModal } from '@/store/modals/reducer';
+import { Modals } from '@/types';
 
 export interface WalletModalProps {
-  address: string;
   className?: ModalProps['className'];
   visible: ModalProps['visible'];
   onClose: ModalProps['onClose'];
 }
 
-export const WalletModal: FC<WalletModalProps> = ({ address, ...rest }) => {
-  const handleCopyAddress = useCallback(() => copyToClipboard(address), [address]);
+export const WalletModal: FC<WalletModalProps> = ({ ...rest }) => {
+  const userAddress = useShallowSelector(userSelector.getProp('address'));
+  const { disconnect } = useWalletConnectorContext();
+  const dispatch = useDispatch();
+
+  const handleCopyAddress = useCallback(() => copyToClipboard(userAddress), [userAddress]);
+
+  const handleDisconnect = useCallback(() => {
+    disconnect();
+
+    dispatch(
+      setActiveModal({
+        activeModal: Modals.init,
+      }),
+    );
+  }, []);
 
   return (
     <Modal closeable closeIcon={<CrossIcon />} {...rest}>
@@ -29,15 +48,21 @@ export const WalletModal: FC<WalletModalProps> = ({ address, ...rest }) => {
           color="dark-0"
           className={s.title}
         >
-          Disable you wallet?
+          Disable your
+          <br /> wallet?
         </Typography>
 
-        <Button variant="outlined" className={s.address} onClick={handleCopyAddress}>
-          <Address address={address} start={10} end={5} />
+        <Button variant="text" className={s.walletConnect} onClick={handleCopyAddress}>
+          <Typography type="body2" weight={900} fontFamily="DrukCyr Wide">
+            {userAddress ? <Address address={userAddress} /> : 'Connect wallet'}
+          </Typography>
+          <button type="button" className={s.copy}>
+            <CopyIcon />
+          </button>
         </Button>
 
-        <Button variant="outlined" className={s.button}>
-          <Typography type="body1" className={s.buttonText} weight={900}>
+        <Button variant="outlined" className={s.button} onClick={handleDisconnect}>
+          <Typography type="body1" className={s.buttonText} weight={900} fontFamily="DrukCyr Wide">
             Disconnect
           </Typography>
         </Button>

@@ -13,8 +13,7 @@
   }
   &Content {
     & > button {
-      min-width: 360px;
-      width: 100%;
+      width: 360px;
     }
     @include flex(row, flex-start, center);
   }

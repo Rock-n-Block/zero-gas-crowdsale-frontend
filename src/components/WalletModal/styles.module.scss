@@ -13,9 +13,24 @@
     text-align: center;
   }
 
-  .address {
+  .walletConnect {
+    padding: 8px;
     border-radius: 0;
-    margin-bottom: 10%;
+    border-bottom: 2px solid $dark-0;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .copy {
+    background: none;
+    border: none;
+    width: 32px;
+    height: 32px;
+
+    :hover {
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+    }
   }
 
   .button {
