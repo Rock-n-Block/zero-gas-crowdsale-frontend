@@ -31,11 +31,7 @@ const Home = () => {
       <RoadMap />
       <Partners />
 
-      <WalletModal
-        visible={activeModal === Modals.Wallet}
-        address={address}
-        onClose={handleActiveModalClose}
-      />
+      <WalletModal visible={activeModal === Modals.Wallet} onClose={handleActiveModalClose} />
     </>
   );
 };

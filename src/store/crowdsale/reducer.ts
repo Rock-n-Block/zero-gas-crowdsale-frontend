@@ -4,6 +4,8 @@ import { CrowdSaleState } from '@/types';
 
 const initialState: CrowdSaleState = {
   isOpen: false,
+  hardcap: 0,
+  totalBuyed: 0,
 };
 
 export const CrowdSaleReducer = createSlice({

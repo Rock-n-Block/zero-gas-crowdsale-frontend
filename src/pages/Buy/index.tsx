@@ -2,7 +2,8 @@ import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import cn from 'clsx';
 
-import { Button, Typography } from '@/components';
+import { Button, Progress, Typography } from '@/components';
+import { CrossIcon, ZeroGasIcon } from '@/assets/img';
 import { useShallowSelector } from '@/hooks';
 import { updateCrowdSaleOpenState } from '@/store/crowdsale/reducer';
 import crowdSaleSelectors from '@/store/crowdsale/selectors';
@@ -10,7 +11,7 @@ import crowdSaleSelectors from '@/store/crowdsale/selectors';
 import s from './styles.module.scss';
 
 const Buy = () => {
-  const isOpen = useShallowSelector(crowdSaleSelectors.getProp('isOpen'));
+  const { isOpen, hardcap, totalBuyed } = useShallowSelector(crowdSaleSelectors.getCrowdSale);
   const dispatch = useDispatch();
 
   const handleClose = useCallback(() => {
@@ -22,13 +23,32 @@ const Buy = () => {
       <div className={s.container}>
         <div className={s.head}>
           <Button className={s.exit} onClick={handleClose} variant="outlined">
-            <Typography type="body2" weight={900} fontFamily="DrukCyr Wide">
-              Exit
-            </Typography>
+            <CrossIcon />
           </Button>
         </div>
         <div className={s.content}>
-          <Typography type="h2">Coming soon</Typography>
+          <div>
+            <Typography className={s.title} type="h1" fontFamily="DrukCyr Wide" weight={900}>
+              Buy
+            </Typography>
+            <Typography className={s.title} type="h1" fontFamily="DrukCyr Wide" weight={900}>
+              Zer <ZeroGasIcon className={s.zGasIcon} /> gas
+            </Typography>
+          </div>
+          <div className={s.card}>
+            <Progress value={Math.floor(totalBuyed / hardcap)} className={s.progress}>
+              <Typography type="body2">
+                Sold{' '}
+                <Typography type="body2" weight={600} className={s.displayInline}>
+                  {totalBuyed}{' '}
+                </Typography>
+                out of{' '}
+                <Typography type="body2" weight={600} className={s.displayInline}>
+                  {hardcap.toLocaleString().replace(',', ' ')}
+                </Typography>
+              </Typography>
+            </Progress>
+          </div>
         </div>
       </div>
     </div>
