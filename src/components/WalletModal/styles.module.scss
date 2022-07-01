@@ -1,0 +1,31 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 30px;
+  padding-top: 0;
+
+  .title {
+    text-transform: uppercase;
+    margin: 0;
+    margin-bottom: 5%;
+    text-align: center;
+  }
+
+  .address {
+    border-radius: 0;
+    margin-bottom: 10%;
+  }
+
+  .button {
+    padding: 5px 30px;
+
+    .buttonText {
+      margin: 0;
+      text-transform: uppercase;
+    }
+  }
+}
