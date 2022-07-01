@@ -2,10 +2,8 @@
 @import '/src/styles/mixins';
 
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 30px 30px;
+  @include flex(column, stretch, center, nowrap);
+  padding: 30px;
   padding-top: 0;
 
   .title {

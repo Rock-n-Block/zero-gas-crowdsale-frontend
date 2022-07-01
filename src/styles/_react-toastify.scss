@@ -1,15 +1,43 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
 .Toastify__toast {
-  background: red;
+  background: $accent;
   color: $dark-0;
+  border: 1px solid $dark-0;
   border-radius: 10px;
   min-height: 70px;
-  border: 1px solid;
   transition: 0.4s ease;
+  margin: 5px;
+  @include flex(row, center, center);
 
   &-body {
-    padding: 0;
+    padding: 10px;
+
+    // Content
+    & > div:nth-of-type(2) {
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 18px;
+      font-family: 'DrukCyr Wide';
+    }
   }
   &-icon {
-    width: fit-content;
+    width: 48px;
+    height: 48px;
+
+    & > svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.Toastify__close {
+  &-button {
+    & > svg {
+      width: 24px;
+      height: 24px;
+    }
   }
 }

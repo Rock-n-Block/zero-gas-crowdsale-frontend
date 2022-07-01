@@ -33,7 +33,7 @@ export const WalletModal: FC<WalletModalProps> = ({ address, ...rest }) => {
         </Typography>
 
         <Button variant="outlined" className={s.address} onClick={handleCopyAddress}>
-          <Address address={address} />
+          <Address address={address} start={10} end={5} />
         </Button>
 
         <Button variant="outlined" className={s.button}>

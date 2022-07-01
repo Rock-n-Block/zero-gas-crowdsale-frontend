@@ -6,11 +6,13 @@ import { WalletModal } from '@/components';
 import { useShallowSelector } from '@/hooks';
 import { setActiveModal } from '@/store/modals/reducer';
 import modalsSelectors from '@/store/modals/selectors';
+import userSelectors from '@/store/user/selectors';
 import { Modals } from '@/types';
 import { AboutUs, Main, RoadMap, Tokenomics, Partners } from './containers';
 
 const Home = () => {
   const { activeModal } = useShallowSelector(modalsSelectors.getProp('modalState'));
+  const address = useShallowSelector(userSelectors.getProp('address'));
   const dispatch = useDispatch();
 
   const handleActiveModalClose = useCallback(() => {
@@ -31,7 +33,7 @@ const Home = () => {
 
       <WalletModal
         visible={activeModal === Modals.Wallet}
-        address="0x7714391100202E4b3aaF03Ea2E06642fa01BaaD4"
+        address={address}
         onClose={handleActiveModalClose}
       />
     </>
