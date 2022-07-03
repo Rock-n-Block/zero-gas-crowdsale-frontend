@@ -12,6 +12,7 @@ export { ReactComponent as RedditIcon } from './icons/socials/reddit.svg';
 export { ReactComponent as MediumIcon } from './icons/socials/medium.svg';
 export { ReactComponent as DiscordIcon } from './icons/socials/discord.svg';
 export { ReactComponent as PlusIcon } from './icons/plus.svg';
+export { ReactComponent as CopyIcon } from './icons/copy.svg';
 export { ReactComponent as ArrowRightIcon } from './icons/arrowRight.svg';
 export { ReactComponent as ArchangelTokenIcon } from './icons/archangelTokenIcon.svg';
 export { ReactComponent as RockNBlockIcon } from './icons/rocknblockIcon.svg';
