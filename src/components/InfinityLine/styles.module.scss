@@ -10,7 +10,7 @@
   }
   &Item {
     position: relative;
-    animation-duration: calc(var(--duration) * 1s);
+    animation-duration: calc(var(--duration) * 2s);
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     animation-fill-mode: forwards;
