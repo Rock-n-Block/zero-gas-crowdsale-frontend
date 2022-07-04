@@ -7,3 +7,4 @@ export { Address } from './Address';
 export { Accordion } from './Accordion';
 export { Progress } from './Progress';
 export { WalletModal } from './WalletModal';
+export { Timer } from './Timer';

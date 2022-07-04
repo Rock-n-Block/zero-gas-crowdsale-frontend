@@ -65,7 +65,7 @@ export const Chart = (props: ChartProps) => {
       <div className={s.content}>
         {elements.map((element, key) => (
           <ChartSphere
-            key={element.toString()}
+            key={JSON.stringify(element)}
             degree={mainAngel * key}
             offset={offset}
             radius={radius}

@@ -10,7 +10,7 @@ import { updateCrowdSaleState } from '../reducer';
 
 type CrowdsaleInfo = {
   hardcap: string;
-  totalBuyed: string;
+  totalBought: string;
 };
 
 export function* getCrowdsaleInfoSaga({
@@ -23,15 +23,22 @@ export function* getCrowdsaleInfoSaga({
   try {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const { hardcap, totalBuyed }: CrowdsaleInfo = yield* all({
+    const { hardcap, totalBought, stage, stageTimestamps }: CrowdsaleInfo = yield* all({
       hardcap: call(crowdsaleContract.methods.hardcap().call),
-      totalBuyed: call(crowdsaleContract.methods.totalBuyed().call),
+      totalBought: call(crowdsaleContract.methods.totalBought().call),
+      stage: call(crowdsaleContract.methods.getStage().call),
+      stageTimestamps: call(crowdsaleContract.methods.getTimestamps().call),
     });
 
     yield* put(
       updateCrowdSaleState({
         hardcap: getNaturalTokenAmount(parseInt(hardcap, 10), TOKEN_DECIMALS),
-        totalBuyed: getNaturalTokenAmount(parseInt(totalBuyed, 10), TOKEN_DECIMALS),
+        totalBought: getNaturalTokenAmount(parseInt(totalBought, 10), TOKEN_DECIMALS),
+        currentStage: +stage,
+        stage1StartDate: stageTimestamps ? new Date(+stageTimestamps[0][0]) : undefined,
+        stage1EndDate: stageTimestamps ? new Date(+stageTimestamps[0][1]) : undefined,
+        stage2StartDate: stageTimestamps ? new Date(+stageTimestamps[1][0]) : undefined,
+        stage2EndDate: stageTimestamps ? new Date(+stageTimestamps[1][1]) : undefined,
       }),
     );
 

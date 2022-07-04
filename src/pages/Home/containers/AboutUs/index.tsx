@@ -25,15 +25,17 @@ const ReadMoreHead = ({ isOpen }: AccordionItemState) => (
 );
 
 const ReadMoreBody = () => (
-  <Typography>
-    <p>
+  <>
+    <Typography>
       ZEROGAS not only makes trading on Ethereum more efficient but provides more speed and
       security. Faster commitment leads to lower latency, allowing to improve user experience.
-    </p>
-    For now, the project supports the Ethereum network, but it will grow to support other Security
-    Layer blockchains over time and serve as an execution and interoperability layer between
-    isolated decentralized technologies.
-  </Typography>
+    </Typography>
+    <Typography>
+      For now, the project supports the Ethereum network, but it will grow to support other Security
+      Layer blockchains over time and serve as an execution and interoperability layer between
+      isolated decentralized technologies.
+    </Typography>
+  </>
 );
 
 export const AboutUs = () => {

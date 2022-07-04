@@ -1,0 +1,27 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.container {
+  display: flex;
+  justify-content: space-between;
+
+  .cell {
+    margin-right: 12px;
+
+    .pill {
+      background-color: $accent;
+      border-radius: 44px;
+      border: 2px solid black;
+      width: 128px;
+      text-align: center;
+    }
+
+    .label {
+      text-align: center;
+    }
+  }
+
+  :last-of-type .cell {
+    margin-right: 0;
+  }
+}

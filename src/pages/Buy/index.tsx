@@ -2,17 +2,37 @@ import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import cn from 'clsx';
 
-import { Button, Progress, Typography } from '@/components';
+import { Button, Progress, Timer, Typography } from '@/components';
 import { CrossIcon, ZeroGasIcon } from '@/assets/img';
 import { useShallowSelector } from '@/hooks';
 import { updateCrowdSaleOpenState } from '@/store/crowdsale/reducer';
 import crowdSaleSelectors from '@/store/crowdsale/selectors';
 
 import s from './styles.module.scss';
+import { useTimeLeft } from '@/hooks/useTimeLeft';
+import { stageTexts, getTimeLeftDate } from './helper';
 
 const Buy = () => {
-  const { isOpen, hardcap, totalBuyed } = useShallowSelector(crowdSaleSelectors.getCrowdSale);
+  const {
+    isOpen,
+    hardcap,
+    totalBought,
+    currentStage,
+    stage1StartDate,
+    stage1EndDate,
+    stage2StartDate,
+    stage2EndDate,
+  } = useShallowSelector(crowdSaleSelectors.getCrowdSale);
   const dispatch = useDispatch();
+  const timeLeft = useTimeLeft(
+    getTimeLeftDate({
+      currentStage,
+      stage1StartDate,
+      stage1EndDate,
+      stage2StartDate,
+      stage2EndDate,
+    }),
+  );
 
   const handleClose = useCallback(() => {
     dispatch(updateCrowdSaleOpenState(false));
@@ -36,11 +56,11 @@ const Buy = () => {
             </Typography>
           </div>
           <div className={s.card}>
-            <Progress value={Math.floor(totalBuyed / hardcap)} className={s.progress}>
+            <Progress value={Math.floor(totalBought / hardcap)} className={s.progress}>
               <Typography type="body2">
                 Sold{' '}
                 <Typography type="body2" weight={600} className={s.displayInline}>
-                  {totalBuyed}{' '}
+                  {totalBought}{' '}
                 </Typography>
                 out of{' '}
                 <Typography type="body2" weight={600} className={s.displayInline}>
@@ -48,6 +68,22 @@ const Buy = () => {
                 </Typography>
               </Typography>
             </Progress>
+          </div>
+          <div className={s.card}>
+            <Typography
+              type="body1"
+              fontFamily="DrukCyr Wide"
+              weight={900}
+              className={s.stageWillStart}
+            >
+              {currentStage && stageTexts[currentStage]}
+            </Typography>
+            <Timer
+              days={timeLeft.days}
+              hours={timeLeft.hours}
+              minutes={timeLeft.minutes}
+              seconds={timeLeft.seconds}
+            />
           </div>
         </div>
       </div>

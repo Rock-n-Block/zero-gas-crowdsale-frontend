@@ -17,8 +17,8 @@
   {
     "anonymous": false,
     "inputs": [
-      { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" },
-      { "indexed": false, "internalType": "uint256", "name": "payedAmount", "type": "uint256" }
+      { "indexed": false, "internalType": "uint256", "name": "bought", "type": "uint256" },
+      { "indexed": false, "internalType": "uint256", "name": "payed", "type": "uint256" }
     ],
     "name": "Buy",
     "type": "event"
@@ -112,7 +112,7 @@
     "inputs": [
       { "internalType": "address", "name": "token", "type": "address" },
       { "internalType": "uint128", "name": "payed", "type": "uint128" },
-      { "internalType": "uint128", "name": "buyed", "type": "uint128" },
+      { "internalType": "uint128", "name": "bought", "type": "uint128" },
       { "internalType": "uint256", "name": "expirationTime", "type": "uint256" },
       { "internalType": "bytes", "name": "signature", "type": "bytes" }
     ],
@@ -143,9 +143,33 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "getPrice",
+    "outputs": [
+      { "internalType": "uint256", "name": "price", "type": "uint256" },
+      { "internalType": "uint256", "name": "denominator", "type": "uint256" }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
     "inputs": [{ "internalType": "bytes32", "name": "role", "type": "bytes32" }],
     "name": "getRoleAdmin",
     "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getStage",
+    "outputs": [{ "internalType": "int256", "name": "", "type": "int256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getTimestamps",
+    "outputs": [{ "internalType": "uint256[2][2]", "name": "timestamps", "type": "uint256[2][2]" }],
     "stateMutability": "view",
     "type": "function"
   },
@@ -254,7 +278,7 @@
   },
   {
     "inputs": [],
-    "name": "totalBuyed",
+    "name": "totalBought",
     "outputs": [{ "internalType": "uint128", "name": "", "type": "uint128" }],
     "stateMutability": "view",
     "type": "function"
