@@ -34,7 +34,7 @@ export const socials: TSocials[] = [
     label: 'Discord',
   },
   {
-    link: 'https://telegram.org',
+    link: 'https://telegram.org/channel',
     name: 'telegram',
     label: 'Telegram Channel',
   },

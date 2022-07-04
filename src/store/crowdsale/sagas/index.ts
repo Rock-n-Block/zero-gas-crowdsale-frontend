@@ -1,7 +1,7 @@
 import { fork } from 'redux-saga/effects';
 
-import getLockupDataSaga from './exampleSaga';
+import watchGetCrowdsaleInfoSaga from './getCrowdsaleInfo';
 
 export default function* CrowdSaleSagas() {
-  yield fork(getLockupDataSaga);
+  yield fork(watchGetCrowdsaleInfoSaga);
 }
