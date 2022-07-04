@@ -5,15 +5,15 @@
   position: relative;
   outline: 2px solid $dark-0;
   border-radius: 26px;
-  min-width: 300px;
   height: 53px;
   overflow: hidden;
 
   .bar {
     background-color: $accent;
-    height: 53px;
     border-top-left-radius: 26px;
     border-bottom-left-radius: 26px;
+    height: 53px;
+    width: var(--width);
   }
 
   .title {
