@@ -1,7 +1,11 @@
 const GET_TOKEN_BALANCE = 'GET_TOKEN_BALANCE' as const;
 const APPROVE = 'APPROVE' as const;
+const GET_USER_INFO = 'GET_USER_INFO' as const;
+const LOGIN = 'LOGIN' as const;
 
 export default {
   GET_TOKEN_BALANCE,
   APPROVE,
+  GET_USER_INFO,
+  LOGIN,
 };

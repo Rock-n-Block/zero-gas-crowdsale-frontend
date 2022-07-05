@@ -4,8 +4,10 @@ import { UserState } from '@/types';
 
 const initialState: UserState = {
   address: '',
-  tokenBalance: '0',
   provider: '',
+
+  tokenBalance: '0',
+  key: '',
 };
 
 export const userReducer = createSlice({

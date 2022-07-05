@@ -1,9 +1,7 @@
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { call, CallEffect, put, PutEffect, select, SelectEffect } from 'redux-saga/effects';
 
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { isMainnet } from '@/config/constants';
 import { disconnectWalletState } from '../user/reducer';
-
 import userSelector from '../user/selectors';
 
 const client: AxiosInstance = axios.create({
@@ -13,13 +11,13 @@ const client: AxiosInstance = axios.create({
 export default function* ajax<T = unknown>(
   config: AxiosRequestConfig,
 ): Generator<SelectEffect | CallEffect<T> | PutEffect, AxiosResponse> {
-  // const accessToken = yield select(userSelector.getProp('key'));
+  const accessToken = yield select(userSelector.getProp('key'));
 
-  // if (accessToken) {
-  //   client.defaults.headers.common.Authorization = `Token ${accessToken}`;
-  // } else {
-  //   client.defaults.headers.common.Authorization = '';
-  // }
+  if (accessToken) {
+    client.defaults.headers.common.Authorization = `Token ${accessToken}`;
+  } else {
+    client.defaults.headers.common.Authorization = '';
+  }
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
@@ -27,9 +25,9 @@ export default function* ajax<T = unknown>(
     (configVar: AxiosRequestConfig) => void
   >(client, config);
 
-  // if (accessToken && response.status === 401) {
-  //   yield put(disconnectWalletState());
-  // }
+  if (accessToken && response.status === 401) {
+    yield put(disconnectWalletState());
+  }
 
   return response;
 }

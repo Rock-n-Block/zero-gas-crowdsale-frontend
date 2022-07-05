@@ -19,6 +19,8 @@ import { disconnectWalletState, updateUserState } from '@/store/user/reducer';
 import userSelector from '@/store/user/selectors';
 import { Chains, State, UserState, WalletProviders } from '@/types';
 import { notify } from '@/utils';
+import { IConnect } from '@amfi/connect-wallet/src/interface';
+import { getUserInfo, login } from '@/store/user/actions';
 
 interface IContextValue {
   connect: (provider: WalletProviders, chain: Chains) => Promise<void>;
@@ -32,7 +34,12 @@ const WalletConnectContext: FC<PropsWithChildren<any>> = ({ children }) => {
   const [currentSubsriber, setCurrentSubsciber] = useState<Subscription | null>(null);
   const WalletConnect = useMemo(() => new WalletService(), []);
   const dispatch = useDispatch();
-  const { provider: WalletProvider } = useShallowSelector<State, UserState>(userSelector.getUser);
+  const {
+    provider: WalletProvider,
+    // from local storage
+    address,
+    key,
+  } = useShallowSelector<State, UserState>(userSelector.getUser);
 
   const disconnect = useCallback(() => {
     dispatch(disconnectWalletState());
@@ -70,6 +77,7 @@ const WalletConnectContext: FC<PropsWithChildren<any>> = ({ children }) => {
   const connect = useCallback(
     async (provider: WalletProviders, chain: Chains) => {
       const connected = await WalletConnect.initWalletConnect(provider, chain);
+
       if (connected) {
         try {
           if (!currentSubsriber) {
@@ -77,15 +85,25 @@ const WalletConnectContext: FC<PropsWithChildren<any>> = ({ children }) => {
               subscriberSuccess,
               subscriberError,
             );
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
             setCurrentSubsciber(sub);
           }
 
-          const accountInfo: any = await WalletConnect.getAccount();
+          // Get basic metamask account info
+          const accountInfo = (await WalletConnect.getAccount()) as IConnect;
 
+          // If user connected account
           if (accountInfo.address) {
-            dispatch(updateUserState({ provider: accountInfo.type, address: accountInfo.address }));
+            // If already logged-in (redux-persist) with the same account
+            if (key.length && address === accountInfo.address) {
+              dispatch(getUserInfo({ web3Provider: WalletConnect.Web3() }));
+            } else {
+              // Save basic info into redux store + fetch additional data + authenticate on backend
+              dispatch(
+                updateUserState({ provider: accountInfo.type, address: accountInfo.address }),
+              );
+              dispatch(getUserInfo({ web3Provider: WalletConnect.Web3() }));
+              dispatch(login({ web3Provider: WalletConnect.Web3(), address: accountInfo.address }));
+            }
           }
         } catch (error: any) {
           console.log(error);

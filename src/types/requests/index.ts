@@ -31,3 +31,10 @@ export interface ApproveReq extends RequestWithWeb3Provider {
   spenderAddress: string;
   amount: string;
 }
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface getUserInfoPayload extends RequestWithWeb3Provider {}
+
+export interface loginPayload extends RequestWithWeb3Provider {
+  address: string;
+}
