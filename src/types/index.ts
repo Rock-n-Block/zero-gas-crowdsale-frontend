@@ -21,3 +21,5 @@ export enum RoundingModes {
   up,
   down,
 }
+
+export type DateLike = string | number | Date;

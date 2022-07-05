@@ -42,3 +42,8 @@ p {
 a {
   text-decoration: none;
 }
+
+// Hide React error popup: ENS is not supported on network kovan
+iframe {
+  display: none;
+}
