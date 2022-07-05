@@ -6,7 +6,7 @@ const initialState: UserState = {
   address: '',
   provider: '',
 
-  tokenBalance: '0',
+  tokenBalances: {},
   key: '',
 };
 
@@ -18,6 +18,13 @@ export const userReducer = createSlice({
       ...state,
       ...action.payload,
     }),
+    updateTokensState: (state, action: PayloadAction<UserState['tokenBalances']>) => ({
+      ...state,
+      tokenBalances: {
+        ...state.tokenBalances,
+        ...action.payload,
+      },
+    }),
     disconnectWalletState: () => {
       localStorage.removeItem('walletconnect');
       return {
@@ -27,6 +34,6 @@ export const userReducer = createSlice({
   },
 });
 
-export const { disconnectWalletState, updateUserState } = userReducer.actions;
+export const { disconnectWalletState, updateUserState, updateTokensState } = userReducer.actions;
 
 export default userReducer.reducer;

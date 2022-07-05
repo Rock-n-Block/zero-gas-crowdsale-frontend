@@ -13,7 +13,7 @@ export function* exampleSaga({ type, payload }: ReturnType<typeof helloWorld>) {
 
     yield* put(apiActions.success(type));
   } catch (err) {
-    console.log(err);
+    console.error(err);
     yield* put(apiActions.error(type, err));
   }
 }

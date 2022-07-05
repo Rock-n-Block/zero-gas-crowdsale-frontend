@@ -23,7 +23,7 @@ export interface RequestWithWeb3Provider {
 }
 
 export interface GetTokenBalanceReq extends RequestWithWeb3Provider {
-  address: string;
+  tokenAddress: string;
 }
 
 export interface ApproveReq extends RequestWithWeb3Provider {
@@ -38,3 +38,6 @@ export interface getUserInfoPayload extends RequestWithWeb3Provider {}
 export interface loginPayload extends RequestWithWeb3Provider {
   address: string;
 }
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface GetTokensPayload extends RequestWithWeb3Provider {}

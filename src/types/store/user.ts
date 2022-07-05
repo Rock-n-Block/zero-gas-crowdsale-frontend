@@ -2,6 +2,6 @@ export type UserState = {
   address: string;
   provider: string;
 
-  tokenBalance: string;
+  tokenBalances: { [address: string]: number };
   key: string; // backend access token
 };

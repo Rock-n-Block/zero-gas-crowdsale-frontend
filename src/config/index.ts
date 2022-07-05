@@ -1,8 +1,8 @@
-import { INetwork, TChainsConfig } from '@amfi/connect-wallet/dist/interface';
+import { TChainsConfig } from '@amfi/connect-wallet/dist/interface';
 
 import { Chains, IConnectWallet, IContracts, WalletProviders } from '@/types';
 
-import { crowdsaleAbi, erc20Abi } from './abi';
+import { crowdsaleAbi } from './abi';
 import { isMainnet } from './constants';
 
 const INFURA_KEY = 'c40df013fb4d421db10a8316fabb5deb';
@@ -36,7 +36,6 @@ export const connectWallet = (chainName: Chains): IConnectWallet => {
 
 // eslint-disable-next-line no-shadow
 export enum ContractsNames {
-  token = 'token',
   crowdsale = 'crowdsale',
 }
 
@@ -46,16 +45,6 @@ export const contractsConfig: IContracts = {
   names: Object.keys(ContractsNames),
   decimals: 18,
   contracts: {
-    [ContractsNames.token]: {
-      mainnet: {
-        address: '',
-        abi: erc20Abi,
-      },
-      testnet: {
-        address: '',
-        abi: erc20Abi,
-      },
-    },
     [ContractsNames.crowdsale]: {
       mainnet: {
         address: '0x644d0B1C212FACb9C0BdbaB4a8466EeF4A1Bab66',

@@ -38,7 +38,7 @@ export function* loginSaga({ type, payload: { web3Provider, address } }: ReturnT
 
     yield put(success(type));
   } catch (err) {
-    console.log(err);
+    console.error(err);
     yield put(error(type, err));
   }
 }

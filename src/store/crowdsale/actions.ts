@@ -1,4 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
+
 import { GetCrowdsaleInfoPayload } from '@/types';
 
 import actionTypes from './actionTypes';

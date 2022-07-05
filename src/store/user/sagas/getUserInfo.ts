@@ -16,7 +16,7 @@ export function* getUserInfoSaga({
 
     yield put(success(type));
   } catch (err) {
-    console.log(err);
+    console.error(err);
     yield put(error(type, err));
   }
 }

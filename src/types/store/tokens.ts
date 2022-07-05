@@ -5,5 +5,5 @@ export type Token = {
 };
 
 export type TokensState = {
-  tokens: Token[];
+  tokens: { [address: string]: Token };
 };

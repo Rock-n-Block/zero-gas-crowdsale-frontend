@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TokensState } from '@/types/store/tokens';
 
 const initialState: TokensState = {
-  tokens: [],
+  tokens: {},
 };
 
 export const tokensReducer = createSlice({

@@ -28,7 +28,7 @@ export function* approveSaga({
     });
     yield put(apiActions.success(type));
   } catch (err) {
-    console.log(err);
+    console.error(err);
     throw new Error('User rejected transaction');
   }
 }

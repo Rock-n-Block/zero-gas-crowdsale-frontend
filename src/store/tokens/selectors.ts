@@ -7,5 +7,5 @@ export default {
     (state: State) =>
       state.tokens[propKey],
   getToken: (symbol: string) => (state: State) =>
-    state.tokens.tokens.find((token) => token.symbol === symbol),
+    Object.values(state.tokens.tokens).find((token) => token.symbol === symbol),
 };

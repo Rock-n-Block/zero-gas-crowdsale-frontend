@@ -10,17 +10,17 @@ import {
   useState,
 } from 'react';
 import { useDispatch } from 'react-redux';
+import { IConnect } from '@amfi/connect-wallet/src/interface';
 import { Subscription } from 'rxjs';
 
 import { networkDataForAddToMetamask } from '@/config';
 import { useShallowSelector } from '@/hooks';
 import { WalletService } from '@/services';
+import { getUserInfo, login } from '@/store/user/actions';
 import { disconnectWalletState, updateUserState } from '@/store/user/reducer';
 import userSelector from '@/store/user/selectors';
 import { Chains, State, UserState, WalletProviders } from '@/types';
 import { notify } from '@/utils';
-import { IConnect } from '@amfi/connect-wallet/src/interface';
-import { getUserInfo, login } from '@/store/user/actions';
 
 interface IContextValue {
   connect: (provider: WalletProviders, chain: Chains) => Promise<void>;
@@ -106,7 +106,7 @@ const WalletConnectContext: FC<PropsWithChildren<any>> = ({ children }) => {
             }
           }
         } catch (error: any) {
-          console.log(error);
+          console.error(error);
           // metamask doesn't installed,
           // redirect to download MM or open MM on mobile
           if (!window.ethereum) {
