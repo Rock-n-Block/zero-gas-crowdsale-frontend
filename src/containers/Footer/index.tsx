@@ -45,7 +45,7 @@ const Footer = () => {
               <RockNBlockIcon width={32} height={32} className={s.poweredByIcon} />
               <div>
                 <Typography color="dark-0" type="body2" className={s.poweredBy}>
-                  OUR BAKERS
+                  OUR BACKERS
                 </Typography>
                 <RockNBlockText />
               </div>

@@ -49,7 +49,7 @@ $mediaWidthMobile: 550px;
       @content;
     }
   } @else if $point==extramobile {
-    @media (max-width: $mediaWidthMobile) and (min-width: 320px) {
+    @media (max-width: $mediaWidthMobile) and (min-width: 300px) {
       @content;
     }
   } @else {
@@ -74,7 +74,7 @@ $mediaWidthMobile: 550px;
       @content;
     }
   } @else if $point==endmobile {
-    @media screen and(max-width: $mediaWidthMobile) and (min-width: 320px) {
+    @media screen and(max-width: $mediaWidthMobile) and (min-width: 300px) {
       @content;
     }
   } @else {

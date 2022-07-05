@@ -1,6 +1,7 @@
+import { ReactElement } from 'react';
+
 import { zeroGasGifSrc } from '@/assets/img';
 import { Typography } from '@/components';
-import { ReactElement } from 'react';
 
 import s from './styles.module.scss';
 
@@ -93,7 +94,7 @@ export const Info = ({
       <hr />
       <Element
         title="Listing price"
-        value={`${listingProfit}% profit =${listingPrice.toLocaleString()}$`}
+        value={`${listingProfit}% profit = ${listingPrice.toLocaleString()}$`}
         softness="hard"
       />
       <hr />

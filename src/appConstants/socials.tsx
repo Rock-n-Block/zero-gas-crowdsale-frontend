@@ -1,8 +1,21 @@
 import { ReactElement } from 'react';
 
-import { TelegramIcon, TwitterIcon, RedditIcon, MediumIcon, DiscordIcon } from '@/assets/img';
+import {
+  DiscordIcon,
+  FacebookIcon,
+  MediumIcon,
+  RedditIcon,
+  TelegramIcon,
+  TwitterIcon,
+} from '@/assets/img';
 
-export type TAvailableSocials = 'twitter' | 'telegram' | 'discord' | 'reddit' | 'medium';
+export type TAvailableSocials =
+  | 'twitter'
+  | 'telegram'
+  | 'discord'
+  | 'reddit'
+  | 'medium'
+  | 'facebook';
 
 export type TSocials = {
   link: string;
@@ -20,31 +33,32 @@ export const socialsIconMap: TSocialsIconMap = {
   reddit: <RedditIcon />,
   medium: <MediumIcon />,
   discord: <DiscordIcon />,
+  facebook: <FacebookIcon />,
 };
 
 export const socials: TSocials[] = [
   {
-    link: 'https://reddit.com',
+    link: 'https://www.reddit.com/r/zerogas/',
     name: 'reddit',
     label: 'Reddit',
   },
   {
-    link: 'https://discord.com',
+    link: 'https://discord.gg/DuywSQmx',
     name: 'discord',
     label: 'Discord',
   },
   {
-    link: 'https://telegram.org/channel',
+    link: 'https://t.me/zerogas',
     name: 'telegram',
     label: 'Telegram Channel',
   },
   {
-    link: 'https://telegram.org',
-    name: 'telegram',
-    label: 'Community',
+    link: 'https://www.facebook.com/ZeroGasOfficial',
+    name: 'facebook',
+    label: 'Facebook',
   },
   {
-    link: 'https://twitter.com',
+    link: 'https://twitter.com/0gasDex',
     name: 'twitter',
     label: 'Twitter',
   },

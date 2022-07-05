@@ -50,6 +50,7 @@ export const Tokenomics = () => {
       <div className={s.container} id="tokenomics">
         <Typography className={s.title} type="h2" fontFamily="DrukCyr Wide" weight={900}>
           TOKENOMICS
+          <div className={s.allocation}>ALLOCATION</div>
         </Typography>
         <div className={s.chartWrapper}>
           <div className={s.chartContent}>

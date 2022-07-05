@@ -20,8 +20,8 @@
     border: 2px solid $dark-0;
     background: $light-8;
     @include flex(row, center, center);
-    &.active{
-        background: $accent;
+    &.active {
+      background: $accent;
     }
     &Text {
       font-style: italic;
@@ -37,6 +37,9 @@
     height: 100%;
     width: 2px;
     background: $dark-0;
+  }
+  &:first-child::after {
+    height: 120%;
   }
 }
 

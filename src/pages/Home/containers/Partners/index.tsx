@@ -1,7 +1,8 @@
-import { InfinityLine, Typography } from '@/components';
+import { Button, InfinityLine, Typography } from '@/components';
 import { Divider } from '@/containers';
 
 import { ProsList } from '../../components';
+
 import { partners } from './mock';
 
 import s from './styles.module.scss';
@@ -15,9 +16,9 @@ export const Partners = () => {
         </Typography>
         <div className={s.grid}>
           {partners.map((partner) => (
-            <div className={s.partner} key={partner.id}>
-              {partner.title}
-            </div>
+            <Button key={partner.id} variant="outlined" href={partner.href} className={s.partner}>
+              <img src={partner.image} alt={`partner ${partner.id}`} className={s.partnerImage} />
+            </Button>
           ))}
         </div>
       </div>
