@@ -26,7 +26,7 @@
   }
   .content {
     height: auto;
-    @include flex(column, center, center);
+    @include grid();
 
     .title {
       font-size: 48px;

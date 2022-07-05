@@ -107,9 +107,9 @@ const Buy = () => {
                   width={48}
                   height={48}
                 />
-                <Typography type="body1">Tether (UCDT)</Typography>
+                <Typography type="body1">Tether (USDT)</Typography>
                 <Typography type="body1" className={s.currencyListItemPrice}>
-                  ${tetherToken?.value}
+                  ${tetherToken?.value.toFixed(6)}
                 </Typography>
               </div>
               <div className={s.currencyListItem}>
@@ -122,14 +122,14 @@ const Buy = () => {
                 />
                 <Typography type="body1">Ethereum (ETH)</Typography>
                 <Typography type="body1" className={s.currencyListItemPrice}>
-                  ${etherToken?.value}
+                  ${etherToken?.value.toFixed(6)}
                 </Typography>
               </div>
               <div className={s.currencyListItem}>
                 <ZeroGasIcon className={s.currencyListItemImage} width={48} height={48} />
                 <Typography type="body1">Zerogas (0GAS)</Typography>
                 <Typography type="body1" className={s.currencyListItemPrice}>
-                  ${zeroGasPrice}
+                  ${zeroGasPrice.toFixed(6)}
                 </Typography>
               </div>
             </div>
