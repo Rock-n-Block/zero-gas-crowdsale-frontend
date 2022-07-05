@@ -9,6 +9,7 @@ import { TOKEN_DECIMALS } from '@/appConstants';
 import { getTokensSaga } from '@/store/tokens/sagas/getTokens';
 import tokenActionTypes from '@/store/tokens/actionTypes';
 import { updateCrowdSaleState } from '../reducer';
+import BigNumber from 'bignumber.js';
 
 type CrowdsaleInfo = {
   hardcap: string;
@@ -45,7 +46,7 @@ export function* getCrowdsaleInfoSaga({
         stage1EndDate: stageTimestamps ? new Date(+stageTimestamps[0][1]) : undefined,
         stage2StartDate: stageTimestamps ? new Date(+stageTimestamps[1][0]) : undefined,
         stage2EndDate: stageTimestamps ? new Date(+stageTimestamps[1][1]) : undefined,
-        zeroGasPrice: +price.price / +price.denominator,
+        zeroGasPrice: new BigNumber(+price.price).dividedBy(+price.denominator).toNumber(),
       }),
     );
 

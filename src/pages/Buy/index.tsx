@@ -11,7 +11,14 @@ import tokenSelectors from '@/store/tokens/selectors';
 
 import s from './styles.module.scss';
 import { useTimeLeft } from '@/hooks/useTimeLeft';
-import { stageTexts, getTimeLeftDate, getTokenImageUrl } from './helper';
+import {
+  stageTexts,
+  getTimeLeftDate,
+  getTokenImageUrl,
+  getFormatNumber,
+  getFormatFiat,
+} from './helper';
+import { Token } from '@/types';
 
 const Buy = () => {
   const {
@@ -25,8 +32,8 @@ const Buy = () => {
     stage2EndDate,
     zeroGasPrice,
   } = useShallowSelector(crowdSaleSelectors.getCrowdSale);
-  const tetherToken = useShallowSelector(tokenSelectors.getToken('TST'));
-  const etherToken = useShallowSelector(tokenSelectors.getToken('ETH'));
+  const tetherToken = useShallowSelector(tokenSelectors.getToken('TST')) as Token;
+  const etherToken = useShallowSelector(tokenSelectors.getToken('ETH')) as Token;
   const dispatch = useDispatch();
   const timeLeft = useTimeLeft(
     getTimeLeftDate({
@@ -69,7 +76,7 @@ const Buy = () => {
                   </Typography>
                   out of{' '}
                   <Typography type="body2" weight={600} className={s.displayInline}>
-                    {hardcap.toLocaleString().replace(',', ' ')}
+                    {getFormatNumber(hardcap)}
                   </Typography>
                 </Typography>
               </Progress>
@@ -109,7 +116,7 @@ const Buy = () => {
                 />
                 <Typography type="body1">Tether (USDT)</Typography>
                 <Typography type="body1" className={s.currencyListItemPrice}>
-                  ${tetherToken?.value.toFixed(6)}
+                  ${getFormatFiat(tetherToken?.value)}
                 </Typography>
               </div>
               <div className={s.currencyListItem}>
@@ -122,14 +129,14 @@ const Buy = () => {
                 />
                 <Typography type="body1">Ethereum (ETH)</Typography>
                 <Typography type="body1" className={s.currencyListItemPrice}>
-                  ${etherToken?.value.toFixed(6)}
+                  ${getFormatFiat(etherToken?.value)}
                 </Typography>
               </div>
               <div className={s.currencyListItem}>
                 <ZeroGasIcon className={s.currencyListItemImage} width={48} height={48} />
                 <Typography type="body1">Zerogas (0GAS)</Typography>
                 <Typography type="body1" className={s.currencyListItemPrice}>
-                  ${zeroGasPrice.toFixed(6)}
+                  ${getFormatFiat(zeroGasPrice)}
                 </Typography>
               </div>
             </div>

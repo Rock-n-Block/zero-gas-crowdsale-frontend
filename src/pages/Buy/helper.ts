@@ -1,4 +1,5 @@
 import { Stage } from '@/types';
+import BigNumber from 'bignumber.js';
 
 export const stageTexts = {
   [Stage.UNINITIALIZED]: 'Stage 1 will start in:',
@@ -35,3 +36,7 @@ export const getTimeLeftDate = ({
 
 export const getTokenImageUrl = (tokenAddress: string) =>
   `https://tokens.pancakeswap.finance/images/${tokenAddress}.png`;
+
+export const getFormatNumber = (number: number) => number.toLocaleString().replace(',', ' ');
+
+export const getFormatFiat = (fiat: number) => new BigNumber(fiat).decimalPlaces(2).toString();
