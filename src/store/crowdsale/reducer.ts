@@ -11,6 +11,7 @@ const initialState: CrowdSaleState = {
   stage1EndDate: new Date(0),
   stage2StartDate: new Date(0),
   stage2EndDate: new Date(0),
+  zeroGasPrice: 0,
 };
 
 export const CrowdSaleReducer = createSlice({

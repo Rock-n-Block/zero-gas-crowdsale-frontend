@@ -32,3 +32,6 @@ export const getTimeLeftDate = ({
   // currentStage === Stage.SECOND
   return stage2EndDate;
 };
+
+export const getTokenImageUrl = (tokenAddress: string) =>
+  `https://tokens.pancakeswap.finance/images/${tokenAddress}.png`;

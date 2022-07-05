@@ -16,6 +16,7 @@ export type CrowdSaleState = {
   stage1EndDate: Date;
   stage2StartDate: Date;
   stage2EndDate: Date;
+  zeroGasPrice: number;
 };
 
 export interface GetCrowdsaleInfoPayload {
