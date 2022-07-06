@@ -26,7 +26,7 @@
   }
   .content {
     height: auto;
-    @include flex(column, center, center);
+    @include grid();
 
     .title {
       font-size: 48px;
@@ -58,6 +58,28 @@
       text-transform: uppercase;
 
       margin-bottom: 24px;
+    }
+    .currentListTitle {
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .currencyListItem {
+      display: flex;
+      align-items: center;
+      padding-bottom: 16px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid black;
+
+      .currencyListItemImage {
+        margin-right: 16px;
+      }
+      .currencyListItemPrice {
+        margin-left: auto;
+      }
+
+      &:last-of-type {
+        border-bottom: none;
+      }
     }
   }
 }

@@ -1,12 +1,16 @@
-import { all, put, takeLatest, call } from 'typed-redux-saga';
+import BigNumber from 'bignumber.js';
+import { all, call, put, takeLatest } from 'typed-redux-saga';
 
+import { TOKEN_DECIMALS } from '@/appConstants';
 import apiActions from '@/store/api/actions';
-import { getCrowdsaleContract } from '../utils';
+import tokenActionTypes from '@/store/tokens/actionTypes';
+import { getTokensSaga } from '@/store/tokens/sagas/getTokens';
+import { getNaturalTokenAmount } from '@/utils/getTokenAmount';
+
 import { getCrowdsaleInfo } from '../actions';
 import actionTypes from '../actionTypes';
-import { getNaturalTokenAmount } from '@/utils/getTokenAmount';
-import { TOKEN_DECIMALS } from '@/appConstants';
 import { updateCrowdSaleState } from '../reducer';
+import { getCrowdsaleContract } from '../utils';
 
 type CrowdsaleInfo = {
   hardcap: string;
@@ -23,11 +27,15 @@ export function* getCrowdsaleInfoSaga({
   try {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const { hardcap, totalBought, stage, stageTimestamps }: CrowdsaleInfo = yield* all({
+    const { hardcap, totalBought, stage, stageTimestamps, price }: CrowdsaleInfo = yield* all({
       hardcap: call(crowdsaleContract.methods.hardcap().call),
       totalBought: call(crowdsaleContract.methods.totalBought().call),
       stage: call(crowdsaleContract.methods.getStage().call),
       stageTimestamps: call(crowdsaleContract.methods.getTimestamps().call),
+      price: call(crowdsaleContract.methods.getPrice().call),
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      tokens: call(getTokensSaga, { type: tokenActionTypes.GET_TOKENS }),
     });
 
     yield* put(
@@ -39,6 +47,7 @@ export function* getCrowdsaleInfoSaga({
         stage1EndDate: stageTimestamps ? new Date(+stageTimestamps[0][1]) : undefined,
         stage2StartDate: stageTimestamps ? new Date(+stageTimestamps[1][0]) : undefined,
         stage2EndDate: stageTimestamps ? new Date(+stageTimestamps[1][1]) : undefined,
+        zeroGasPrice: new BigNumber(+price.price).dividedBy(+price.denominator).toNumber(),
       }),
     );
 

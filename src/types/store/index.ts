@@ -1,6 +1,7 @@
 import type { Dispatch as DispatchReact } from 'react';
 
 /* PLOP_INJECT_IMPORT_STATE */
+import { TokensState } from './tokens';
 import { CrowdSaleState } from './crowdsale';
 import { ModalsInitialState } from './modals';
 import { UserState } from './user';
@@ -8,6 +9,7 @@ import { UserState } from './user';
 export * from './user';
 export * from './ui';
 /* PLOP_INJECT_IMPORT_TYPES */
+export * from './tokens';
 export * from './crowdsale';
 export * from './modals';
 
@@ -18,6 +20,7 @@ export type Dispatch = DispatchReact<{ type: string }>;
 export type State = {
   user: UserState;
   /* PLOP_INJECT_MODIFY_STATE */
+  tokens: TokensState;
   CrowdSale: CrowdSaleState;
   modals: ModalsInitialState;
 };
