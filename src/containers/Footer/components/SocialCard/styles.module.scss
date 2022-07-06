@@ -1,0 +1,39 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.wrapper {
+  margin-top: 54px;
+  width: 100%;
+  @include flex(row, center, center, wrap);
+}
+
+.card {
+  &Wrapper {
+    padding: 10px;
+  }
+  &Content {
+    & > button {
+      width: 360px;
+      min-height: 95px;
+    }
+    @include flex(row, flex-start, center);
+  }
+  &Icon {
+    margin-right: 16px;
+  }
+}
+
+@include large-mobile {
+  .wrapper {
+    margin-top: 16px;
+  }
+  .card {
+    &Wrapper {
+      width: 100%;
+    }
+    &Content {
+      width: 100%;
+      min-width: 100%;
+    }
+  }
+}

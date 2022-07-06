@@ -1,0 +1,108 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.wrapper {
+  width: 100%;
+  .container {
+    position: relative;
+    @include container;
+    @include flex(column, flex-start, center);
+    .title {
+      padding-top: 36px;
+      text-transform: uppercase;
+      font-size: 12vw;
+      @include flex(row, center, center);
+      .zGasIcon {
+        padding: 0 10px;
+        flex: 0 0 10%;
+        max-height: 1.5em;
+      }
+    }
+    .info {
+      max-width: 640px;
+      &Highlight {
+        font-style: italic;
+        @include PPRightSans('Wide');
+      }
+    }
+    .buy {
+      margin: 40px 0 85px;
+      &Text {
+        text-transform: uppercase;
+      }
+    }
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      transition: 400ms ease-in-out;
+      &Content {
+        position: relative;
+        height: 100%;
+        .fallingTx {
+          position: absolute;
+          top: 38%;
+          right: 0;
+          .detail {
+            animation: shake-detail 3s ease-in-out 0s infinite;
+          }
+        }
+        .highFee {
+          position: absolute;
+          top: 38%;
+          left: 0;
+          .detail {
+            animation: shake-detail 4s ease-in-out 0.5s infinite;
+          }
+        }
+        .waitingFee {
+          position: absolute;
+          top: 72%;
+          right: 10%;
+          .detail {
+            animation: shake-detail 2s ease-in-out 0.75s infinite;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes shake-detail {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@include large-tablet {
+  .wrapper {
+    .container {
+      .title {
+        margin-top: 30px;
+      }
+      .overlay {
+        transform: scale(0);
+      }
+      .buy {
+        margin: 30px 0 45px;
+      }
+    }
+  }
+}
+
+@include middle-tablet {
+  .wrapper {
+    .container {
+      @include flex(column, flex-start, center);
+    }
+  }
+}

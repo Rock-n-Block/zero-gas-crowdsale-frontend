@@ -1,0 +1,29 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.wrapper {
+  padding: 42px;
+  border: 2px solid $dark-0;
+  border-radius: 40px;
+  max-width: 100%;
+  @include flex(row, flex-start, flex-start, wrap);
+  .title {
+    flex: 0 0 45%;
+    padding-right: 60px;
+  }
+  .content {
+    flex: 0 0 55%;
+  }
+}
+
+@include middle-tablet {
+  .wrapper {
+    padding: 22px;
+    border-radius: 20px;
+    .content,
+    .title {
+      flex: 0 0 100%;
+      font-size: 24px;
+    }
+  }
+}

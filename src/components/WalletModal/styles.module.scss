@@ -1,0 +1,44 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.container {
+  @include flex(column, stretch, center, nowrap);
+  padding: 30px;
+  padding-top: 0;
+
+  .title {
+    text-transform: uppercase;
+    margin: 0;
+    margin-bottom: 5%;
+    text-align: center;
+  }
+
+  .walletConnect {
+    padding: 8px;
+    border-radius: 0;
+    border-bottom: 2px solid $dark-0;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .copy {
+    background: none;
+    border: none;
+    width: 32px;
+    height: 32px;
+
+    :hover {
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+    }
+  }
+
+  .button {
+    padding: 5px 30px;
+
+    .buttonText {
+      margin: 0;
+      text-transform: uppercase;
+    }
+  }
+}

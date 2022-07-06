@@ -1,0 +1,48 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.wrapper {
+  flex: 1;
+  .content {
+    margin-right: 2px;
+    @include flex(row, space-evenly, center);
+
+    .walletConnect {
+      padding: 8px;
+      border-radius: 0;
+      border-bottom: 2px solid $dark-0;
+      text-transform: uppercase;
+    }
+    .buy {
+      text-transform: uppercase;
+    }
+    .burger {
+      display: none;
+      margin-left: 8px;
+      padding: 14px 20px;
+    }
+  }
+}
+
+@include middle-tablet {
+  .wrapper {
+    .content {
+      @include flex(row, space-between, center);
+      .walletConnect {
+        & > p {
+          font-size: 12px;
+        }
+      }
+      .buy {
+        margin-left: auto;
+
+        & > p {
+          font-size: 12px;
+        }
+      }
+      .burger {
+        display: inline-block;
+      }
+    }
+  }
+}

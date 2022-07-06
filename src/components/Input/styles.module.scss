@@ -1,0 +1,15 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.inputWrapper {
+  font-size: 24px;
+  line-height: 100%;
+  color: $dark-0;
+  .input {
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+    outline: none;
+    border: 0px solid transparent;
+  }
+}

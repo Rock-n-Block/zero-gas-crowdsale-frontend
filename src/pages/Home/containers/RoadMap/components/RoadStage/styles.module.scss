@@ -1,0 +1,68 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.wrapper {
+  position: relative;
+  &.right {
+    @include flex(row-reverse, flex-start, center);
+  }
+  &.left {
+    @include flex(row, flex-start, center);
+  }
+  .delimiter {
+    flex: 0 0 10%;
+    border-bottom: 2px dashed $dark-0;
+  }
+  .stage {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 2px solid $dark-0;
+    background: $light-8;
+    @include flex(row, center, center);
+    &.active {
+      background: $accent;
+    }
+    &Text {
+      font-style: italic;
+      @include PPRightSans('Wide');
+    }
+  }
+  &:not(:last-child):after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: -1;
+    height: 100%;
+    width: 2px;
+    background: $dark-0;
+  }
+  &:first-child::after {
+    height: 120%;
+  }
+  &:nth-last-of-type(3)::after {
+    height: 105%;
+  }
+}
+
+@media screen and (max-width: 1110px) {
+  .wrapper {
+    padding: 20px;
+    &.left,
+    &.right {
+      @include flex(column-reverse, flex-start, center);
+    }
+    &:not(:last-child):after {
+      height: 0;
+    }
+    .delimiter {
+      display: none;
+    }
+    .stage {
+      margin-bottom: 30px;
+      width: 80px;
+      height: 80px;
+    }
+  }
+}

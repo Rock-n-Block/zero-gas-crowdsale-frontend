@@ -1,0 +1,21 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.element {
+  padding: 10px 0;
+  @include flex(row, space-between, center);
+}
+
+.logo {
+  max-width: 20px;
+  margin-right: 6px;
+  margin-bottom: -4px;
+}
+
+.wrapper {
+  padding: 40px 3%;
+  border-radius: 40px;
+  border: 2px solid $dark-0;
+  margin: 80px 0;
+  width: clamp(310px, 100%, 761px);
+}

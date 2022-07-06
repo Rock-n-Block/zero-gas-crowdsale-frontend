@@ -1,0 +1,28 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.advantage {
+  margin-top: 80px;
+  @include flex(row, flex-start, flex-start);
+  .icon {
+    padding-top: 16px;
+    padding-right: 28px;
+  }
+  .info {
+    max-width: 640px;
+  }
+}
+
+@include large-tablet {
+  .advantage {
+    margin-top: 40px;
+  }
+}
+
+@include middle-tablet {
+  .advantage {
+    .icon {
+      padding-right: 10px;
+    }
+  }
+}

@@ -1,0 +1,13 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.wrapper {
+  background: $accent;
+  width: 100%;
+  border-top: 2px solid $dark-0;
+  border-bottom: 2px solid $dark-0;
+}
+
+.container {
+  @include container;
+}

@@ -1,0 +1,91 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.wrapper {
+  position: absolute;
+  min-height: calc(100vh - 54px);
+  background: $light-8;
+  top: 54px;
+  left: 0;
+  width: 100%;
+  padding: 25px 50px;
+  transition: 1000ms ease-in-out;
+  transform: translateY(100%);
+  display: none;
+  &.open {
+    display: block;
+    transform: translateY(24px);
+  }
+  .head {
+    margin-bottom: 20px;
+    @include flex(row, flex-end, center);
+    .exit {
+      padding: 4px;
+      background-color: $accent;
+    }
+  }
+  .content {
+    height: auto;
+    @include grid();
+
+    .title {
+      font-size: 48px;
+      line-height: 44px;
+      text-transform: uppercase;
+      @include flex(row, center, center);
+
+      .zGasIcon {
+        padding: 0 10px;
+        flex: 0 0 15%;
+        height: 100%;
+      }
+
+      margin-bottom: 24px;
+    }
+    .card {
+      border: 2px solid $dark-0;
+      border-radius: 20px;
+      padding: 10px 15px;
+    }
+    .progress {
+      width: 600px;
+    }
+    .displayInline {
+      display: inline;
+    }
+    .stageWillStart {
+      text-align: center;
+      text-transform: uppercase;
+
+      margin-bottom: 24px;
+    }
+    .currentListTitle {
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .currencyListItem {
+      display: flex;
+      align-items: center;
+      padding-bottom: 16px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid black;
+
+      .currencyListItemImage {
+        margin-right: 16px;
+      }
+      .currencyListItemPrice {
+        margin-left: auto;
+      }
+
+      &:last-of-type {
+        border-bottom: none;
+      }
+    }
+  }
+}
+
+@include middle-tablet {
+  .wrapper {
+    padding: 25px 15px;
+  }
+}

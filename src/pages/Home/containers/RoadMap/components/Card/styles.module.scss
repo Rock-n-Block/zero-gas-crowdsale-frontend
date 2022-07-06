@@ -1,0 +1,12 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.wrapper{
+    padding: 40px 45px;
+    border: 2px solid $dark-0;
+    width: clamp(300px, 100%, 388px);
+    border-radius: 20px;
+    .list{
+        list-style: outside;
+    }
+}

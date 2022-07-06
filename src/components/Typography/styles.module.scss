@@ -1,0 +1,101 @@
+@import '/src/styles/mixins/helpers.scss';
+@import '/src/styles/variables';
+
+.typography {
+  font-weight: var(--font-weight, 400);
+  font-family: var(--font-family);
+  &.h1 {
+    font-size: 170px;
+    line-height: var(--line-height, 200%);
+  }
+  &.h2 {
+    font-size: 48px;
+    line-height: var(--line-height, 58px);
+  }
+  &.h3 {
+    font-size: 40px;
+    line-height: var(--line-height, 50px);
+  }
+  &.h4 {
+    font-size: 36px;
+    line-height: var(--line-height, 56px);
+  }
+  &.body1 {
+    font-size: 24px;
+    line-height: var(--line-height, 40px);
+  }
+  &.body2 {
+    font-size: 16px;
+    line-height: var(--line-height, 24px);
+  }
+  &.dark-0 {
+    color: $dark-0;
+  }
+  &.left {
+    text-align: start;
+  }
+  &.right {
+    text-align: end;
+  }
+  &.center {
+    text-align: center;
+  }
+}
+
+@include large-tablet {
+  .typography {
+    &.h1 {
+      font-size: 80px;
+      line-height: var(--line-height, 120%);
+    }
+    &.h2 {
+      font-size: 40px;
+      line-height: var(--line-height, 50px);
+    }
+    &.h3 {
+      font-size: 36px;
+      line-height: var(--line-height, 56px);
+    }
+    &.h4 {
+      font-size: 30px;
+      line-height: var(--line-height, 40px);
+    }
+    &.body1 {
+      font-size: 24px;
+      line-height: var(--line-height, 40px);
+    }
+    &.body2 {
+      font-size: 16px;
+      line-height: var(--line-height, 24px);
+    }
+  }
+}
+
+@include large-mobile {
+  .typography {
+    &.h1 {
+      font-size: 40px;
+      line-height: var(--line-height, 100%);
+    }
+    &.h2 {
+      font-size: 30px;
+      line-height: var(--line-height, 40px);
+    }
+    &.h3 {
+      font-size: 28px;
+      line-height: var(--line-height, 40px);
+    }
+    &.h4 {
+      font-size: 24px;
+      line-height: var(--line-height, 36px);
+    }
+    &.body1 {
+      font-size: 20px;
+      line-height: var(--line-height, 40px);
+    }
+    &.body2 {
+      font-size: 16px;
+      line-height: var(--line-height, 24px);
+    }
+  }
+}

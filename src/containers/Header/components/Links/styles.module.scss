@@ -1,0 +1,82 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.list {
+  border-bottom: 2px solid transparent;
+  &:hover {
+    border-color: $dark-0;
+  }
+  &Wrapper {
+    transition: 400ms ease-in-out;
+    flex: 0 0 70%;
+  }
+  &Content {
+    margin-top: 8px;
+    margin-right: 2px;
+    padding-right: 60px;
+    @include flex(row, flex-start, flex-start);
+  }
+  &Close {
+    display: none;
+    & > button {
+      padding: 4px;
+    }
+  }
+  &Links {
+    flex: 1;
+    @include flex(row, space-between, center);
+  }
+}
+
+.link {
+  &Wrapper {
+    border-bottom: 2px solid transparent;
+    &:hover {
+      border-color: $dark-0;
+    }
+  }
+  &Label {
+    letter-spacing: 4%;
+    text-transform: uppercase;
+    @include text-control(20px, 24px, 900);
+  }
+}
+
+@include middle-tablet {
+  .list {
+    &Wrapper {
+      top: 0;
+      left: 0;
+      position: absolute;
+      width: 50%;
+      height: 100vh;
+      background: $accent;
+      transform: translateX(-100%);
+      display: none;
+      &.open {
+        display: block;
+        transform: translateX(0);
+      }
+    }
+    &Close {
+      display: inline-block;
+      align-self: flex-end;
+    }
+    &Links {
+      width: 100%;
+      @include flex(column, flex-start, center);
+    }
+  }
+}
+
+@include large-mobile {
+  .list {
+    &Content {
+      padding-right: 0;
+      @include flex(column, flex-start, flex-start);
+    }
+    &Wrapper {
+      width: 100%;
+    }
+  }
+}
