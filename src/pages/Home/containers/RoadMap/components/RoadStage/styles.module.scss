@@ -41,6 +41,9 @@
   &:first-child::after {
     height: 120%;
   }
+  &:nth-last-of-type(3)::after {
+    height: 105%;
+  }
 }
 
 @media screen and (max-width: 1110px) {
