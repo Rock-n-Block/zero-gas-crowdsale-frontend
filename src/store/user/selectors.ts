@@ -6,6 +6,7 @@ const userSelector = {
     <T extends keyof UserState>(propKey: T) =>
     (state: State): UserState[T] =>
       state.user[propKey],
+  getIsAuthenticated: (state: State) => state.user.key,
 };
 
 export default userSelector;

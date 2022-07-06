@@ -53,14 +53,16 @@ const WalletConnectContext: FC<PropsWithChildren<any>> = ({ children }) => {
     (data: any) => {
       if (document.visibilityState !== 'visible') {
         disconnect();
-        return;
       }
 
+      // On MetaMask Accounts => Change / Disconnect / Connect
       if (data.name === 'accountsChanged') {
-        dispatch(updateUserState({ address: data.address }));
+        disconnect();
+        // eslint-disable-next-line @typescript-eslint/no-use-before-define
+        connect(WalletProviders.metamask, Chains.Kovan);
       }
     },
-    [WalletConnect, disconnect, dispatch],
+    [disconnect],
   );
 
   const subscriberError = useCallback(
@@ -88,21 +90,24 @@ const WalletConnectContext: FC<PropsWithChildren<any>> = ({ children }) => {
             setCurrentSubsciber(sub);
           }
 
-          // Get basic metamask account info
+          // Get basic currently connected account information
           const accountInfo = (await WalletConnect.getAccount()) as IConnect;
 
           // If user connected account
           if (accountInfo.address) {
             // If already logged-in (redux-persist) with the same account
             if (key.length && address === accountInfo.address) {
+              // Refresh backend data
               dispatch(getUserInfo({ web3Provider: WalletConnect.Web3() }));
             } else {
-              // Save basic info into redux store + fetch additional data + authenticate on backend
+              // If auth on backend => fetch and save backend data
               dispatch(
-                updateUserState({ provider: accountInfo.type, address: accountInfo.address }),
+                login({
+                  web3Provider: WalletConnect.Web3(),
+                  provider: accountInfo.type as string,
+                  address: accountInfo.address,
+                }),
               );
-              dispatch(getUserInfo({ web3Provider: WalletConnect.Web3() }));
-              dispatch(login({ web3Provider: WalletConnect.Web3(), address: accountInfo.address }));
             }
           }
         } catch (error: any) {

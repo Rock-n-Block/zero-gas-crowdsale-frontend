@@ -14,7 +14,7 @@ import { useOverlay } from '../Overlay';
 import s from './App.module.scss';
 
 const App: FC = () => {
-  const { address } = useShallowSelector(userSelector.getUser);
+  const isAuthenticated = useShallowSelector(userSelector.getIsAuthenticated);
   const isBuyOpen = useShallowSelector(crowdSaleSelectors.getProp('isOpen'));
   useAnchorLink();
   const { setShouldRender } = useOverlay();
@@ -27,11 +27,11 @@ const App: FC = () => {
 
   useEffect(() => {
     // If the user is authenticated fetch profile and crowdsale data
-    if (address) {
+    if (isAuthenticated) {
       dispatch(getUserInfo({ web3Provider: walletService.Web3() }));
       dispatch(getCrowdsaleInfo({ web3Provider: walletService.Web3() }));
     }
-  }, [dispatch, walletService]);
+  }, [dispatch, isAuthenticated, walletService]);
 
   return (
     <div className={s.mainWrapper}>

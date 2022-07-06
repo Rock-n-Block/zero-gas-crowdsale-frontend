@@ -5,11 +5,14 @@ import { baseApi } from '@/store/api/apiRequestBuilder';
 import { GetMetamaskMessageResponse, MetamaskLoginResponse } from '@/types/api';
 import { notify } from '@/utils';
 
-import { login } from '../actions';
+import { getUserInfo, login } from '../actions';
 import actionTypes from '../actionTypes';
 import { updateUserState } from '../reducer';
 
-export function* loginSaga({ type, payload: { web3Provider, address } }: ReturnType<typeof login>) {
+export function* loginSaga({
+  type,
+  payload: { web3Provider, provider, address },
+}: ReturnType<typeof login>) {
   yield put(request(type));
 
   try {
@@ -23,16 +26,22 @@ export function* loginSaga({ type, payload: { web3Provider, address } }: ReturnT
       msg: message,
       signed_msg: signedMessage,
     });
+
     yield put(
       updateUserState({
+        provider,
+        address,
         key,
       }),
     );
+
+    yield put(getUserInfo({ web3Provider }));
 
     notify.success(`Wallet connected: ${address.slice(0, 5)}...${address.slice(-5)}`);
 
     yield put(success(type));
   } catch (err) {
+    // Possibly user has rejected message signing
     console.error(err);
     yield put(error(type, err));
   }

@@ -36,6 +36,7 @@ export interface ApproveReq extends RequestWithWeb3Provider {
 export interface getUserInfoPayload extends RequestWithWeb3Provider {}
 
 export interface loginPayload extends RequestWithWeb3Provider {
+  provider: string;
   address: string;
 }
 
