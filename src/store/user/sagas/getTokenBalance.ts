@@ -1,34 +1,45 @@
-import { call, put, takeLatest } from 'typed-redux-saga';
+import { call, put, select, takeLatest } from 'typed-redux-saga';
+import Web3 from 'web3';
 
-import { ContractsNames } from '@/config';
+import { erc20Abi } from '@/config/abi';
+import { ETHER_ADDRESS, ETHER_DECIMALS } from '@/config/constants';
 import { error, request, success } from '@/store/api/actions';
 import { Erc20Abi } from '@/types/contracts';
-import { fromDecimals } from '@/utils';
-import { getContractDataByHisName } from '@/utils/getContractDataByHisName';
+import { getNaturalTokenAmount } from '@/utils/getTokenAmount';
 
 import { getTokenBalance } from '../actions';
 import actionTypes from '../actionTypes';
-import { updateUserState } from '../reducer';
+import { updateTokensState } from '../reducer';
+import userSelector from '../selectors';
+
+function getTokenContract(web3Provider: Web3, address: string): Erc20Abi {
+  return new web3Provider.eth.Contract(erc20Abi, address) as any;
+}
 
 export function* getTokenBalanceSaga({
   type,
-  payload: { web3Provider, address },
+  payload: { web3Provider, tokenAddress },
 }: ReturnType<typeof getTokenBalance>) {
   yield put(request(type));
-  const [tokenAbi, tokenAddress] = getContractDataByHisName(ContractsNames.token);
+
+  const { address: userAddress } = yield* select(userSelector.getUser);
+  const tokenContract = getTokenContract(web3Provider, tokenAddress);
 
   try {
-    const tokenContract: Erc20Abi = yield new web3Provider.eth.Contract(tokenAbi, tokenAddress);
-    if (address) {
-      const balance = yield* call(tokenContract.methods.balanceOf(address).call);
-      const decimals = yield* call(tokenContract.methods.decimals().call);
-
-      yield put(updateUserState({ tokenBalance: fromDecimals(balance, +decimals) }));
+    let balance;
+    let decimals;
+    if (tokenAddress === ETHER_ADDRESS) {
+      balance = yield* call(() => web3Provider.eth.getBalance(userAddress));
+      decimals = ETHER_DECIMALS;
+    } else {
+      balance = yield* call(tokenContract.methods.balanceOf(userAddress).call);
+      decimals = yield* call(tokenContract.methods.decimals().call);
     }
+    yield* put(updateTokensState({ [tokenAddress]: getNaturalTokenAmount(+balance, +decimals) }));
 
     yield put(success(type));
   } catch (err) {
-    console.log(err);
+    console.error(err);
     yield put(error(type, err));
   }
 }

@@ -1,19 +1,21 @@
 import { FC, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import cn from 'clsx';
 
-import s from './styles.module.scss';
-import { Modal, ModalProps } from '../Modal';
-import { Typography } from '../Typography';
-import { Button } from '../Button';
 import { CopyIcon, CrossIcon } from '@/assets/img';
 import { useShallowSelector } from '@/hooks';
-import userSelector from '@/store/user/selectors';
-import { copyToClipboard } from '@/utils';
-import { Address } from '../Address';
 import { useWalletConnectorContext } from '@/services';
-import { useDispatch } from 'react-redux';
 import { setActiveModal } from '@/store/modals/reducer';
+import userSelector from '@/store/user/selectors';
 import { Modals } from '@/types';
+import { copyToClipboard } from '@/utils';
+
+import { Address } from '../Address';
+import { Button } from '../Button';
+import { Modal, ModalProps } from '../Modal';
+import { Typography } from '../Typography';
+
+import s from './styles.module.scss';
 
 export interface WalletModalProps {
   className?: ModalProps['className'];
@@ -54,7 +56,7 @@ export const WalletModal: FC<WalletModalProps> = ({ ...rest }) => {
 
         <Button variant="text" className={s.walletConnect} onClick={handleCopyAddress}>
           <Typography type="body2" weight={900} fontFamily="DrukCyr Wide">
-            {userAddress ? <Address address={userAddress} /> : 'Connect wallet'}
+            <Address address={userAddress} />
           </Typography>
           <button type="button" className={s.copy}>
             <CopyIcon />

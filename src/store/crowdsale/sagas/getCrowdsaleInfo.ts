@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { all, call, put, takeLatest } from 'typed-redux-saga';
 
-import { TOKEN_DECIMALS } from '@/appConstants';
+import { ETHER_DECIMALS } from '@/config/constants';
 import apiActions from '@/store/api/actions';
 import tokenActionTypes from '@/store/tokens/actionTypes';
 import { getTokensSaga } from '@/store/tokens/sagas/getTokens';
@@ -35,13 +35,13 @@ export function* getCrowdsaleInfoSaga({
       price: call(crowdsaleContract.methods.getPrice().call),
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      tokens: call(getTokensSaga, { type: tokenActionTypes.GET_TOKENS }),
+      tokens: call(getTokensSaga, { type: tokenActionTypes.GET_TOKENS, payload: { web3Provider } }),
     });
 
     yield* put(
       updateCrowdSaleState({
-        hardcap: getNaturalTokenAmount(parseInt(hardcap, 10), TOKEN_DECIMALS),
-        totalBought: getNaturalTokenAmount(parseInt(totalBought, 10), TOKEN_DECIMALS),
+        hardcap: getNaturalTokenAmount(parseInt(hardcap, 10), ETHER_DECIMALS),
+        totalBought: getNaturalTokenAmount(parseInt(totalBought, 10), ETHER_DECIMALS),
         currentStage: +stage,
         stage1StartDate: stageTimestamps ? new Date(+stageTimestamps[0][0]) : undefined,
         stage1EndDate: stageTimestamps ? new Date(+stageTimestamps[0][1]) : undefined,
@@ -53,7 +53,7 @@ export function* getCrowdsaleInfoSaga({
 
     yield* put(apiActions.success(type));
   } catch (err) {
-    console.log(err);
+    console.error(err);
     yield* put(apiActions.error(type, err));
   }
 }

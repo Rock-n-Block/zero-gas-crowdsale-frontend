@@ -10,11 +10,13 @@ import {
   useState,
 } from 'react';
 import { useDispatch } from 'react-redux';
+import { IConnect } from '@amfi/connect-wallet/src/interface';
 import { Subscription } from 'rxjs';
 
 import { networkDataForAddToMetamask } from '@/config';
 import { useShallowSelector } from '@/hooks';
 import { WalletService } from '@/services';
+import { getUserInfo, login } from '@/store/user/actions';
 import { disconnectWalletState, updateUserState } from '@/store/user/reducer';
 import userSelector from '@/store/user/selectors';
 import { Chains, State, UserState, WalletProviders } from '@/types';
@@ -32,7 +34,12 @@ const WalletConnectContext: FC<PropsWithChildren<any>> = ({ children }) => {
   const [currentSubsriber, setCurrentSubsciber] = useState<Subscription | null>(null);
   const WalletConnect = useMemo(() => new WalletService(), []);
   const dispatch = useDispatch();
-  const { provider: WalletProvider } = useShallowSelector<State, UserState>(userSelector.getUser);
+  const {
+    provider: WalletProvider,
+    // from local storage
+    address,
+    key,
+  } = useShallowSelector<State, UserState>(userSelector.getUser);
 
   const disconnect = useCallback(() => {
     dispatch(disconnectWalletState());
@@ -46,14 +53,16 @@ const WalletConnectContext: FC<PropsWithChildren<any>> = ({ children }) => {
     (data: any) => {
       if (document.visibilityState !== 'visible') {
         disconnect();
-        return;
       }
 
+      // On MetaMask Accounts => Change / Disconnect / Connect
       if (data.name === 'accountsChanged') {
-        dispatch(updateUserState({ address: data.address }));
+        disconnect();
+        // eslint-disable-next-line @typescript-eslint/no-use-before-define
+        connect(WalletProviders.metamask, Chains.Kovan);
       }
     },
-    [WalletConnect, disconnect, dispatch],
+    [disconnect],
   );
 
   const subscriberError = useCallback(
@@ -70,6 +79,7 @@ const WalletConnectContext: FC<PropsWithChildren<any>> = ({ children }) => {
   const connect = useCallback(
     async (provider: WalletProviders, chain: Chains) => {
       const connected = await WalletConnect.initWalletConnect(provider, chain);
+
       if (connected) {
         try {
           if (!currentSubsriber) {
@@ -77,18 +87,31 @@ const WalletConnectContext: FC<PropsWithChildren<any>> = ({ children }) => {
               subscriberSuccess,
               subscriberError,
             );
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
             setCurrentSubsciber(sub);
           }
 
-          const accountInfo: any = await WalletConnect.getAccount();
+          // Get basic currently connected account information
+          const accountInfo = (await WalletConnect.getAccount()) as IConnect;
 
+          // If user connected account
           if (accountInfo.address) {
-            dispatch(updateUserState({ provider: accountInfo.type, address: accountInfo.address }));
+            // If already logged-in (redux-persist) with the same account
+            if (key.length && address === accountInfo.address) {
+              // Refresh backend data
+              dispatch(getUserInfo({ web3Provider: WalletConnect.Web3() }));
+            } else {
+              // If auth on backend => fetch and save backend data
+              dispatch(
+                login({
+                  web3Provider: WalletConnect.Web3(),
+                  provider: accountInfo.type as string,
+                  address: accountInfo.address,
+                }),
+              );
+            }
           }
         } catch (error: any) {
-          console.log(error);
+          console.error(error);
           // metamask doesn't installed,
           // redirect to download MM or open MM on mobile
           if (!window.ethereum) {

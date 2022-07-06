@@ -3,15 +3,18 @@ import { useDispatch } from 'react-redux';
 
 import { Footer, Header, RouterManager } from '@/containers';
 import { useAnchorLink, useShallowSelector } from '@/hooks';
+import { useWalletConnectorContext } from '@/services';
+import { getCrowdsaleInfo } from '@/store/crowdsale/actions';
 import crowdSaleSelectors from '@/store/crowdsale/selectors';
+import { getUserInfo } from '@/store/user/actions';
+import userSelector from '@/store/user/selectors';
 
 import { useOverlay } from '../Overlay';
 
 import s from './App.module.scss';
-import { getCrowdsaleInfo } from '@/store/crowdsale/actions';
-import { useWalletConnectorContext } from '@/services';
 
 const App: FC = () => {
+  const isAuthenticated = useShallowSelector(userSelector.getIsAuthenticated);
   const isBuyOpen = useShallowSelector(crowdSaleSelectors.getProp('isOpen'));
   useAnchorLink();
   const { setShouldRender } = useOverlay();
@@ -23,8 +26,12 @@ const App: FC = () => {
   }, [isBuyOpen, setShouldRender]);
 
   useEffect(() => {
-    dispatch(getCrowdsaleInfo({ web3Provider: walletService.Web3() }));
-  }, [dispatch, walletService]);
+    // If the user is authenticated fetch profile and crowdsale data
+    if (isAuthenticated) {
+      dispatch(getUserInfo({ web3Provider: walletService.Web3() }));
+      dispatch(getCrowdsaleInfo({ web3Provider: walletService.Web3() }));
+    }
+  }, [dispatch, isAuthenticated, walletService]);
 
   return (
     <div className={s.mainWrapper}>

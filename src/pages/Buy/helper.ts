@@ -35,9 +35,6 @@ export const getTimeLeftDate = ({
   return stage2EndDate;
 };
 
-export const getTokenImageUrl = (tokenAddress: string) =>
-  `https://tokens.pancakeswap.finance/images/${tokenAddress}.png`;
-
 export const getFormatNumber = (number: number) => number.toLocaleString().replace(',', ' ');
 
 export const getFormatFiat = (fiat: number) => new BigNumber(fiat).decimalPlaces(2).toString();

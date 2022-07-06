@@ -19,6 +19,7 @@ interface MenuProps {
 
 export const Menu = ({ isOpen, setIsOpen }: MenuProps) => {
   const userAddress = useShallowSelector(userSelector.getProp('address'));
+  const isAuthenticated = useShallowSelector(userSelector.getIsAuthenticated);
   const dispatch = useDispatch();
   const { connect } = useWalletConnectorContext();
 
@@ -51,7 +52,7 @@ export const Menu = ({ isOpen, setIsOpen }: MenuProps) => {
       <div className={s.content}>
         <Button variant="text" className={s.walletConnect} onClick={handleClickConnect}>
           <Typography type="body2" weight={900} fontFamily="DrukCyr Wide">
-            {userAddress ? <Address address={userAddress} /> : 'Connect wallet'}
+            {isAuthenticated ? <Address address={userAddress} /> : 'Connect wallet'}
           </Typography>
         </Button>
         <Button onClick={handleClickBuy} variant="outlined" className={s.buy}>

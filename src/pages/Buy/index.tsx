@@ -11,13 +11,7 @@ import crowdSaleSelectors from '@/store/crowdsale/selectors';
 import tokenSelectors from '@/store/tokens/selectors';
 import { Token } from '@/types';
 
-import {
-  getFormatFiat,
-  getFormatNumber,
-  getTimeLeftDate,
-  getTokenImageUrl,
-  stageTexts,
-} from './helper';
+import { getFormatFiat, getFormatNumber, getTimeLeftDate, stageTexts } from './helper';
 
 import s from './styles.module.scss';
 
@@ -33,8 +27,7 @@ const Buy = () => {
     stage2EndDate,
     zeroGasPrice,
   } = useShallowSelector(crowdSaleSelectors.getCrowdSale);
-  const tetherToken = useShallowSelector(tokenSelectors.getToken('TST')) as Token;
-  const etherToken = useShallowSelector(tokenSelectors.getToken('ETH')) as Token;
+  const { tokens } = useShallowSelector(tokenSelectors.getTokens);
   const dispatch = useDispatch();
   const timeLeft = useTimeLeft(
     getTimeLeftDate({
@@ -107,32 +100,23 @@ const Buy = () => {
               >
                 Current prices
               </Typography>
-              <div className={s.currencyListItem}>
-                <img
-                  src={getTokenImageUrl('0x55d398326f99059fF775485246999027B3197955')}
-                  alt="UCDT logo"
-                  className={s.currencyListItemImage}
-                  width={48}
-                  height={48}
-                />
-                <Typography type="body1">Tether (USDT)</Typography>
-                <Typography type="body1" className={s.currencyListItemPrice}>
-                  ${getFormatFiat(tetherToken?.value)}
-                </Typography>
-              </div>
-              <div className={s.currencyListItem}>
-                <img
-                  src={getTokenImageUrl('0x2170Ed0880ac9A755fd29B2688956BD959F933F8')}
-                  alt="UCDT logo"
-                  className={s.currencyListItemImage}
-                  width={48}
-                  height={48}
-                />
-                <Typography type="body1">Ethereum (ETH)</Typography>
-                <Typography type="body1" className={s.currencyListItemPrice}>
-                  ${getFormatFiat(etherToken?.value)}
-                </Typography>
-              </div>
+              {Object.values(tokens).map((token) => (
+                <div key={token.address} className={s.currencyListItem}>
+                  <img
+                    src={token.image}
+                    alt={`${token.symbol} logo`}
+                    className={s.currencyListItemImage}
+                    width={48}
+                    height={48}
+                  />
+                  <Typography type="body1">
+                    {token.fullName} ({token.symbol})
+                  </Typography>
+                  <Typography type="body1" className={s.currencyListItemPrice}>
+                    ${getFormatFiat(token?.value)}
+                  </Typography>
+                </div>
+              ))}
               <div className={s.currencyListItem}>
                 <ZeroGasIcon className={s.currencyListItemImage} width={48} height={48} />
                 <Typography type="body1">Zerogas (0GAS)</Typography>
