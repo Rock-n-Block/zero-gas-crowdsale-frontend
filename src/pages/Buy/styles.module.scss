@@ -26,7 +26,10 @@
   }
   .content {
     height: auto;
-    @include grid();
+
+    .comingSoon {
+      text-align: center;
+    }
 
     .title {
       font-size: 48px;
