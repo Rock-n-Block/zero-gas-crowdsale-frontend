@@ -1,6 +1,7 @@
+import copy from 'copy-to-clipboard';
+
 import { notify } from './notify';
 
 export const copyToClipboard = (value: string) => {
-  navigator.clipboard.writeText(value);
-  notify.success('Copied');
+  copy(value, { format: 'text/plain', onCopy: () => notify.success('Copied') });
 };
