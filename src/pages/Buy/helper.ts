@@ -1,5 +1,6 @@
-import { Stage } from '@/types';
 import BigNumber from 'bignumber.js';
+
+import { Stage } from '@/types';
 
 export const stageTexts = {
   [Stage.UNINITIALIZED]: 'Stage 1 will start in:',
@@ -33,9 +34,6 @@ export const getTimeLeftDate = ({
   // currentStage === Stage.SECOND
   return stage2EndDate;
 };
-
-export const getTokenImageUrl = (tokenAddress: string) =>
-  `https://tokens.pancakeswap.finance/images/${tokenAddress}.png`;
 
 export const getFormatNumber = (number: number) => number.toLocaleString().replace(',', ' ');
 

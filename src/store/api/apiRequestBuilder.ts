@@ -1,6 +1,5 @@
 import { URL } from '@/appConstants';
-import { GetMetamaskMessageResponse, MetamaskLoginResponse } from '@/types/api';
-import { LoginReq } from '@/types/requests';
+import { GetMetamaskMessageResponse, MetamaskLoginData, MetamaskLoginResponse } from '@/types/api';
 
 import ajax from './ajax';
 
@@ -11,7 +10,7 @@ export const baseApi = {
       url: URL.getMetamaskMessage,
     }) as any;
   },
-  metamaskLogin(data: LoginReq): MetamaskLoginResponse {
+  metamaskLogin(data: MetamaskLoginData): MetamaskLoginResponse {
     return ajax({
       method: 'post',
       url: URL.metamaskLogin,

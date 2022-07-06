@@ -14,20 +14,15 @@ export function* loginSaga({ type, payload: { web3Provider, address } }: ReturnT
 
   try {
     const { data: message }: GetMetamaskMessageResponse = yield call(baseApi.getMetamaskMessage);
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const signedMessage = yield* call(web3Provider.eth.personal.sign, ...[message, address, '']);
+    const signedMessage = yield* call(() => web3Provider.eth.personal.sign(message, address, ''));
 
     const {
       data: { key },
-    }: MetamaskLoginResponse =
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      yield call(baseApi.metamaskLogin, {
-        address,
-        msg: message,
-        signed_msg: signedMessage,
-      });
+    }: MetamaskLoginResponse = yield call(baseApi.metamaskLogin, {
+      address,
+      msg: message,
+      signed_msg: signedMessage,
+    });
     yield put(
       updateUserState({
         key,

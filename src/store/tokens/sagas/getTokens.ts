@@ -4,7 +4,6 @@ import apiActions from '@/store/api/actions';
 import { baseApi } from '@/store/api/apiRequestBuilder';
 import tokenActionTypes from '@/store/user/actionTypes';
 import { getTokenBalanceSaga } from '@/store/user/sagas/getTokenBalance';
-import { Token } from '@/types';
 
 import { getTokens } from '../actions';
 import actionTypes from '../actionTypes';
@@ -14,25 +13,28 @@ export function* getTokensSaga({ type, payload: { web3Provider } }: ReturnType<t
   yield* put(apiActions.request(type));
 
   try {
-    const { data }: { data: Token[] } = yield* call(baseApi.getTokens);
+    const { data } = yield* call(baseApi.getTokens);
     yield put(
       updateTokensState({
-        tokens: Object.fromEntries(data.map((token) => [token.address, token])),
+        tokens: Object.fromEntries(
+          data.map((token: any) => [
+            token.address,
+            {
+              ...token,
+              fullName: token.full_name,
+            },
+          ]),
+        ),
       }),
     );
 
     // Fetch balances for all tokens
     yield* all(
-      data.map((token) =>
-        call(
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          getTokenBalanceSaga,
-          {
-            type: tokenActionTypes.GET_TOKEN_BALANCE,
-            payload: { web3Provider, tokenAddress: token.address },
-          },
-        ),
+      data.map((token: any) =>
+        call(getTokenBalanceSaga, {
+          type: tokenActionTypes.GET_TOKEN_BALANCE,
+          payload: { web3Provider, tokenAddress: token.address },
+        }),
       ),
     );
 

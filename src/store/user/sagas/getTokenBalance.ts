@@ -29,9 +29,7 @@ export function* getTokenBalanceSaga({
     let balance;
     let decimals;
     if (tokenAddress === ETHER_ADDRESS) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      balance = yield* call(web3Provider.eth.getBalance, userAddress);
+      balance = yield* call(() => web3Provider.eth.getBalance(userAddress));
       decimals = ETHER_DECIMALS;
     } else {
       balance = yield* call(tokenContract.methods.balanceOf(userAddress).call);
