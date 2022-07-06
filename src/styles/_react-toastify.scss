@@ -20,9 +20,11 @@
       text-transform: uppercase;
       font-size: 18px;
       font-family: 'DrukCyr Wide';
+      text-align: center;
     }
   }
   &-icon {
+    display: none;
     width: 48px;
     height: 48px;
 
