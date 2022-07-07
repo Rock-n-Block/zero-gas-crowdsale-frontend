@@ -1,9 +1,11 @@
 import { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import cn from 'clsx';
 
 import { CrossIcon } from '@/assets/img';
 import { Button, Typography } from '@/components';
 import { anchorLinks } from '@/router';
+import { updateCrowdSaleOpenState } from '@/store/crowdsale/reducer';
 
 import s from './styles.module.scss';
 
@@ -29,8 +31,11 @@ interface LinksListProps {
 }
 
 export const LinksList = ({ isOpen, setIsOpen }: LinksListProps) => {
+  const dispatch = useDispatch();
+
   const handleClose = useCallback(() => {
     setIsOpen(false);
+    dispatch(updateCrowdSaleOpenState(false));
   }, [setIsOpen]);
 
   return (

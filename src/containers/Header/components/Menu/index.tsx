@@ -2,8 +2,8 @@ import { Dispatch, SetStateAction, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { BurgerIcon } from '@/assets/img';
-import { Address, Button, Typography, Modal } from '@/components';
-import { useModal, useShallowSelector } from '@/hooks';
+import { Address, Button, Typography } from '@/components';
+import { useShallowSelector } from '@/hooks';
 import { useWalletConnectorContext } from '@/services';
 import { updateCrowdSaleOpenState } from '@/store/crowdsale/reducer';
 import { setActiveModal } from '@/store/modals/reducer';
