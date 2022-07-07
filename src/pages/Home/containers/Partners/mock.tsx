@@ -19,5 +19,3 @@ export const partners = [
   { id: 7, image: moralisSrc, href: 'https://moralis.io/' },
   { id: 8, image: metaVisionSrc, href: 'https://www.metavision.ae/' },
 ];
-
-console.log(partners);
