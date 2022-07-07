@@ -42,3 +42,6 @@ export interface loginPayload extends RequestWithWeb3Provider {
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface GetTokensPayload extends RequestWithWeb3Provider {}
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface GetTokenBalancesPayload extends RequestWithWeb3Provider {}

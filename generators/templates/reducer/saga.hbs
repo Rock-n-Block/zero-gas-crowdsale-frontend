@@ -19,5 +19,5 @@ export function* exampleSaga({ type, payload }: ReturnType<typeof helloWorld>) {
 }
 
 export default function* listener() {
-  yield takeLatest(actionTypes.HELLO_WORLD, exampleSaga);
+  yield* takeLatest(actionTypes.HELLO_WORLD, exampleSaga);
 }
