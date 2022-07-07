@@ -13,7 +13,7 @@ export const RoadMap = () => {
     <div className={s.wrapper} id="roadMap">
       <div className={s.container}>
         <Typography className={s.title} type="h2" fontFamily="DrukCyr Wide" weight={900}>
-          Road map
+          Roadmap
         </Typography>
         <div className={s.roadMap}>
           {roadMap.map((item) => (
