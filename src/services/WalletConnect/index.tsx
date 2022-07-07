@@ -13,7 +13,7 @@ import { useDispatch } from 'react-redux';
 import { IConnect } from '@amfi/connect-wallet/src/interface';
 import { Subscription } from 'rxjs';
 
-import { networkDataForAddToMetamask } from '@/config';
+import { chains, networkDataForAddToMetamask } from '@/config';
 import { useShallowSelector } from '@/hooks';
 import { WalletService } from '@/services';
 import { getUserInfo, login } from '@/store/user/actions';
@@ -69,7 +69,9 @@ const WalletConnectContext: FC<PropsWithChildren<any>> = ({ children }) => {
     (err: any) => {
       console.error(err);
       if (err.code === 4) {
-        notify.error('You changed to wrong network. Please choose Kovan');
+        notify.error(
+          `You changed to wrong network. Please choose ${chains[Chains.Kovan].network.chainName}`,
+        );
         disconnect();
       }
     },
