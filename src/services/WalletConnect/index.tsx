@@ -59,7 +59,7 @@ const WalletConnectContext: FC<PropsWithChildren<any>> = ({ children }) => {
       if (data.name === 'accountsChanged') {
         disconnect();
         // eslint-disable-next-line @typescript-eslint/no-use-before-define
-        connect(WalletProviders.metamask, Chains.Kovan);
+        // connect(WalletProviders.metamask, Chains.Kovan);
       }
     },
     [disconnect],
@@ -100,14 +100,23 @@ const WalletConnectContext: FC<PropsWithChildren<any>> = ({ children }) => {
               // Refresh backend data
               dispatch(getUserInfo({ web3Provider: WalletConnect.Web3() }));
             } else {
-              // If auth on backend => fetch and save backend data
               dispatch(
-                login({
-                  web3Provider: WalletConnect.Web3(),
-                  provider: accountInfo.type as string,
-                  address: accountInfo.address,
-                }),
+                updateUserState({ provider: accountInfo.type, address: accountInfo.address }),
               );
+              notify.success(
+                `Wallet connected: ${accountInfo.address.slice(0, 5)}...${accountInfo.address.slice(
+                  -5,
+                )}`,
+              );
+
+              // If auth on backend => fetch and save backend data
+              // dispatch(
+              //   login({
+              //     web3Provider: WalletConnect.Web3(),
+              //     provider: accountInfo.type as string,
+              //     address: accountInfo.address,
+              //   }),
+              // );
             }
           }
         } catch (error: any) {
