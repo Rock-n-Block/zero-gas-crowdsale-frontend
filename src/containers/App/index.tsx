@@ -1,11 +1,12 @@
-import { FC, useEffect } from 'react';
+import { FC, useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Footer, Header, RouterManager } from '@/containers';
-import { useAnchorLink, useShallowSelector } from '@/hooks';
+import { useAnchorLink, useInterval, useShallowSelector } from '@/hooks';
 import { useWalletConnectorContext } from '@/services';
 import { getCrowdsaleInfo } from '@/store/crowdsale/actions';
 import crowdSaleSelectors from '@/store/crowdsale/selectors';
+import { getTokens } from '@/store/tokens/actions';
 import { getUserInfo } from '@/store/user/actions';
 import userSelector from '@/store/user/selectors';
 
@@ -32,6 +33,12 @@ const App: FC = () => {
       dispatch(getCrowdsaleInfo({ web3Provider: walletService.Web3() }));
     }
   }, [dispatch, isAuthenticated, walletService]);
+
+  const handleInterval = useCallback(() => {
+    dispatch(getTokens({ web3Provider: walletService.Web3() }));
+  }, [dispatch, walletService]);
+
+  useInterval(handleInterval, 60 * 1000);
 
   return (
     <div className={s.mainWrapper}>

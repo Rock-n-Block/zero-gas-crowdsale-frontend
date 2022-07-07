@@ -5,6 +5,8 @@ import { ETHER_DECIMALS } from '@/config/constants';
 import apiActions from '@/store/api/actions';
 import tokenActionTypes from '@/store/tokens/actionTypes';
 import { getTokensSaga } from '@/store/tokens/sagas/getTokens';
+import userActionTypes from '@/store/user/actionTypes';
+import { getTokenBalancesSaga } from '@/store/user/sagas/getTokenBalances';
 import { getNaturalTokenAmount } from '@/utils/getTokenAmount';
 
 import { getCrowdsaleInfo } from '../actions';
@@ -36,6 +38,11 @@ export function* getCrowdsaleInfoSaga({
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       tokens: call(getTokensSaga, { type: tokenActionTypes.GET_TOKENS, payload: { web3Provider } }),
+    });
+
+    yield* call(getTokenBalancesSaga, {
+      type: userActionTypes.GET_TOKEN_BALANCES,
+      payload: { web3Provider },
     });
 
     yield* put(
