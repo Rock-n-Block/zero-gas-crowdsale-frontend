@@ -98,7 +98,7 @@ const WalletConnectContext: FC<PropsWithChildren<any>> = ({ children }) => {
           // If user connected account
           if (accountInfo.address) {
             // If already logged-in (redux-persist) with the same account
-            if (key.length && address === accountInfo.address) {
+            if (address === accountInfo.address) {
               // Refresh backend data
               dispatch(getUserInfo({ web3Provider: WalletConnect.Web3() }));
             } else {
