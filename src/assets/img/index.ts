@@ -15,6 +15,7 @@ export { ReactComponent as DiscordIcon } from './icons/socials/discord.svg';
 export { ReactComponent as PlusIcon } from './icons/plus.svg';
 export { ReactComponent as CopyIcon } from './icons/copy.svg';
 export { ReactComponent as ArrowRightIcon } from './icons/arrowRight.svg';
+export { ReactComponent as ArrowDownIcon } from './icons/arrowDown.svg';
 export { ReactComponent as ArchangelTokenIcon } from './icons/archangelTokenIcon.svg';
 export { ReactComponent as RockNBlockIcon } from './icons/rocknblockIcon.svg';
 export { ReactComponent as RockNBlockText } from './icons/rocknblockText.svg';

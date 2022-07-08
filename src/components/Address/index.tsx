@@ -1,5 +1,7 @@
 import { useMemo } from 'react';
 
+import s from './styles.module.scss';
+
 interface AddressProps {
   address: string;
   start?: number;
@@ -11,5 +13,5 @@ export const Address = ({ address, start = 5, end = 5 }: AddressProps) => {
     () => `${address.slice(0, start)}...${address.slice(end * -1)}`,
     [address, end, start],
   );
-  return <span>{normalizedAddress}</span>;
+  return <span className={s.container}>{normalizedAddress}</span>;
 };
