@@ -20,12 +20,7 @@ export const TokenList = ({ className }: TokenListProps) => {
 
   return (
     <div className={cn(s.card, className)}>
-      <Typography
-        type="body1"
-        fontFamily="DrukCyr Wide"
-        weight={900}
-        className={s.currentListTitle}
-      >
+      <Typography type="body1" fontFamily="DrukCyr Wide" weight={900} className={s.cardTitle}>
         Current prices
       </Typography>
       {Object.values(tokens).map((token) => (

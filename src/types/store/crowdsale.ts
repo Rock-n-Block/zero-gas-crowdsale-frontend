@@ -17,6 +17,9 @@ export type CrowdSaleState = {
   stage2StartDate: Date;
   stage2EndDate: Date;
   zeroGasPrice: number;
+  softcap: number;
+  minPurchase: number; // in 0GAS
+  maxPurchase: number; // left to buy in 0GAS
 };
 
 export interface GetCrowdsaleInfoPayload {

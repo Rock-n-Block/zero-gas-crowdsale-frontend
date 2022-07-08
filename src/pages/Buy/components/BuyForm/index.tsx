@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import cn from 'clsx';
 
 import { ZeroGasIcon } from '@/assets/img';
@@ -7,6 +7,7 @@ import { TOption } from '@/components/Dropdown';
 import { useShallowSelector } from '@/hooks';
 import crowdSaleSelectors from '@/store/crowdsale/selectors';
 import tokenSelectors from '@/store/tokens/selectors';
+import userSelector from '@/store/user/selectors';
 import { Token } from '@/types';
 
 import { getFormatNumber } from '../../helper';
@@ -19,15 +20,26 @@ const getTokenOption = (token: Token): TOption => ({
   label: token.symbol,
 });
 
+const getReceiveAmount = (sendAmount: number, sendPrice: number, receivePrice: number) => {
+  return (sendAmount * sendPrice) / receivePrice;
+};
+
 export interface BuyFormProps {
   className?: string;
 }
 
 export const BuyForm = ({ className }: BuyFormProps) => {
   const [selectedToken, setSelectedToken] = useState<TOption | undefined>(undefined);
+  const [sendAmount, setSendAmount] = useState('');
+  const [receiveAmount, setReceiveAmount] = useState('');
+  const [sendError, setSendError] = useState('');
+  const [receiveError, setReceiveError] = useState('');
 
   const { tokens } = useShallowSelector(tokenSelectors.getTokens);
-  const { hardcap, totalBought } = useShallowSelector(crowdSaleSelectors.getCrowdSale);
+  const { tokenBalances } = useShallowSelector(userSelector.getUser);
+  const { hardcap, totalBought, minPurchase, maxPurchase, zeroGasPrice } = useShallowSelector(
+    crowdSaleSelectors.getCrowdSale,
+  );
 
   const tokenOptions = useMemo<TOption[]>(
     () => Object.values(tokens).map((token) => getTokenOption(token)),
@@ -39,7 +51,81 @@ export const BuyForm = ({ className }: BuyFormProps) => {
     [sendToken?.value, tokenOptions],
   );
 
-  const handleTokenChange = useCallback((option: TOption) => setSelectedToken(option), []);
+  const handleValidateSendAmount = useCallback(
+    (value: number, newToken?: TOption) => {
+      if (value > tokenBalances[newToken?.value || sendToken.value]) {
+        setSendError(
+          `Not enought amount on wallet (${tokens[newToken?.value || sendToken.value].symbol})`,
+        );
+      } else {
+        setSendError('');
+      }
+    },
+    [sendToken?.value, tokenBalances, tokens],
+  );
+
+  const handleValidateReceiveAmount = useCallback(
+    (value: number) => {
+      if (value < minPurchase) {
+        setReceiveError(`0GAS amount must be >= ${minPurchase}`);
+      } else if (value > maxPurchase) {
+        setReceiveError(`0GAS amount must be <= ${maxPurchase}`);
+      } else {
+        setReceiveError('');
+      }
+    },
+    [maxPurchase, minPurchase],
+  );
+
+  const handleTokenChange = useCallback(
+    (option: TOption) => {
+      setSelectedToken(option);
+      const newSendAmount = getReceiveAmount(
+        +receiveAmount,
+        zeroGasPrice,
+        tokens[option?.value].value,
+      );
+      setSendAmount(newSendAmount.toString());
+      handleValidateSendAmount(newSendAmount, option);
+    },
+    [handleValidateSendAmount, receiveAmount, tokens, zeroGasPrice],
+  );
+
+  const handleSendAmountChange = useCallback(
+    ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+      // Don't allow enter not a number
+      if (Number.isNaN(+value) || value.length > 20) {
+        return;
+      }
+      setSendAmount(value);
+      const newReceiveAmount = getReceiveAmount(
+        +value,
+        tokens[sendToken.value].value,
+        zeroGasPrice,
+      );
+      setReceiveAmount(newReceiveAmount.toString());
+
+      handleValidateSendAmount(+value);
+      handleValidateReceiveAmount(newReceiveAmount);
+    },
+    [handleValidateReceiveAmount, handleValidateSendAmount, sendToken?.value, tokens, zeroGasPrice],
+  );
+
+  const handleReceiveAmountChange = useCallback(
+    ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+      // Don't allow enter not a number
+      if (Number.isNaN(+value) || value.length > 20) {
+        return;
+      }
+      setReceiveAmount(value);
+      const newSendAmount = getReceiveAmount(+value, zeroGasPrice, tokens[sendToken.value].value);
+      setSendAmount(newSendAmount.toString());
+
+      handleValidateSendAmount(newSendAmount);
+      handleValidateReceiveAmount(+value);
+    },
+    [handleValidateReceiveAmount, handleValidateSendAmount, sendToken?.value, tokens, zeroGasPrice],
+  );
 
   return (
     <div className={cn(s.card, className)}>
@@ -63,11 +149,12 @@ export const BuyForm = ({ className }: BuyFormProps) => {
             <Dropdown options={availableOptions} value={sendToken} onChange={handleTokenChange} />
           }
           className={s.sendInput}
+          value={sendAmount}
+          onChange={handleSendAmountChange}
+          errorText={sendError}
         />
         <Input
           placeholder="Receive"
-          readOnly
-          value={100}
           addon={
             <div className={s.zeroGasCurrency}>
               <ZeroGasIcon width={32} height={32} />
@@ -75,16 +162,20 @@ export const BuyForm = ({ className }: BuyFormProps) => {
             </div>
           }
           className={s.receiveInput}
+          value={receiveAmount}
+          onChange={handleReceiveAmountChange}
+          errorText={receiveError}
         />
         <Typography type="body2" className={s.helpText}>
           You buy 0GAS Tokens by sending USDT to the contract
         </Typography>
-        <Button className={s.formButton}>
+        <Button className={s.formButton} disabled={!receiveAmount || !!receiveError}>
           <Typography type="body1" fontFamily="DrukCyr Wide" className={s.formButtonTypography}>
             Buy zerogas
           </Typography>
         </Button>
       </form>
+
       <div className={s.claimIn}>
         <Typography type="body2">Claim your 1.000 0gas tokens in </Typography>
         <Button className={s.claimInButton}>
