@@ -3,19 +3,24 @@
 
 .wrapper {
   flex: 1;
+
   .content {
+    @include flex(row, space-evenly, flex-end);
     margin-right: 2px;
-    @include flex(row, space-evenly, center);
+    margin-top: 4px;
 
     .walletConnect {
       padding: 8px;
       border-radius: 0;
       border-bottom: 2px solid $dark-0;
       text-transform: uppercase;
+      margin-top: auto;
     }
+
     .buy {
       text-transform: uppercase;
     }
+
     .burger {
       display: none;
       margin-left: 8px;
@@ -28,18 +33,21 @@
   .wrapper {
     .content {
       @include flex(row, space-between, center);
+
       .walletConnect {
-        & > p {
+        &>p {
           font-size: 12px;
         }
       }
+
       .buy {
         margin-left: auto;
 
-        & > p {
+        &>p {
           font-size: 12px;
         }
       }
+
       .burger {
         display: inline-block;
       }

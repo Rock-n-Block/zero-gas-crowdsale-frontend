@@ -9,11 +9,14 @@
     top: 0;
     left: 0;
     z-index: 1;
+    border-bottom: 3px solid $dark-0
   }
+
   &Content {
     position: relative;
     @include flex(row, flex-start, center);
     padding: 12px 0;
+
     &Wrapper {
       border-top: 0px solid transparent;
     }

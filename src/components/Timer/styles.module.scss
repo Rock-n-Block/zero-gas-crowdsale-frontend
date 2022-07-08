@@ -6,13 +6,15 @@
   justify-content: space-between;
 
   .cell {
+    @include flex(column, flex-start, center);
     margin-right: 12px;
 
     .pill {
       background-color: $accent;
       border-radius: 44px;
       border: 2px solid black;
-      width: 128px;
+      width: 8vw;
+      min-width: 64px;
       text-align: center;
     }
 

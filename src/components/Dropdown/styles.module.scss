@@ -1,0 +1,101 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.wrapper {
+  position: relative;
+  z-index: 2;
+  padding: 10px;
+
+  .head {
+    cursor: pointer;
+    @include flex(row, space-between, center);
+    width: 100%;
+    height: 64px;
+
+    .head_content {
+      width: fit-content;
+    }
+
+    .arrow {
+      display: flex;
+      transition: 400ms ease-in-out;
+    }
+
+    .item_wrapper {
+      &:hover {
+        background: transparent;
+      }
+    }
+  }
+
+  .body {
+    display: none;
+    width: fit-content;
+    position: absolute;
+    top: 110%;
+    left: 0;
+    width: 100%;
+    height: auto;
+    max-height: 0;
+    overflow-y: hidden;
+    transition: 400ms ease-in-out;
+    border: 2px solid $dark-0;
+    border-radius: 20px;
+  }
+
+  &.open {
+    .head {
+      .arrow {
+        transform: rotate(180deg);
+      }
+    }
+
+    .body {
+      display: block;
+      overflow-y: auto;
+      max-height: 500px;
+    }
+  }
+}
+
+.item_wrapper {
+  appearance: none;
+  background: white;
+  border: 0px solid transparent;
+
+  @include flex(row, flex-start, center);
+  width: 100%;
+  min-width: 120px;
+  transition: 400ms ease-in-out;
+  padding: 0;
+  padding-right: 8px;
+  padding: 8px;
+
+  &:hover:not(:disabled) {
+    background: $accent;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background: lightgray;
+  }
+
+  &_icon {
+    @include flex(row, center, center);
+    margin-right: 10px;
+
+    &.onlyIcon {
+      @include b(tablet) {
+        margin-right: 0px;
+      }
+    }
+  }
+
+  &_value {
+    &.onlyIcon {
+      @include b(tablet) {
+        display: none;
+      }
+    }
+  }
+}
