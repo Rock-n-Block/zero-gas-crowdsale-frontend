@@ -1,0 +1,11 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.card {
+  .stageWillStart {
+    text-align: center;
+    text-transform: uppercase;
+
+    margin-bottom: 24px;
+  }
+}

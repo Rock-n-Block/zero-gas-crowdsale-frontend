@@ -5,13 +5,14 @@
   flex: 1;
 
   .content {
+    @include flex(row, space-evenly, flex-end);
     margin-right: 2px;
-    @include flex(row, space-evenly, center);
+    margin-top: 4px;
 
     .walletConnect {
       padding: 8px;
       border-radius: 0;
-      border-bottom: 1px solid $dark-0;
+      border-bottom: 2px solid $dark-0;
       text-transform: uppercase;
       margin-top: auto;
     }

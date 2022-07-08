@@ -10,8 +10,8 @@ export const anchorLinks = [
     label: 'Tokenomics',
   },
   {
-    to: '/#roadMap',
-    label: 'Road map',
+    to: '/#roadmap',
+    label: 'Roadmap',
   },
 ];
 

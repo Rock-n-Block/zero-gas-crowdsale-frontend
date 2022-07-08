@@ -6,8 +6,7 @@
   justify-content: space-between;
 
   .cell {
-    @include flex(row, flex-start, center);
-    flex-direction: column;
+    @include flex(column, flex-start, center);
     margin-right: 12px;
 
     .pill {
