@@ -8,7 +8,7 @@ import { useShallowSelector } from '@/hooks';
 import crowdSaleSelectors from '@/store/crowdsale/selectors';
 import tokenSelectors from '@/store/tokens/selectors';
 import userSelector from '@/store/user/selectors';
-import { Token } from '@/types';
+import { Stage, Token } from '@/types';
 import { getDaysLeft } from '@/utils';
 
 import { getFormatNumber } from '../../helper';
@@ -38,8 +38,17 @@ export const BuyForm = ({ className }: BuyFormProps) => {
 
   const { tokens } = useShallowSelector(tokenSelectors.getTokens);
   const { tokenBalances } = useShallowSelector(userSelector.getUser);
-  const { hardcap, totalBought, userBought, sellEnd, minPurchase, maxPurchase, zeroGasPrice } =
-    useShallowSelector(crowdSaleSelectors.getCrowdSale);
+  const {
+    hardcap,
+    softcap,
+    totalBought,
+    userBought,
+    sellEnd,
+    currentStage,
+    minPurchase,
+    maxPurchase,
+    zeroGasPrice,
+  } = useShallowSelector(crowdSaleSelectors.getCrowdSale);
 
   const tokenOptions = useMemo<TOption[]>(
     () => Object.values(tokens).map((token) => getTokenOption(token)),
@@ -52,6 +61,21 @@ export const BuyForm = ({ className }: BuyFormProps) => {
   );
 
   const claimDaysLeft = useMemo(() => getDaysLeft(sellEnd), [sellEnd]);
+
+  const canBuy = useMemo(
+    () =>
+      !!(
+        (currentStage === Stage.FIRST || currentStage === Stage.SECOND) &&
+        receiveAmount &&
+        !receiveError
+      ),
+    [currentStage, receiveAmount, receiveError],
+  );
+  const canClaim = useMemo(() => new Date() > sellEnd && !!userBought, [sellEnd, userBought]);
+  const canRefund = useMemo(
+    () => new Date() > sellEnd && totalBought < softcap,
+    [sellEnd, softcap, totalBought],
+  );
 
   const handleValidateSendAmount = useCallback(
     (value: number, newToken?: TOption) => {
@@ -171,20 +195,33 @@ export const BuyForm = ({ className }: BuyFormProps) => {
         <Typography type="body2" className={s.helpText}>
           You buy 0GAS Tokens by sending USDT to the contract
         </Typography>
-        <Button className={s.formButton} disabled={!receiveAmount || !!receiveError}>
+        <Button className={s.formButton} disabled={!canBuy}>
           <Typography type="body1" fontFamily="DrukCyr Wide" className={s.formButtonTypography}>
             Buy zerogas
           </Typography>
         </Button>
       </form>
 
-      <div className={s.claimIn}>
-        <Typography type="body2">Claim your {userBought} 0GAS tokens in </Typography>
-        <Button className={s.claimInButton} disabled>
-          <Typography type="body2" weight={700}>
-            {claimDaysLeft} DAYS
-          </Typography>
-        </Button>
+      <div className={s.claim}>
+        {canRefund ? (
+          <>
+            <Typography type="body2">Refund your {userBought} 0GAS tokens </Typography>
+            <Button className={s.claimButton} disabled={!canClaim}>
+              <Typography type="body2" weight={700}>
+                REFUND
+              </Typography>
+            </Button>
+          </>
+        ) : (
+          <>
+            <Typography type="body2">Claim your {userBought} 0GAS tokens </Typography>
+            <Button className={s.claimButton} disabled={!canClaim}>
+              <Typography type="body2" weight={700}>
+                {new Date() > sellEnd ? <>CLAIM</> : <>{claimDaysLeft} DAYS</>}
+              </Typography>
+            </Button>
+          </>
+        )}
       </div>
     </div>
   );

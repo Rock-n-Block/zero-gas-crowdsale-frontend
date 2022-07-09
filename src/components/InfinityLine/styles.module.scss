@@ -4,6 +4,7 @@
 .infinityLine {
   max-width: 100%;
   overflow: hidden;
+  border-bottom: 2px solid $dark-0;
   &Container {
     width: fit-content;
     @include flex(row, flex-start, center);
