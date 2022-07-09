@@ -28,6 +28,8 @@ export function* getCrowdsaleInfoSaga({
     const {
       hardcap,
       totalBought,
+      userBought,
+      sellEnd,
       stage,
       stageTimestamps,
       price,
@@ -37,6 +39,8 @@ export function* getCrowdsaleInfoSaga({
     } = yield* all({
       hardcap: call(crowdsaleContract.methods.hardcap().call),
       totalBought: call(crowdsaleContract.methods.totalBought().call),
+      userBought: call(crowdsaleContract.methods.userToBalance(userAddress, 3).call),
+      sellEnd: call(crowdsaleContract.methods.sellEnd().call),
       stage: call(crowdsaleContract.methods.getStage().call),
       stageTimestamps: call(crowdsaleContract.methods.getTimestamps().call),
       price: call(crowdsaleContract.methods.getPrice().call),
@@ -60,6 +64,8 @@ export function* getCrowdsaleInfoSaga({
       updateCrowdSaleState({
         hardcap: getNaturalTokenAmount(parseInt(hardcap, 10), ETHER_DECIMALS),
         totalBought: getNaturalTokenAmount(parseInt(totalBought, 10), ETHER_DECIMALS),
+        userBought: getNaturalTokenAmount(+userBought, ETHER_DECIMALS),
+        sellEnd: getLocalDate(+sellEnd),
         currentStage: +stage,
         stage1StartDate: stageTimestamps ? getLocalDate(+stageTimestamps[0][0]) : undefined,
         stage1EndDate: stageTimestamps ? getLocalDate(+stageTimestamps[0][1]) : undefined,

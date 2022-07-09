@@ -14,3 +14,9 @@ export function getLocalDate(seconds: number) {
     // - new Date().getTimezoneOffset() * 60_000
   );
 }
+
+export const DAY_MILLISECONDS = 24 * 60 * 60 * 1000;
+
+export function getDaysLeft(date: Date) {
+  return Math.floor((date.getTime() - new Date().getTime()) / DAY_MILLISECONDS);
+}

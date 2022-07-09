@@ -1,14 +1,18 @@
 import { FC, useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
+import { LoadingModal } from '@/components/LoadingModal';
 import { Footer, Header, RouterManager } from '@/containers';
 import { useAnchorLink, useInterval, useShallowSelector } from '@/hooks';
 import { useWalletConnectorContext } from '@/services';
 import { getCrowdsaleInfo } from '@/store/crowdsale/actions';
 import crowdSaleSelectors from '@/store/crowdsale/selectors';
 import { getTokens } from '@/store/tokens/actions';
+import uiSelectors from '@/store/ui/selectors';
 import { getUserInfo } from '@/store/user/actions';
+import userActionTypes from '@/store/user/actionTypes';
 import userSelector from '@/store/user/selectors';
+import { RequestStatus } from '@/types';
 
 import { useOverlay } from '../Overlay';
 
@@ -21,6 +25,9 @@ const App: FC = () => {
   const { setShouldRender } = useOverlay();
   const dispatch = useDispatch();
   const { walletService } = useWalletConnectorContext();
+  const { [userActionTypes.GET_USER_INFO]: getUserInfoStatus } = useShallowSelector(
+    uiSelectors.getUI,
+  );
 
   useEffect(() => {
     setShouldRender(isBuyOpen);
@@ -41,15 +48,19 @@ const App: FC = () => {
   useInterval(handleInterval, 60 * 1000);
 
   return (
-    <div className={s.mainWrapper}>
-      <Header />
+    <>
+      <div className={s.mainWrapper}>
+        <Header />
 
-      <div className={s.pageWrapper}>
-        <RouterManager />
+        <div className={s.pageWrapper}>
+          <RouterManager />
+        </div>
+
+        <Footer />
       </div>
 
-      <Footer />
-    </div>
+      <LoadingModal visible={getUserInfoStatus === RequestStatus.REQUEST} />
+    </>
   );
 };
 export default App;

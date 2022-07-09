@@ -47,11 +47,11 @@ export const contractsConfig: IContracts = {
   contracts: {
     [ContractsNames.crowdsale]: {
       mainnet: {
-        address: '0x644d0B1C212FACb9C0BdbaB4a8466EeF4A1Bab66',
+        address: '0x46F2CdafbA626f704e98e62428836a9cCEae784d',
         abi: crowdsaleAbi,
       },
       testnet: {
-        address: '0x644d0B1C212FACb9C0BdbaB4a8466EeF4A1Bab66',
+        address: '0x46F2CdafbA626f704e98e62428836a9cCEae784d',
         abi: crowdsaleAbi,
       },
     },

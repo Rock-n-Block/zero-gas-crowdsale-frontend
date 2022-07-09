@@ -9,6 +9,7 @@ import crowdSaleSelectors from '@/store/crowdsale/selectors';
 import tokenSelectors from '@/store/tokens/selectors';
 import userSelector from '@/store/user/selectors';
 import { Token } from '@/types';
+import { getDaysLeft } from '@/utils';
 
 import { getFormatNumber } from '../../helper';
 
@@ -37,9 +38,8 @@ export const BuyForm = ({ className }: BuyFormProps) => {
 
   const { tokens } = useShallowSelector(tokenSelectors.getTokens);
   const { tokenBalances } = useShallowSelector(userSelector.getUser);
-  const { hardcap, totalBought, minPurchase, maxPurchase, zeroGasPrice } = useShallowSelector(
-    crowdSaleSelectors.getCrowdSale,
-  );
+  const { hardcap, totalBought, userBought, sellEnd, minPurchase, maxPurchase, zeroGasPrice } =
+    useShallowSelector(crowdSaleSelectors.getCrowdSale);
 
   const tokenOptions = useMemo<TOption[]>(
     () => Object.values(tokens).map((token) => getTokenOption(token)),
@@ -51,11 +51,13 @@ export const BuyForm = ({ className }: BuyFormProps) => {
     [sendToken?.value, tokenOptions],
   );
 
+  const claimDaysLeft = useMemo(() => getDaysLeft(sellEnd), [sellEnd]);
+
   const handleValidateSendAmount = useCallback(
     (value: number, newToken?: TOption) => {
       if (value > tokenBalances[newToken?.value || sendToken.value]) {
         setSendError(
-          `Not enought amount on wallet (${tokens[newToken?.value || sendToken.value].symbol})`,
+          `Not enough amount on wallet (${tokens[newToken?.value || sendToken.value].symbol})`,
         );
       } else {
         setSendError('');
@@ -67,9 +69,9 @@ export const BuyForm = ({ className }: BuyFormProps) => {
   const handleValidateReceiveAmount = useCallback(
     (value: number) => {
       if (value < minPurchase) {
-        setReceiveError(`0GAS amount must be >= ${minPurchase}`);
+        setReceiveError(`Must be at least ${minPurchase.toLocaleString()} 0GAS`);
       } else if (value > maxPurchase) {
-        setReceiveError(`0GAS amount must be <= ${maxPurchase}`);
+        setReceiveError(`Must be at most ${maxPurchase.toLocaleString()} 0GAS`);
       } else {
         setReceiveError('');
       }
@@ -177,10 +179,10 @@ export const BuyForm = ({ className }: BuyFormProps) => {
       </form>
 
       <div className={s.claimIn}>
-        <Typography type="body2">Claim your 1.000 0gas tokens in </Typography>
-        <Button className={s.claimInButton}>
+        <Typography type="body2">Claim your {userBought} 0GAS tokens in </Typography>
+        <Button className={s.claimInButton} disabled>
           <Typography type="body2" weight={700}>
-            29 DAYS
+            {claimDaysLeft} DAYS
           </Typography>
         </Button>
       </div>

@@ -4,8 +4,11 @@ import { CrowdSaleState } from '@/types';
 
 const initialState: CrowdSaleState = {
   isOpen: false,
+
   hardcap: 0,
+  sellEnd: new Date(0),
   totalBought: 0,
+  userBought: 0,
   currentStage: -1,
   stage1StartDate: new Date(0),
   stage1EndDate: new Date(0),

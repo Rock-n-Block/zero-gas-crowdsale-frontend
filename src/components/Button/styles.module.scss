@@ -53,4 +53,7 @@
     background: transparent;
     border: 0px solid transparent;
   }
+  &:disabled {
+    background-color: $accent-2 !important;
+  }
 }
