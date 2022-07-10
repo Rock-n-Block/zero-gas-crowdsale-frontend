@@ -1,5 +1,11 @@
 import { URL } from '@/appConstants';
-import { GetMetamaskMessageResponse, MetamaskLoginData, MetamaskLoginResponse } from '@/types/api';
+import {
+  BuyData,
+  BuyResponse,
+  GetMetamaskMessageResponse,
+  MetamaskLoginData,
+  MetamaskLoginResponse,
+} from '@/types/api';
 
 import ajax from './ajax';
 
@@ -22,5 +28,12 @@ export const baseApi = {
       method: 'get',
       url: URL.tokens,
     });
+  },
+  buy(data: BuyData): BuyResponse {
+    return ajax({
+      method: 'post',
+      url: URL.buy,
+      data,
+    }) as any;
   },
 };

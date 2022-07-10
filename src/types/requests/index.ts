@@ -45,3 +45,14 @@ export interface GetTokensPayload extends RequestWithWeb3Provider {}
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface GetTokenBalancesPayload extends RequestWithWeb3Provider {}
+
+export interface BuyPayload extends RequestWithWeb3Provider {
+  amount: number;
+  tokenAddress: string;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface ClaimPayload extends RequestWithWeb3Provider {}
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface RefundPayload extends RequestWithWeb3Provider {}

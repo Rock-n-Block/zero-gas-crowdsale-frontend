@@ -1,10 +1,13 @@
 import { ChangeEvent, useCallback, useMemo, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import cn from 'clsx';
 
 import { ZeroGasIcon } from '@/assets/img';
 import { Button, Dropdown, Input, Progress, Typography } from '@/components';
 import { TOption } from '@/components/Dropdown';
 import { useShallowSelector } from '@/hooks';
+import { useWalletConnectorContext } from '@/services';
+import { buy, claim, refund } from '@/store/crowdsale/actions';
 import crowdSaleSelectors from '@/store/crowdsale/selectors';
 import tokenSelectors from '@/store/tokens/selectors';
 import userSelector from '@/store/user/selectors';
@@ -49,6 +52,8 @@ export const BuyForm = ({ className }: BuyFormProps) => {
     maxPurchase,
     zeroGasPrice,
   } = useShallowSelector(crowdSaleSelectors.getCrowdSale);
+  const dispatch = useDispatch();
+  const { walletService } = useWalletConnectorContext();
 
   const tokenOptions = useMemo<TOption[]>(
     () => Object.values(tokens).map((token) => getTokenOption(token)),
@@ -79,9 +84,9 @@ export const BuyForm = ({ className }: BuyFormProps) => {
 
   const handleValidateSendAmount = useCallback(
     (value: number, newToken?: TOption) => {
-      if (value > tokenBalances[newToken?.value || sendToken.value]) {
+      if (value > tokenBalances[newToken?.value || sendToken?.value]) {
         setSendError(
-          `Not enough amount on wallet (${tokens[newToken?.value || sendToken.value].symbol})`,
+          `Not enough amount on wallet (${tokens[newToken?.value || sendToken?.value].symbol})`,
         );
       } else {
         setSendError('');
@@ -126,7 +131,7 @@ export const BuyForm = ({ className }: BuyFormProps) => {
       setSendAmount(value);
       const newReceiveAmount = getReceiveAmount(
         +value,
-        tokens[sendToken.value].value,
+        tokens[sendToken?.value].value,
         zeroGasPrice,
       );
       setReceiveAmount(newReceiveAmount.toString());
@@ -144,13 +149,44 @@ export const BuyForm = ({ className }: BuyFormProps) => {
         return;
       }
       setReceiveAmount(value);
-      const newSendAmount = getReceiveAmount(+value, zeroGasPrice, tokens[sendToken.value].value);
+      const newSendAmount = getReceiveAmount(+value, zeroGasPrice, tokens[sendToken?.value].value);
       setSendAmount(newSendAmount.toString());
 
       handleValidateSendAmount(newSendAmount);
       handleValidateReceiveAmount(+value);
     },
     [handleValidateReceiveAmount, handleValidateSendAmount, sendToken?.value, tokens, zeroGasPrice],
+  );
+
+  const handleBuy = useCallback(() => {
+    dispatch(
+      buy({
+        amount: +receiveAmount,
+        tokenAddress: sendToken?.value,
+        web3Provider: walletService.Web3(),
+      }),
+    );
+    // TODO: increment progress bar
+  }, [dispatch, receiveAmount, sendToken?.value, walletService]);
+
+  const handleClaim = useCallback(
+    () =>
+      dispatch(
+        claim({
+          web3Provider: walletService.Web3(),
+        }),
+      ),
+    [dispatch, walletService],
+  );
+
+  const handleRefund = useCallback(
+    () =>
+      dispatch(
+        refund({
+          web3Provider: walletService.Web3(),
+        }),
+      ),
+    [dispatch, walletService],
   );
 
   return (
@@ -195,7 +231,7 @@ export const BuyForm = ({ className }: BuyFormProps) => {
         <Typography type="body2" className={s.helpText}>
           You buy 0GAS Tokens by sending USDT to the contract
         </Typography>
-        <Button className={s.formButton} disabled={!canBuy}>
+        <Button className={s.formButton} disabled={!canBuy} onClick={handleBuy}>
           <Typography type="body1" fontFamily="DrukCyr Wide" className={s.formButtonTypography}>
             Buy zerogas
           </Typography>
@@ -206,7 +242,7 @@ export const BuyForm = ({ className }: BuyFormProps) => {
         {canRefund ? (
           <>
             <Typography type="body2">Refund your {userBought} 0GAS tokens </Typography>
-            <Button className={s.claimButton} disabled={!canClaim}>
+            <Button className={s.claimButton} disabled={!canClaim} onClick={handleRefund}>
               <Typography type="body2" weight={700}>
                 REFUND
               </Typography>
@@ -215,7 +251,7 @@ export const BuyForm = ({ className }: BuyFormProps) => {
         ) : (
           <>
             <Typography type="body2">Claim your {userBought} 0GAS tokens </Typography>
-            <Button className={s.claimButton} disabled={!canClaim}>
+            <Button className={s.claimButton} disabled={!canClaim} onClick={handleClaim}>
               <Typography type="body2" weight={700}>
                 {new Date() > sellEnd ? <>CLAIM</> : <>{claimDaysLeft} DAYS</>}
               </Typography>

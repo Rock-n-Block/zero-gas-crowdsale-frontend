@@ -5,7 +5,7 @@ import { Modals, ModalsInitialState, ModalState } from '@/types';
 const initialState: ModalsInitialState = {
   modalState: {
     activeModal: Modals.init,
-    txHash: '',
+    txHash: '', // recent transaction hash
     open: false,
   },
 };
@@ -33,6 +33,6 @@ export const modalsReducer = createSlice({
   },
 });
 
-export const { setActiveModal } = modalsReducer.actions;
+export const { setActiveModal, closeModal } = modalsReducer.actions;
 
 export default modalsReducer.reducer;
