@@ -47,7 +47,7 @@ export interface GetTokensPayload extends RequestWithWeb3Provider {}
 export interface GetTokenBalancesPayload extends RequestWithWeb3Provider {}
 
 export interface BuyPayload extends RequestWithWeb3Provider {
-  amount: number;
+  amount: string;
   tokenAddress: string;
 }
 

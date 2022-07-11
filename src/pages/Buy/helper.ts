@@ -7,13 +7,7 @@ export const stageTexts = {
   [Stage.FIRST]: 'Stage 1 will end in:',
   [Stage.PAUSE]: 'Stage 2 will start in:',
   [Stage.SECOND]: 'Stage 2 will end in:',
-};
-
-export const getStageText = (currentStage: Stage, staged2EndTime: Date) => {
-  if (new Date() > staged2EndTime) {
-    return 'Crowdsale ended, claim your tokens';
-  }
-  return stageTexts[currentStage];
+  [Stage.END]: 'Crowdsale ended, claim your tokens',
 };
 
 export const getTimeLeftDate = ({
@@ -34,6 +28,7 @@ export const getTimeLeftDate = ({
     [Stage.FIRST]: stage1EndDate,
     [Stage.PAUSE]: stage2StartDate,
     [Stage.SECOND]: stage2EndDate,
+    [Stage.END]: new Date(0),
   };
   return timeLeftDates[currentStage];
 };

@@ -8,7 +8,6 @@ import { getTokensSaga } from '@/store/tokens/sagas/getTokens';
 import userActionTypes from '@/store/user/actionTypes';
 import { getTokenBalancesSaga } from '@/store/user/sagas/getTokenBalances';
 import userSelector from '@/store/user/selectors';
-import { getLocalDate } from '@/utils';
 import { getNaturalTokenAmount } from '@/utils/getTokenAmount';
 
 import { getCrowdsaleInfo } from '../actions';
@@ -25,33 +24,23 @@ export function* getCrowdsaleInfoSaga({
   const crowdsaleContract = getCrowdsaleContract(web3Provider);
   const { address: userAddress } = yield* select(userSelector.getUser);
   try {
-    const {
-      hardcap,
-      totalBought,
-      userBought,
-      stage,
-      stageTimestamps,
-      price,
-      softcap,
-      minPurchase,
-      maxPurchase,
-    } = yield* all({
-      hardcap: call(crowdsaleContract.methods.hardcap().call),
-      totalBought: call(crowdsaleContract.methods.totalBought().call),
-      userBought: call(crowdsaleContract.methods.userToBalance(userAddress, 3).call),
-      stage: call(crowdsaleContract.methods.getStage().call),
-      stageTimestamps: call(crowdsaleContract.methods.getTimestamps().call),
-      price: call(crowdsaleContract.methods.getPrice().call),
-      softcap: call(crowdsaleContract.methods.softcap().call),
-      minPurchase: call(crowdsaleContract.methods.minPurchase().call),
-      maxPurchase: call(crowdsaleContract.methods.getMaxAllowable(userAddress).call),
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      tokens: call(getTokensSaga, {
-        type: tokenActionTypes.GET_TOKENS,
-        payload: { web3Provider },
-      }),
-    });
+    const { hardcap, totalBought, userBought, stage, stageTimestamps, price, softcap, allowance } =
+      yield* all({
+        hardcap: call(crowdsaleContract.methods.hardcap().call),
+        totalBought: call(crowdsaleContract.methods.totalBought().call),
+        userBought: call(crowdsaleContract.methods.userToBalance(userAddress, 3).call),
+        stage: call(crowdsaleContract.methods.getStage().call),
+        stageTimestamps: call(crowdsaleContract.methods.getTimestamps().call),
+        price: call(crowdsaleContract.methods.getPrice().call),
+        softcap: call(crowdsaleContract.methods.softcap().call),
+        allowance: call(crowdsaleContract.methods.getAllowable(userAddress).call),
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        tokens: call(getTokensSaga, {
+          type: tokenActionTypes.GET_TOKENS,
+          payload: { web3Provider },
+        }),
+      });
 
     yield* call(getTokenBalancesSaga, {
       type: userActionTypes.GET_TOKEN_BALANCES,
@@ -70,8 +59,8 @@ export function* getCrowdsaleInfoSaga({
         stage2EndDate: stageTimestamps ? +stageTimestamps[1][1] : 0,
         zeroGasPrice: new BigNumber(+price.price).dividedBy(+price.denominator).toNumber(),
         softcap: getNaturalTokenAmount(+softcap, ETHER_DECIMALS),
-        minPurchase: getNaturalTokenAmount(+minPurchase, ETHER_DECIMALS),
-        maxPurchase: getNaturalTokenAmount(+maxPurchase, ETHER_DECIMALS),
+        minPurchase: getNaturalTokenAmount(+allowance[0], ETHER_DECIMALS),
+        maxPurchase: getNaturalTokenAmount(+allowance[1], ETHER_DECIMALS),
       }),
     );
 

@@ -137,8 +137,8 @@
   },
   {
     "inputs": [{ "internalType": "address", "name": "user", "type": "address" }],
-    "name": "getMaxAllowable",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "name": "getAllowable",
+    "outputs": [{ "internalType": "uint256[2]", "name": "alowable", "type": "uint256[2]" }],
     "stateMutability": "view",
     "type": "function"
   },

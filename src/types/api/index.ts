@@ -16,7 +16,7 @@ export type MetamaskLoginResponse = {
 
 export type BuyData = {
   token_address: string;
-  amount_to_receive: number;
+  amount_to_receive: string;
 };
 
 export type BuyResponse = {

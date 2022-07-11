@@ -100,7 +100,7 @@ export interface CrowdsaleAbi extends BaseContract {
 
     claimRised(): NonPayableTransactionObject<void>;
 
-    getMaxAllowable(user: string): NonPayableTransactionObject<string>;
+    getAllowable(user: string): NonPayableTransactionObject<string[]>;
 
     getPrice(): NonPayableTransactionObject<{
       price: string;

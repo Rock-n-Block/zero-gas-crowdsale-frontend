@@ -5,6 +5,7 @@ export enum Stage {
   FIRST = 1,
   PAUSE = 0,
   SECOND = 2,
+  END = 3,
 }
 
 export type CrowdSaleState = {
