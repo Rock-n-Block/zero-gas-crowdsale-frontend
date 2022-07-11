@@ -13,3 +13,12 @@ export type MetamaskLoginResponse = {
     key: string;
   };
 };
+
+export type BuyData = {
+  token_address: string;
+  amount_to_receive: string;
+};
+
+export type BuyResponse = {
+  data: { initial_tx: any };
+};

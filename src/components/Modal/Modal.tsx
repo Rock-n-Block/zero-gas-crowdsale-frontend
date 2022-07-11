@@ -1,4 +1,4 @@
-import { PropsWithChildren, VFC, ReactNode } from 'react';
+import { PropsWithChildren, ReactNode, VFC } from 'react';
 import cn from 'clsx';
 import Dialog from 'rc-dialog';
 
@@ -8,7 +8,7 @@ export interface ModalProps {
   className?: string;
   visible: boolean;
   closeable: boolean;
-  onClose: () => void;
+  onClose?: () => void;
   closeIcon?: ReactNode;
 }
 export const Modal: VFC<PropsWithChildren<ModalProps>> = ({

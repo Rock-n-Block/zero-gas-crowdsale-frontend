@@ -5,3 +5,4 @@ export * from './copyToClipboard';
 export * from './logger';
 export * from './cssVariable';
 export * from './math';
+export * from './getUtcTime';

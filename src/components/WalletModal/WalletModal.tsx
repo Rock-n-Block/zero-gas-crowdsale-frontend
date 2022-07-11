@@ -1,13 +1,11 @@
 import { FC, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import cn from 'clsx';
 
 import { CopyIcon, CrossIcon } from '@/assets/img';
 import { useShallowSelector } from '@/hooks';
 import { useWalletConnectorContext } from '@/services';
-import { setActiveModal } from '@/store/modals/reducer';
+import { closeModal } from '@/store/modals/reducer';
 import userSelector from '@/store/user/selectors';
-import { Modals } from '@/types';
 import { copyToClipboard } from '@/utils';
 
 import { Address } from '../Address';
@@ -33,11 +31,7 @@ export const WalletModal: FC<WalletModalProps> = ({ ...rest }) => {
   const handleDisconnect = useCallback(() => {
     disconnect();
 
-    dispatch(
-      setActiveModal({
-        activeModal: Modals.init,
-      }),
-    );
+    dispatch(closeModal());
   }, []);
 
   return (

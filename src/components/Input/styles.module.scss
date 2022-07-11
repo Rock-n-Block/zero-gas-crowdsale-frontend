@@ -9,6 +9,11 @@
   height: 80px;
   font-size: 24px;
   padding-left: 24px;
+  margin-bottom: 8px;
+
+  &.error {
+    border-color: $error;
+  }
 
   .input {
     width: 100%;
@@ -28,4 +33,9 @@
     border-left: 1px solid $dark-0;
     min-width: 150px;
   }
+}
+
+.errorText {
+  padding-left: 24px;
+  color: $error
 }

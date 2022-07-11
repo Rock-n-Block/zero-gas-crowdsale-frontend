@@ -16,6 +16,7 @@ export interface StageTimerProps {
 export const StageTimer = ({ className }: StageTimerProps) => {
   const { currentStage, stage1StartDate, stage1EndDate, stage2StartDate, stage2EndDate } =
     useShallowSelector(crowdSaleSelectors.getCrowdSale);
+
   const timeLeft = useTimeLeft(
     getTimeLeftDate({
       currentStage,
@@ -29,7 +30,7 @@ export const StageTimer = ({ className }: StageTimerProps) => {
   return (
     <div className={cn(s.card, className)}>
       <Typography type="body1" fontFamily="DrukCyr Wide" weight={900} className={s.stageWillStart}>
-        {currentStage && stageTexts[currentStage]}
+        {stageTexts[currentStage]}
       </Typography>
       <Timer
         days={timeLeft.days}

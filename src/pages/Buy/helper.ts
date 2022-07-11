@@ -7,6 +7,7 @@ export const stageTexts = {
   [Stage.FIRST]: 'Stage 1 will end in:',
   [Stage.PAUSE]: 'Stage 2 will start in:',
   [Stage.SECOND]: 'Stage 2 will end in:',
+  [Stage.END]: 'Crowdsale ended, claim your tokens',
 };
 
 export const getTimeLeftDate = ({
@@ -22,17 +23,14 @@ export const getTimeLeftDate = ({
   stage2StartDate: Date;
   stage2EndDate: Date;
 }) => {
-  if (currentStage === Stage.UNINITIALIZED) {
-    return stage1StartDate;
-  }
-  if (currentStage === Stage.FIRST) {
-    return stage1EndDate;
-  }
-  if (currentStage === Stage.PAUSE) {
-    return stage2StartDate;
-  }
-  // currentStage === Stage.SECOND
-  return stage2EndDate;
+  const timeLeftDates = {
+    [Stage.UNINITIALIZED]: stage1StartDate,
+    [Stage.FIRST]: stage1EndDate,
+    [Stage.PAUSE]: stage2StartDate,
+    [Stage.SECOND]: stage2EndDate,
+    [Stage.END]: new Date(0),
+  };
+  return timeLeftDates[currentStage];
 };
 
 export const getFormatNumber = (number: number) => number.toLocaleString().replace(',', ' ');

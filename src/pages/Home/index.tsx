@@ -4,23 +4,18 @@ import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 
 import { WalletModal } from '@/components';
 import { useShallowSelector } from '@/hooks';
-import { setActiveModal } from '@/store/modals/reducer';
+import { closeModal } from '@/store/modals/reducer';
 import modalsSelectors from '@/store/modals/selectors';
-import userSelectors from '@/store/user/selectors';
 import { Modals } from '@/types';
-import { AboutUs, Main, RoadMap, Tokenomics, Partners } from './containers';
+
+import { AboutUs, Main, Partners, RoadMap, Tokenomics } from './containers';
 
 const Home = () => {
   const { activeModal } = useShallowSelector(modalsSelectors.getProp('modalState'));
-  const address = useShallowSelector(userSelectors.getProp('address'));
   const dispatch = useDispatch();
 
   const handleActiveModalClose = useCallback(() => {
-    dispatch(
-      setActiveModal({
-        activeModal: Modals.init,
-      }),
-    );
+    dispatch(closeModal());
   }, [dispatch]);
 
   return (

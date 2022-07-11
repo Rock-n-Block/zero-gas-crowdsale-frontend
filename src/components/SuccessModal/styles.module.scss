@@ -1,0 +1,32 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.container {
+  @include flex(column, stretch, center, nowrap);
+  padding: 0 30px;
+  padding-bottom: 30px;
+
+  .title {
+    text-transform: uppercase;
+    margin: 0;
+    margin-bottom: 8%;
+    text-align: center;
+  }
+
+  .transactionHash {
+    padding: 8px;
+    text-transform: uppercase;
+
+    .copy {
+      background: none;
+      border: none;
+      width: 32px;
+      height: 32px;
+      margin-left: 8px;
+
+      :hover {
+        cursor: pointer;
+      }
+    }
+  }
+}

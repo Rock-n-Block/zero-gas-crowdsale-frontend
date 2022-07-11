@@ -4,14 +4,19 @@ import { CrowdSaleState } from '@/types';
 
 const initialState: CrowdSaleState = {
   isOpen: false,
+
   hardcap: 0,
   totalBought: 0,
+  userBought: 0,
   currentStage: -1,
-  stage1StartDate: new Date(0),
-  stage1EndDate: new Date(0),
-  stage2StartDate: new Date(0),
-  stage2EndDate: new Date(0),
+  stage1StartDate: 0,
+  stage1EndDate: 0,
+  stage2StartDate: 0,
+  stage2EndDate: 0,
   zeroGasPrice: 0,
+  softcap: 0,
+  minPurchase: 0,
+  maxPurchase: 0,
 };
 
 export const CrowdSaleReducer = createSlice({

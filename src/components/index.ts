@@ -9,3 +9,7 @@ export { Progress } from './Progress';
 export { WalletModal } from './WalletModal';
 export { Timer } from './Timer';
 export { Dropdown } from './Dropdown';
+export { LoadingModal } from './LoadingModal';
+export { SuccessModal } from './SuccessModal';
+export { ErrorModal } from './ErrorModal';
+export { NumberInput } from './NumberInput';

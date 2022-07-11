@@ -9,18 +9,18 @@ export function* getUserInfoSaga({
   type,
   payload: { web3Provider },
 }: ReturnType<typeof getUserInfo>) {
-  yield put(request(type));
+  yield* put(request(type));
 
   try {
     // TODO
 
-    yield put(success(type));
+    yield* put(success(type));
   } catch (err) {
     console.error(err);
-    yield put(error(type, err));
+    yield* put(error(type, err));
   }
 }
 
 export default function* listener() {
-  yield takeLatest(actionTypes.GET_USER_INFO, getUserInfoSaga);
+  yield* takeLatest(actionTypes.GET_USER_INFO, getUserInfoSaga);
 }

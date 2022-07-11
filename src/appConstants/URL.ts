@@ -5,6 +5,7 @@ const accountURLs = {
 
 const URL = {
   tokens: 'sales/tokens/',
+  buy: 'sales/signature/',
   ...accountURLs,
 };
 export default URL;
