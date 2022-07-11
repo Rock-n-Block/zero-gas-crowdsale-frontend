@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useMemo, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import cn from 'clsx';
 
@@ -6,14 +6,19 @@ import { ZeroGasIcon } from '@/assets/img';
 import { Button, Dropdown, Progress, Typography } from '@/components';
 import { TOption } from '@/components/Dropdown';
 import { NumberInput } from '@/components/NumberInput';
+import { ETHER_DECIMALS } from '@/config/constants';
 import { useShallowSelector } from '@/hooks';
 import { useWalletConnectorContext } from '@/services';
 import { buy, claim, refund } from '@/store/crowdsale/actions';
+import { updateCrowdSaleState } from '@/store/crowdsale/reducer';
 import crowdSaleSelectors from '@/store/crowdsale/selectors';
+import { getCrowdsaleContract } from '@/store/crowdsale/utils';
 import tokenSelectors from '@/store/tokens/selectors';
 import userSelector from '@/store/user/selectors';
 import { Stage, Token } from '@/types';
+import { Buy } from '@/types/contracts/CrowdsaleAbi';
 import { getDaysLeft } from '@/utils';
+import { getDecimalTokenAmount } from '@/utils/getTokenAmount';
 
 import { getFormatNumber } from '../../helper';
 
@@ -157,7 +162,7 @@ export const BuyForm = ({ className }: BuyFormProps) => {
   const handleBuy = useCallback(() => {
     dispatch(
       buy({
-        amount: +receiveAmount,
+        amount: getDecimalTokenAmount(+receiveAmount, ETHER_DECIMALS),
         tokenAddress: sendToken?.value,
         web3Provider: walletService.Web3(),
       }),
@@ -184,6 +189,23 @@ export const BuyForm = ({ className }: BuyFormProps) => {
       ),
     [dispatch, walletService],
   );
+
+  const handleBuyEvent = useCallback(
+    (error: Error, result: Buy) => {
+      if (error) {
+        return;
+      }
+
+      dispatch(updateCrowdSaleState({ totalBought: totalBought + +result.returnValues.bought }));
+    },
+    [dispatch, totalBought],
+  );
+
+  useEffect(() => {
+    const web3Provider = walletService.Web3();
+    const crowdsaleContract = getCrowdsaleContract(web3Provider);
+    crowdsaleContract.events.Buy(handleBuyEvent);
+  }, [handleBuyEvent, walletService]);
 
   return (
     <div className={cn(s.card, className)}>
