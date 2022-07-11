@@ -12,3 +12,4 @@ export { Dropdown } from './Dropdown';
 export { LoadingModal } from './LoadingModal';
 export { SuccessModal } from './SuccessModal';
 export { ErrorModal } from './ErrorModal';
+export { NumberInput } from './NumberInput';

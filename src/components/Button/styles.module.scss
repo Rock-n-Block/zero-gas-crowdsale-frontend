@@ -31,6 +31,10 @@
     &.common {
       background: $accent;
       border: 2px solid transparent;
+
+      &:disabled {
+        background-color: $accent-2;
+      }
     }
   }
   .startIcon {
@@ -52,8 +56,5 @@
   &.text {
     background: transparent;
     border: 0px solid transparent;
-  }
-  &:disabled {
-    background-color: $accent-2 !important;
   }
 }

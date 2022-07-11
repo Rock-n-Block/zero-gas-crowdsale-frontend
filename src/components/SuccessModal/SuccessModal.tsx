@@ -18,7 +18,10 @@ export interface SuccessModalProps {
 }
 
 export const SuccessModal: FC<SuccessModalProps> = ({ transactionHash, ...rest }) => {
-  const handleCopyAddress = useCallback(() => copyToClipboard(transactionHash), [transactionHash]);
+  const handleCopyAddress = useCallback(
+    () => copyToClipboard(transactionHash || ''),
+    [transactionHash],
+  );
 
   return (
     <Modal closeable closeIcon={<CrossIcon />} {...rest}>

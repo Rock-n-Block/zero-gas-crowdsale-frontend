@@ -14,12 +14,11 @@ export type CrowdSaleState = {
   totalBought: number; // in 0GAS
   userBought: number; // in 0GAS
 
-  sellEnd: Date; // buy end & claim start time
   currentStage: Stage;
-  stage1StartDate: Date;
-  stage1EndDate: Date;
-  stage2StartDate: Date;
-  stage2EndDate: Date;
+  stage1StartDate: number;
+  stage1EndDate: number;
+  stage2StartDate: number;
+  stage2EndDate: number; // buy end & claim start time
 
   zeroGasPrice: number; // in $
   softcap: number; // in 0GAS

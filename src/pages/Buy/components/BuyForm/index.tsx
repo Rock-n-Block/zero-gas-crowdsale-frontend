@@ -3,8 +3,9 @@ import { useDispatch } from 'react-redux';
 import cn from 'clsx';
 
 import { ZeroGasIcon } from '@/assets/img';
-import { Button, Dropdown, Input, Progress, Typography } from '@/components';
+import { Button, Dropdown, Progress, Typography } from '@/components';
 import { TOption } from '@/components/Dropdown';
+import { NumberInput } from '@/components/NumberInput';
 import { useShallowSelector } from '@/hooks';
 import { useWalletConnectorContext } from '@/services';
 import { buy, claim, refund } from '@/store/crowdsale/actions';
@@ -46,8 +47,8 @@ export const BuyForm = ({ className }: BuyFormProps) => {
     softcap,
     totalBought,
     userBought,
-    sellEnd,
     currentStage,
+    stage2EndDate,
     minPurchase,
     maxPurchase,
     zeroGasPrice,
@@ -65,7 +66,7 @@ export const BuyForm = ({ className }: BuyFormProps) => {
     [sendToken?.value, tokenOptions],
   );
 
-  const claimDaysLeft = useMemo(() => getDaysLeft(sellEnd), [sellEnd]);
+  const claimDaysLeft = useMemo(() => getDaysLeft(stage2EndDate), [stage2EndDate]);
 
   const canBuy = useMemo(
     () =>
@@ -76,10 +77,13 @@ export const BuyForm = ({ className }: BuyFormProps) => {
       ),
     [currentStage, receiveAmount, receiveError],
   );
-  const canClaim = useMemo(() => new Date() > sellEnd && !!userBought, [sellEnd, userBought]);
+  const canClaim = useMemo(
+    () => new Date() > stage2EndDate && !!userBought,
+    [stage2EndDate, userBought],
+  );
   const canRefund = useMemo(
-    () => new Date() > sellEnd && totalBought < softcap,
-    [sellEnd, softcap, totalBought],
+    () => new Date() > stage2EndDate && totalBought < softcap,
+    [stage2EndDate, softcap, totalBought],
   );
 
   const handleValidateSendAmount = useCallback(
@@ -124,10 +128,6 @@ export const BuyForm = ({ className }: BuyFormProps) => {
 
   const handleSendAmountChange = useCallback(
     ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
-      // Don't allow enter not a number
-      if (Number.isNaN(+value) || value.length > 20) {
-        return;
-      }
       setSendAmount(value);
       const newReceiveAmount = getReceiveAmount(
         +value,
@@ -144,10 +144,6 @@ export const BuyForm = ({ className }: BuyFormProps) => {
 
   const handleReceiveAmountChange = useCallback(
     ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
-      // Don't allow enter not a number
-      if (Number.isNaN(+value) || value.length > 20) {
-        return;
-      }
       setReceiveAmount(value);
       const newSendAmount = getReceiveAmount(+value, zeroGasPrice, tokens[sendToken?.value].value);
       setSendAmount(newSendAmount.toString());
@@ -205,7 +201,7 @@ export const BuyForm = ({ className }: BuyFormProps) => {
       </Progress>
 
       <form className={s.form}>
-        <Input
+        <NumberInput
           placeholder="Send"
           addon={
             <Dropdown options={availableOptions} value={sendToken} onChange={handleTokenChange} />
@@ -214,8 +210,9 @@ export const BuyForm = ({ className }: BuyFormProps) => {
           value={sendAmount}
           onChange={handleSendAmountChange}
           errorText={sendError}
+          maxLength={20}
         />
-        <Input
+        <NumberInput
           placeholder="Receive"
           addon={
             <div className={s.zeroGasCurrency}>
@@ -227,6 +224,7 @@ export const BuyForm = ({ className }: BuyFormProps) => {
           value={receiveAmount}
           onChange={handleReceiveAmountChange}
           errorText={receiveError}
+          maxLength={20}
         />
         <Typography type="body2" className={s.helpText}>
           You buy 0GAS Tokens by sending USDT to the contract
@@ -253,7 +251,7 @@ export const BuyForm = ({ className }: BuyFormProps) => {
             <Typography type="body2">Claim your {userBought} 0GAS tokens </Typography>
             <Button className={s.claimButton} disabled={!canClaim} onClick={handleClaim}>
               <Typography type="body2" weight={700}>
-                {new Date() > sellEnd ? <>CLAIM</> : <>{claimDaysLeft} DAYS</>}
+                {new Date() > stage2EndDate ? <>CLAIM</> : <>{claimDaysLeft} DAYS</>}
               </Typography>
             </Button>
           </>
