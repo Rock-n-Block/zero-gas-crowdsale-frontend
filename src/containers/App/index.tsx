@@ -88,8 +88,6 @@ const App: FC = () => {
         <div className={s.pageWrapper}>
           <RouterManager />
         </div>
-
-        <Footer />
       </div>
 
       <LoadingModal visible={shouldShowLoading} />

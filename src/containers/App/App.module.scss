@@ -7,14 +7,17 @@
   z-index: 0;
   min-height: 100vh;
   @include flex(column, flex-start, center);
-  footer{
+
+  footer {
     margin-top: auto;
   }
 }
 
-.pageWrapper{
+.pageWrapper {
   width: 100%;
   position: relative;
   // header size
   padding-top: 54px;
+  height: 100vh;
+  position: relative;
 }
