@@ -33,7 +33,7 @@ const Home = () => {
       <Parallax speed={20}>
         <RoadMap />
       </Parallax>
-      <Parallax speed={-10}>
+      <Parallax speed={0}>
         <Partners />
       </Parallax>
       <Parallax speed={0}>

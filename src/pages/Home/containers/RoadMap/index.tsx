@@ -10,7 +10,7 @@ import s from './styles.module.scss';
 
 export const RoadMap = () => {
   return (
-    <div className={s.wrapper} id="roadMap">
+    <div className={s.wrapper} id="roadmap">
       <div className={s.container}>
         <Typography className={s.title} type="h2" fontFamily="DrukCyr Wide" weight={900}>
           Roadmap
