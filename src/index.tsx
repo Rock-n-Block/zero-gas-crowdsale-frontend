@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { ParallaxProvider } from 'react-scroll-parallax';
 import { ToastContainer } from 'react-toastify';
 import { PersistGate } from 'redux-persist/integration/react';
 
@@ -20,10 +21,10 @@ const app = (
       <Router>
         <WalletConnectContext>
           <OverlayProvider overlayChildren={[<Buy key="buy" />]}>
-            <>
+            <ParallaxProvider>
               <ToastContainer hideProgressBar />
               <App />
-            </>
+            </ParallaxProvider>
           </OverlayProvider>
         </WalletConnectContext>
       </Router>
