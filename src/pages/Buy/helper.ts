@@ -7,7 +7,7 @@ export const stageTexts = {
   [Stage.FIRST]: 'Stage 1 will end in:',
   [Stage.PAUSE]: 'Stage 2 will start in:',
   [Stage.SECOND]: 'Stage 2 will end in:',
-  [Stage.END]: 'Crowdsale ended, claim your tokens',
+  [Stage.END]: 'Crowdsale ended',
 };
 
 export const getTimeLeftEnd = ({

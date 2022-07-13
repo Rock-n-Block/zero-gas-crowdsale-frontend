@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import cn from 'clsx';
 
@@ -10,7 +10,7 @@ import { useTimeLeft } from '@/hooks/useTimeLeft';
 import crowdSaleActionType from '@/store/crowdsale/actionTypes';
 import { updateCrowdSaleOpenState } from '@/store/crowdsale/reducer';
 import crowdSaleSelectors from '@/store/crowdsale/selectors';
-import { getStage } from '@/store/crowdsale/utils';
+import { getStage as getStageUtil } from '@/store/crowdsale/utils';
 import uiSelectors from '@/store/ui/selectors';
 import { RequestStatus } from '@/types';
 
@@ -40,9 +40,9 @@ const Buy = () => {
     uiSelectors.getUI,
   );
 
-  const stage = useMemo(
+  const getStage = useCallback(
     () =>
-      getStage({
+      getStageUtil({
         stage1StartDate,
         stage1EndDate,
         stage2StartDate,
@@ -50,21 +50,14 @@ const Buy = () => {
         totalBought,
         hardcap,
       }),
-    // Recalculate stage on every timer change
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [
-      hardcap,
-      stage1EndDate,
-      stage1StartDate,
-      stage2EndDate,
-      stage2StartDate,
-      totalBought,
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      // eslint-disable-next-line @typescript-eslint/no-use-before-define
-      timeLeft,
-    ],
+    [hardcap, stage1EndDate, stage1StartDate, stage2EndDate, stage2StartDate, totalBought],
   );
+
+  const [stage, setStage] = useState(getStage());
+
+  const handleTimerOut = useCallback(() => {
+    setStage(getStage());
+  }, [getStage]);
 
   const timeLeftEnd = useMemo(
     () =>
@@ -79,7 +72,7 @@ const Buy = () => {
   );
 
   // Seconds timer
-  const timeLeft = useTimeLeft(timeLeftEnd);
+  const timeLeft = useTimeLeft(timeLeftEnd, handleTimerOut);
 
   return (
     <>
