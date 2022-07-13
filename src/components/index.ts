@@ -13,3 +13,4 @@ export { LoadingModal } from './LoadingModal';
 export { SuccessModal } from './SuccessModal';
 export { ErrorModal } from './ErrorModal';
 export { NumberInput } from './NumberInput';
+export { Loader } from './Loader';

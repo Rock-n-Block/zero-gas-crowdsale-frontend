@@ -85,6 +85,7 @@ export const BuyForm = ({ className, stage }: BuyFormProps) => {
     () => new Date() > stage2EndDate && totalBought < softcap,
     [stage2EndDate, softcap, totalBought],
   );
+  const canInput = useMemo(() => stage !== Stage.END, [stage]);
 
   const handleValidateSendAmount = useCallback(
     (value: number, newToken?: TOption) => {
@@ -204,7 +205,7 @@ export const BuyForm = ({ className, stage }: BuyFormProps) => {
 
   return (
     <div className={cn(s.card, className)}>
-      <Progress value={Math.floor(totalBought / hardcap)} className={s.progress}>
+      <Progress value={Math.floor(totalBought / hardcap) * 100} className={s.progress}>
         <Typography type="body2">
           Sold{' '}
           <Typography type="body2" weight={600} className={s.displayInline}>
@@ -228,6 +229,7 @@ export const BuyForm = ({ className, stage }: BuyFormProps) => {
           onChange={handleSendAmountChange}
           errorText={sendError}
           maxLength={20}
+          disabled={!canInput}
         />
         <NumberInput
           placeholder="Receive"
@@ -242,11 +244,12 @@ export const BuyForm = ({ className, stage }: BuyFormProps) => {
           onChange={handleReceiveAmountChange}
           errorText={receiveError}
           maxLength={20}
+          disabled={!canInput}
         />
         <Typography type="body2" className={s.helpText}>
           You buy 0GAS Tokens by sending USDT to the contract
         </Typography>
-        <Button className={s.formButton} disabled={!canBuy} onClick={handleBuy}>
+        <Button variant="outlined" className={s.formButton} disabled={!canBuy} onClick={handleBuy}>
           <Typography type="body1" fontFamily="DrukCyr Wide" className={s.formButtonTypography}>
             Buy zerogas
           </Typography>
@@ -266,7 +269,12 @@ export const BuyForm = ({ className, stage }: BuyFormProps) => {
         ) : (
           <>
             <Typography type="body2">Claim your {userBought} 0GAS tokens </Typography>
-            <Button className={s.claimButton} disabled={!canClaim} onClick={handleClaim}>
+            <Button
+              variant="outlined"
+              className={s.claimButton}
+              disabled={!canClaim}
+              onClick={handleClaim}
+            >
               <Typography type="body2" weight={700}>
                 {new Date() > stage2EndDate ? <>CLAIM</> : <>{claimDaysLeft} DAYS</>}
               </Typography>

@@ -1,7 +1,7 @@
 import { FC, useCallback, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { ErrorModal, SuccessModal } from '@/components';
+import { ErrorModal, Loader, SuccessModal } from '@/components';
 import { LoadingModal } from '@/components/LoadingModal';
 import { Footer, Header, RouterManager } from '@/containers';
 import { useAnchorLink, useInterval, useShallowSelector } from '@/hooks';
@@ -65,16 +65,18 @@ const App: FC = () => {
     dispatch(closeModal());
   }, [dispatch]);
 
-  const shouldShowLoading = useMemo(
-    () => [getUserInfoStatus, buyStatus, claimStatus, refundStatus].includes(RequestStatus.REQUEST),
-    [buyStatus, claimStatus, getUserInfoStatus, refundStatus],
+  const shouldShowLoader = useMemo(
+    () => getUserInfoStatus === RequestStatus.REQUEST,
+    [getUserInfoStatus],
   );
-
+  const shouldShowLoading = useMemo(
+    () => [buyStatus, claimStatus, refundStatus].includes(RequestStatus.REQUEST),
+    [buyStatus, claimStatus, refundStatus],
+  );
   const shouldShowSuccess = useMemo(
     () => [buyStatus, claimStatus, refundStatus].includes(RequestStatus.SUCCESS),
     [buyStatus, claimStatus, refundStatus],
   );
-
   const shouldShowError = useMemo(
     () => [buyStatus, claimStatus, refundStatus].includes(RequestStatus.ERROR),
     [buyStatus, claimStatus, refundStatus],
@@ -90,6 +92,7 @@ const App: FC = () => {
         </div>
       </div>
 
+      <Loader visible={shouldShowLoader} />
       <LoadingModal visible={shouldShowLoading} />
       <SuccessModal
         visible={shouldShowSuccess}

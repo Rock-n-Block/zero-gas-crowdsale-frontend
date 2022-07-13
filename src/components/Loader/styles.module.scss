@@ -1,0 +1,69 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.modal {
+  padding: 0;
+
+  >div {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+
+    >div {
+      height: 100%;
+
+      >div {
+        height: 100%;
+      }
+    }
+  }
+}
+
+.container {
+  @include flex(column, flex-start, flex-start, nowrap);
+  height: 100%;
+
+  .zeroGasGif {
+    margin: auto;
+    width: 256px;
+    height: 256px;
+  }
+
+  .loading {
+    border-top: 2px solid $dark-0;
+    width: 100%;
+    position: relative;
+
+    .loadingBar {
+      margin-top: auto;
+      height: 48px;
+      background-color: $accent;
+
+      animation-duration: 1s;
+      animation-timing-function: ease-in-out;
+      animation-name: progressMove;
+    }
+
+    .title {
+      position: absolute;
+      top: 4px;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      text-transform: uppercase;
+      text-align: center;
+    }
+  }
+}
+
+@keyframes progressMove {
+  0% {
+    width: 0%;
+  }
+
+  100% {
+    width: 100%;
+  }
+}

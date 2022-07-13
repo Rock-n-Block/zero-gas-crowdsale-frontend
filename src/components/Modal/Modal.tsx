@@ -26,10 +26,12 @@ export const Modal: VFC<PropsWithChildren<ModalProps>> = ({
       destroyOnClose
       maskClosable
       closable={closeable}
-      className={cn(s, className)}
       visible={visible}
       closeIcon={closeIcon}
       onClose={onClose}
+      // rootClassName
+      wrapClassName={cn(s.wrap, className)}
+      // className
     >
       {children}
     </Dialog>
