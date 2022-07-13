@@ -24,12 +24,11 @@ export function* getCrowdsaleInfoSaga({
   const crowdsaleContract = getCrowdsaleContract(web3Provider);
   const { address: userAddress } = yield* select(userSelector.getUser);
   try {
-    const { hardcap, totalBought, userBought, stage, stageTimestamps, price, softcap, allowance } =
+    const { hardcap, totalBought, userBought, stageTimestamps, price, softcap, allowance } =
       yield* all({
         hardcap: call(crowdsaleContract.methods.hardcap().call),
         totalBought: call(crowdsaleContract.methods.totalBought().call),
         userBought: call(crowdsaleContract.methods.userToBalance(userAddress, 3).call),
-        stage: call(crowdsaleContract.methods.getStage().call),
         stageTimestamps: call(crowdsaleContract.methods.getTimestamps().call),
         price: call(crowdsaleContract.methods.getPrice().call),
         softcap: call(crowdsaleContract.methods.softcap().call),
@@ -52,7 +51,6 @@ export function* getCrowdsaleInfoSaga({
         hardcap: getNaturalTokenAmount(parseInt(hardcap, 10), ETHER_DECIMALS),
         totalBought: getNaturalTokenAmount(parseInt(totalBought, 10), ETHER_DECIMALS),
         userBought: getNaturalTokenAmount(+userBought, ETHER_DECIMALS),
-        currentStage: +stage,
         stage1StartDate: stageTimestamps ? +stageTimestamps[0][0] : 0,
         stage1EndDate: stageTimestamps ? +stageTimestamps[0][1] : 0,
         stage2StartDate: stageTimestamps ? +stageTimestamps[1][0] : 0,

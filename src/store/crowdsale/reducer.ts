@@ -8,7 +8,6 @@ const initialState: CrowdSaleState = {
   hardcap: 0,
   totalBought: 0,
   userBought: 0,
-  currentStage: -1,
   stage1StartDate: 0,
   stage1EndDate: 0,
   stage2StartDate: 0,

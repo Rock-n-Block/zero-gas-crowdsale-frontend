@@ -7,21 +7,21 @@ export const stageTexts = {
   [Stage.FIRST]: 'Stage 1 will end in:',
   [Stage.PAUSE]: 'Stage 2 will start in:',
   [Stage.SECOND]: 'Stage 2 will end in:',
-  [Stage.END]: 'Crowdsale ended, claim your tokens',
+  [Stage.END]: 'Crowdsale ended',
 };
 
-export const getTimeLeftDate = ({
-  currentStage,
+export const getTimeLeftEnd = ({
   stage1StartDate,
   stage1EndDate,
   stage2StartDate,
   stage2EndDate,
+  currentStage,
 }: {
-  currentStage: Stage;
   stage1StartDate: Date;
   stage1EndDate: Date;
   stage2StartDate: Date;
   stage2EndDate: Date;
+  currentStage: Stage;
 }) => {
   const timeLeftDates = {
     [Stage.UNINITIALIZED]: stage1StartDate,
