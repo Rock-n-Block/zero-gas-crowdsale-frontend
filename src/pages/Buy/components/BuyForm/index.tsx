@@ -36,9 +36,10 @@ const getReceiveAmount = (sendAmount: number, sendPrice: number, receivePrice: n
 
 export interface BuyFormProps {
   className?: string;
+  stage: Stage;
 }
 
-export const BuyForm = ({ className }: BuyFormProps) => {
+export const BuyForm = ({ className, stage }: BuyFormProps) => {
   const [selectedToken, setSelectedToken] = useState<TOption | undefined>(undefined);
   const [sendAmount, setSendAmount] = useState('');
   const [receiveAmount, setReceiveAmount] = useState('');
@@ -52,7 +53,6 @@ export const BuyForm = ({ className }: BuyFormProps) => {
     softcap,
     totalBought,
     userBought,
-    currentStage,
     stage2EndDate,
     minPurchase,
     maxPurchase,
@@ -74,13 +74,8 @@ export const BuyForm = ({ className }: BuyFormProps) => {
   const claimDaysLeft = useMemo(() => getDaysLeft(stage2EndDate), [stage2EndDate]);
 
   const canBuy = useMemo(
-    () =>
-      !!(
-        (currentStage === Stage.FIRST || currentStage === Stage.SECOND) &&
-        receiveAmount &&
-        !receiveError
-      ),
-    [currentStage, receiveAmount, receiveError],
+    () => !!((stage === Stage.FIRST || stage === Stage.SECOND) && receiveAmount && !receiveError),
+    [stage, receiveAmount, receiveError],
   );
   const canClaim = useMemo(
     () => new Date() > stage2EndDate && !!userBought,

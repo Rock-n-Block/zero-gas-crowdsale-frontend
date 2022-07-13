@@ -15,7 +15,6 @@ export type CrowdSaleState = {
   totalBought: number; // in 0GAS
   userBought: number; // in 0GAS
 
-  currentStage: Stage;
   stage1StartDate: number;
   stage1EndDate: number;
   stage2StartDate: number;

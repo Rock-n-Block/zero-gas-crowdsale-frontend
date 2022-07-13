@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import cn from 'clsx';
 
@@ -6,15 +6,18 @@ import { CrossIcon, ZeroGasIcon } from '@/assets/img';
 import { Button, Typography } from '@/components';
 import { LoadingModal } from '@/components/LoadingModal';
 import { useShallowSelector } from '@/hooks';
+import { useTimeLeft } from '@/hooks/useTimeLeft';
 import crowdSaleActionType from '@/store/crowdsale/actionTypes';
 import { updateCrowdSaleOpenState } from '@/store/crowdsale/reducer';
 import crowdSaleSelectors from '@/store/crowdsale/selectors';
+import { getStage } from '@/store/crowdsale/utils';
 import uiSelectors from '@/store/ui/selectors';
 import { RequestStatus } from '@/types';
 
 import { BuyForm } from './components/BuyForm';
 import { StageTimer } from './components/StageTimer';
 import { TokenList } from './components/TokenList';
+import { getTimeLeftEnd } from './helper';
 
 import s from './styles.module.scss';
 
@@ -23,10 +26,60 @@ const Buy = () => {
   const handleClose = useCallback(() => {
     dispatch(updateCrowdSaleOpenState(false));
   }, [dispatch]);
-  const { isOpen } = useShallowSelector(crowdSaleSelectors.getCrowdSale);
+  const {
+    stage1StartDate,
+    stage1EndDate,
+    stage2StartDate,
+    stage2EndDate,
+    totalBought,
+    hardcap,
+    isOpen,
+  } = useShallowSelector(crowdSaleSelectors.getCrowdSale);
+
   const { [crowdSaleActionType.GET_CROWDSALE_INFO]: getCrowdsaleInfoStatus } = useShallowSelector(
     uiSelectors.getUI,
   );
+
+  const stage = useMemo(
+    () =>
+      getStage({
+        stage1StartDate,
+        stage1EndDate,
+        stage2StartDate,
+        stage2EndDate,
+        totalBought,
+        hardcap,
+      }),
+    // Recalculate stage on every timer change
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [
+      hardcap,
+      stage1EndDate,
+      stage1StartDate,
+      stage2EndDate,
+      stage2StartDate,
+      totalBought,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      // eslint-disable-next-line @typescript-eslint/no-use-before-define
+      timeLeft,
+    ],
+  );
+
+  const timeLeftEnd = useMemo(
+    () =>
+      getTimeLeftEnd({
+        stage1StartDate,
+        stage1EndDate,
+        stage2StartDate,
+        stage2EndDate,
+        currentStage: stage,
+      }),
+    [stage, stage1EndDate, stage1StartDate, stage2EndDate, stage2StartDate],
+  );
+
+  // Seconds timer
+  const timeLeft = useTimeLeft(timeLeftEnd);
 
   return (
     <>
@@ -47,9 +100,9 @@ const Buy = () => {
             </Button>
           </div>
           <div className={s.content}>
-            <StageTimer className={s.card} />
+            <StageTimer className={s.card} stage={stage} timeLeft={timeLeft} />
 
-            <BuyForm className={s.card} />
+            <BuyForm className={s.card} stage={stage} />
 
             <TokenList className={s.card} />
           </div>
