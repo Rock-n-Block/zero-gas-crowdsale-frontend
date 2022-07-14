@@ -5,6 +5,7 @@ import userSelector from '@/store/user/selectors';
 
 import { refund } from '../actions';
 import actionTypes from '../actionTypes';
+import { updateCrowdSaleState } from '../reducer';
 import { getCrowdsaleContract } from '../utils';
 
 export function* refundSaga({ type, payload: { web3Provider } }: ReturnType<typeof refund>) {
@@ -14,6 +15,7 @@ export function* refundSaga({ type, payload: { web3Provider } }: ReturnType<type
   const { address: userAddress } = yield* select(userSelector.getUser);
   try {
     yield* call(crowdsaleContract.methods.refund().send, { from: userAddress });
+    yield* put(updateCrowdSaleState({ userBought: 0 }));
 
     yield* put(success(type));
   } catch (err) {

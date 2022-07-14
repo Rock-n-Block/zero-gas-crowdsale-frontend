@@ -5,13 +5,17 @@
   grid-row: span 2;
 
   .progress {
-    margin-bottom: 32px;
-
-    .displayInline {
-      display: inline;
-    }
+    margin-bottom: 16px;
   }
 
+  .displayInline {
+    display: inline;
+  }
+
+  .softCap {
+    text-align: center;
+    margin-bottom: 24px;
+  }
 
   .form {
     .sendInput {

@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import { ErrorModal, Loader, SuccessModal } from '@/components';
 import { LoadingModal } from '@/components/LoadingModal';
-import { Footer, Header, RouterManager } from '@/containers';
+import { Header, RouterManager } from '@/containers';
 import { useAnchorLink, useInterval, useShallowSelector } from '@/hooks';
 import { useWalletConnectorContext } from '@/services';
 import apiActions from '@/store/api/actions';
