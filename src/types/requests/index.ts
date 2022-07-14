@@ -27,8 +27,7 @@ export interface GetTokenBalanceReq extends RequestWithWeb3Provider {
 }
 
 export interface ApproveReq extends RequestWithWeb3Provider {
-  contract: ContractsNames;
-  spenderAddress: string;
+  tokenAddress: string;
   amount: string;
 }
 
