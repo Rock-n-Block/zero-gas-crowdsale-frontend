@@ -48,6 +48,7 @@ export interface GetTokenBalancesPayload extends RequestWithWeb3Provider {}
 export interface BuyPayload extends RequestWithWeb3Provider {
   amount: string;
   tokenAddress: string;
+  sendAmount: number;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

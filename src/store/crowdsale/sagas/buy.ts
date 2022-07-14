@@ -8,6 +8,8 @@ import { getTokenBalances } from '@/store/user/actions';
 import userActionTypes from '@/store/user/actionTypes';
 import { approveSaga } from '@/store/user/sagas/approve';
 import userSelector from '@/store/user/selectors';
+import { getTokenContract } from '@/store/user/utils';
+import { getDecimalTokenAmount } from '@/utils/getTokenAmount';
 
 import { buy, getCrowdsaleInfo } from '../actions';
 import actionTypes from '../actionTypes';
@@ -15,13 +17,26 @@ import { getCrowdsaleContract } from '../utils';
 
 export function* buySaga({
   type,
-  payload: { web3Provider, amount, tokenAddress },
+  payload: { web3Provider, amount, tokenAddress, sendAmount },
 }: ReturnType<typeof buy>) {
   yield* put(request(type));
 
   const crowdsaleContract = getCrowdsaleContract(web3Provider);
   const { address: userAddress } = yield* select(userSelector.getUser);
   try {
+    if (tokenAddress !== ETHER_ADDRESS) {
+      const tokenContract = getTokenContract(web3Provider, tokenAddress);
+      const tokenDecimals = yield* call(tokenContract.methods.decimals().call);
+      yield* call(approveSaga, {
+        type: userActionTypes.APPROVE,
+        payload: {
+          web3Provider,
+          amount: getDecimalTokenAmount(sendAmount * 1.05, +tokenDecimals),
+          tokenAddress,
+        },
+      });
+    }
+
     const { data } = yield* call(baseApi.buy, {
       amount_to_receive: amount,
       token_address: tokenAddress,
@@ -41,10 +56,6 @@ export function* buySaga({
       );
       transactionHash = transaction.transactionHash;
     } else {
-      yield* call(approveSaga, {
-        type: userActionTypes.APPROVE,
-        payload: { web3Provider, amount: data.amount_to_pay, tokenAddress },
-      });
       const transaction = yield* call(
         crowdsaleContract.methods.buy(
           tokenAddress,

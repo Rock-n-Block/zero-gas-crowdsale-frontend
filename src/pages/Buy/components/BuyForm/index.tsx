@@ -15,14 +15,16 @@ import crowdSaleSelectors from '@/store/crowdsale/selectors';
 import { getCrowdsaleContract } from '@/store/crowdsale/utils';
 import tokenSelectors from '@/store/tokens/selectors';
 import userSelector from '@/store/user/selectors';
-import { Stage, Token } from '@/types';
+import { RequestStatus, Stage, Token } from '@/types';
 import { Buy } from '@/types/contracts/CrowdsaleAbi';
 import { getDaysLeft } from '@/utils';
 import { getDecimalTokenAmount, getNaturalTokenAmount } from '@/utils/getTokenAmount';
+import uiSelectors from '@/store/ui/selectors';
 
 import { getFormatNumber } from '../../helper';
 
 import s from './styles.module.scss';
+import CrowdSaleActionType from '@/store/crowdsale/actionTypes';
 
 const getTokenOption = (token: Token): TOption => ({
   value: token.address,
@@ -60,6 +62,7 @@ export const BuyForm = ({ className, stage }: BuyFormProps) => {
   } = useShallowSelector(crowdSaleSelectors.getCrowdSale);
   const dispatch = useDispatch();
   const { walletService } = useWalletConnectorContext();
+  const { [CrowdSaleActionType.BUY]: buyStatus } = useShallowSelector(uiSelectors.getUI);
 
   const tokenOptions = useMemo<TOption[]>(
     () => Object.values(tokens).map((token) => getTokenOption(token)),
@@ -172,9 +175,10 @@ export const BuyForm = ({ className, stage }: BuyFormProps) => {
         amount: getDecimalTokenAmount(+receiveAmount, ZEROGAS_DECIMALS),
         tokenAddress: sendToken?.value,
         web3Provider: walletService.Web3(),
+        sendAmount: +sendAmount,
       }),
     );
-  }, [dispatch, receiveAmount, sendToken?.value, walletService]);
+  }, [dispatch, receiveAmount, sendAmount, sendToken?.value, walletService]);
 
   const handleClaim = useCallback(
     () =>
@@ -211,6 +215,13 @@ export const BuyForm = ({ className, stage }: BuyFormProps) => {
     },
     [dispatch, totalBought],
   );
+
+  useEffect(() => {
+    if (buyStatus === RequestStatus.SUCCESS) {
+      setSendAmount('');
+      setReceiveAmount('');
+    }
+  }, [buyStatus]);
 
   useEffect(() => {
     const web3Provider = walletService.Web3();
