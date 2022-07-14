@@ -23,6 +23,13 @@ export const TokenList = ({ className }: TokenListProps) => {
       <Typography type="body1" fontFamily="DrukCyr Wide" weight={900} className={s.cardTitle}>
         Current prices
       </Typography>
+      <div className={s.currencyListItem}>
+        <ZeroGasIcon className={s.currencyListItemImage} width={48} height={48} />
+        <Typography type="body1">Zerogas (0GAS)</Typography>
+        <Typography type="body1" className={s.currencyListItemPrice}>
+          ${getFormatFiat(zeroGasPrice)}
+        </Typography>
+      </div>
       {Object.values(tokens).map((token) => (
         <div key={token.address} className={s.currencyListItem}>
           <img
@@ -40,13 +47,6 @@ export const TokenList = ({ className }: TokenListProps) => {
           </Typography>
         </div>
       ))}
-      <div className={s.currencyListItem}>
-        <ZeroGasIcon className={s.currencyListItemImage} width={48} height={48} />
-        <Typography type="body1">Zerogas (0GAS)</Typography>
-        <Typography type="body1" className={s.currencyListItemPrice}>
-          ${getFormatFiat(zeroGasPrice)}
-        </Typography>
-      </div>
     </div>
   );
 };
