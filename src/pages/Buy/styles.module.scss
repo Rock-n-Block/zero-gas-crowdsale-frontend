@@ -16,6 +16,46 @@
     padding: 36px 50px;
     height: calc(100vh - 80px);
     overflow-y: scroll;
+
+    .head {
+      margin-bottom: 20px;
+      @include flex(row, space-between, flex-start);
+      position: relative;
+
+      .exit {
+        padding: 4px;
+        background-color: $accent;
+      }
+
+      .title {
+        font-size: 48px;
+        line-height: 44px;
+        text-transform: uppercase;
+        @include flex(row, center, center);
+
+        .zGasIcon {
+          padding: 0 10px;
+          flex: 0 0 15%;
+          height: 100%;
+        }
+
+        margin-bottom: 24px;
+      }
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-auto-columns: minmax(0, 1fr);
+      grid-template-rows: 210px 400px;
+      gap: 30px;
+
+      .card {
+        border: 2px solid $dark-0;
+        border-radius: 20px;
+        padding: 24px 32px;
+      }
+    }
   }
 
   &.open {
@@ -23,45 +63,29 @@
     transform: translateY(24px);
   }
 
-  .head {
-    margin-bottom: 20px;
-    @include flex(row, space-between, flex-start);
-    position: relative;
+  .comingSoonContainer {
+    padding: 25px 50px;
 
-    .exit {
-      padding: 4px;
-      background-color: $accent;
-    }
+    .head {
+      margin-bottom: 20px;
+      @include flex(row, flex-end, center);
 
-    .title {
-      font-size: 48px;
-      line-height: 44px;
-      text-transform: uppercase;
-      @include flex(row, center, center);
-
-      .zGasIcon {
-        padding: 0 10px;
-        flex: 0 0 15%;
-        height: 100%;
+      .exit {
+        padding: 4px;
+        background-color: $accent;
       }
+    }
 
-      margin-bottom: 24px;
+    .content {
+      height: auto;
+
+      .comingSoon {
+        text-align: center;
+      }
     }
   }
 
-  .content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-auto-columns: minmax(0, 1fr);
-    grid-template-rows: 210px 400px;
-    gap: 30px;
 
-    .card {
-      border: 2px solid $dark-0;
-      border-radius: 20px;
-      padding: 24px 32px;
-    }
-  }
 }
 
 @include large-tablet {

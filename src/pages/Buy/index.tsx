@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import cn from 'clsx';
 
@@ -9,9 +9,9 @@ import { useTimeLeft } from '@/hooks/useTimeLeft';
 import crowdSaleActionType from '@/store/crowdsale/actionTypes';
 import { updateCrowdSaleOpenState } from '@/store/crowdsale/reducer';
 import crowdSaleSelectors from '@/store/crowdsale/selectors';
-import { getStage as getStageUtil } from '@/store/crowdsale/utils';
+import { getStage } from '@/store/crowdsale/utils';
 import uiSelectors from '@/store/ui/selectors';
-import { RequestStatus } from '@/types';
+import { RequestStatus, Stage } from '@/types';
 
 import { BuyForm } from './components/BuyForm';
 import { StageTimer } from './components/StageTimer';
@@ -26,12 +26,12 @@ const Buy = () => {
     dispatch(updateCrowdSaleOpenState(false));
   }, [dispatch]);
   const {
+    hardcap,
     stage1StartDate,
     stage1EndDate,
     stage2StartDate,
     stage2EndDate,
     totalBought,
-    hardcap,
     isOpen,
   } = useShallowSelector(crowdSaleSelectors.getCrowdSale);
 
@@ -39,9 +39,11 @@ const Buy = () => {
     uiSelectors.getUI,
   );
 
-  const getStage = useCallback(
-    () =>
-      getStageUtil({
+  const [stage, setStage] = useState(Stage.UNINITIALIZED);
+
+  useEffect(() => {
+    setStage(
+      getStage({
         stage1StartDate,
         stage1EndDate,
         stage2StartDate,
@@ -49,14 +51,21 @@ const Buy = () => {
         totalBought,
         hardcap,
       }),
-    [hardcap, stage1EndDate, stage1StartDate, stage2EndDate, stage2StartDate, totalBought],
-  );
-
-  const [stage, setStage] = useState(getStage());
+    );
+  }, [hardcap, stage1EndDate, stage1StartDate, stage2EndDate, stage2StartDate, totalBought]);
 
   const handleTimerOut = useCallback(() => {
-    setStage(getStage());
-  }, [getStage]);
+    setStage(
+      getStage({
+        stage1StartDate,
+        stage1EndDate,
+        stage2StartDate,
+        stage2EndDate,
+        totalBought,
+        hardcap,
+      }),
+    );
+  }, [hardcap, stage1EndDate, stage1StartDate, stage2EndDate, stage2StartDate, totalBought]);
 
   const timeLeftEnd = useMemo(
     () =>
@@ -70,35 +79,50 @@ const Buy = () => {
     [stage, stage1EndDate, stage1StartDate, stage2EndDate, stage2StartDate],
   );
 
-  // Seconds timer
+  // Every second timer
   const timeLeft = useTimeLeft(timeLeftEnd, handleTimerOut);
 
   return (
     <>
       <div className={cn(s.wrapper, { [s.open]: isOpen })}>
-        <div className={s.container}>
-          <div className={s.head}>
-            <div style={{ width: 50 }} />
-            <div>
-              <Typography className={s.title} type="h1" fontFamily="DrukCyr Wide" weight={900}>
-                Buy
-              </Typography>
-              <Typography className={s.title} type="h1" fontFamily="DrukCyr Wide" weight={900}>
-                Zer <ZeroGasIcon className={s.zGasIcon} /> gas
+        {stage === Stage.UNINITIALIZED ? (
+          <div className={s.comingSoonContainer}>
+            <div className={s.head}>
+              <Button className={s.exit} onClick={handleClose} variant="outlined">
+                <CrossIcon />
+              </Button>
+            </div>
+            <div className={s.content}>
+              <Typography type="h2" className={s.comingSoon}>
+                Coming soon
               </Typography>
             </div>
-            <Button className={s.exit} onClick={handleClose} variant="outlined">
-              <CrossIcon />
-            </Button>
           </div>
-          <div className={s.content}>
-            <StageTimer className={s.card} stage={stage} timeLeft={timeLeft} />
+        ) : (
+          <div className={s.container}>
+            <div className={s.head}>
+              <div style={{ width: 50 }} />
+              <div>
+                <Typography className={s.title} type="h1" fontFamily="DrukCyr Wide" weight={900}>
+                  Buy
+                </Typography>
+                <Typography className={s.title} type="h1" fontFamily="DrukCyr Wide" weight={900}>
+                  Zer <ZeroGasIcon className={s.zGasIcon} /> gas
+                </Typography>
+              </div>
+              <Button className={s.exit} onClick={handleClose} variant="outlined">
+                <CrossIcon />
+              </Button>
+            </div>
+            <div className={s.content}>
+              <StageTimer className={s.card} stage={stage} timeLeft={timeLeft} />
 
-            <BuyForm className={s.card} stage={stage} />
+              <BuyForm className={s.card} stage={stage} />
 
-            <TokenList className={s.card} />
+              <TokenList className={s.card} />
+            </div>
           </div>
-        </div>
+        )}
       </div>
       <Loader visible={getCrowdsaleInfoStatus === RequestStatus.REQUEST} />
     </>

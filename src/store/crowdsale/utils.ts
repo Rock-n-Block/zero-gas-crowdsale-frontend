@@ -25,11 +25,11 @@ export const getStage = ({
   totalBought: number;
   hardcap: number;
 }) => {
+  if (+stage1StartDate === 0) {
+    return Stage.UNINITIALIZED;
+  }
   if (totalBought === hardcap) {
     return Stage.END;
-  }
-  if (stage1StartDate.getTime() === 0) {
-    return Stage.UNINITIALIZED;
   }
 
   const currentDate = new Date();
