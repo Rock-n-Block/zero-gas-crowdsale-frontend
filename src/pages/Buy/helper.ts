@@ -25,7 +25,8 @@ export const getTimeLeftEnd = ({
   currentStage: Stage;
 }) => {
   const timeLeftDates = {
-    [Stage.UNINITIALIZED]: stage1StartDate,
+    [Stage.UNINITIALIZED]: new Date(0),
+    [Stage.INITIALIZED]: stage1StartDate,
     [Stage.FIRST]: stage1EndDate,
     [Stage.PAUSE]: stage2StartDate,
     [Stage.SECOND]: stage2EndDate,
