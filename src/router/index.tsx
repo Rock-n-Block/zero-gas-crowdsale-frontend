@@ -11,7 +11,7 @@ export const anchorLinks = [
   },
   {
     to: '/#roadMap',
-    label: 'Road map',
+    label: 'Roadmap',
   },
 ];
 
