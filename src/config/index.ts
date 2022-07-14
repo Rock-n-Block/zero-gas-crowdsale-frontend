@@ -51,7 +51,7 @@ export const contractsConfig: IContracts = {
         abi: crowdsaleAbi,
       },
       testnet: {
-        address: '0x3F847974c07095497a211621D31133030Aa5d1Ed',
+        address: '0x2CA1602d9954aB2F94C535E70A75C437C445eC94',
         abi: crowdsaleAbi,
       },
     },
