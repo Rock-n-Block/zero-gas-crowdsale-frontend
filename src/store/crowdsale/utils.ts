@@ -34,7 +34,7 @@ export const getStage = ({
 
   const currentDate = new Date();
   if (currentDate < stage1StartDate) {
-    return Stage.UNINITIALIZED;
+    return Stage.INITIALIZED;
   }
   if (currentDate < stage1EndDate) {
     return Stage.FIRST;

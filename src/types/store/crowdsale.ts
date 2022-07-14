@@ -1,7 +1,8 @@
 import Web3 from 'web3';
 
 export enum Stage {
-  UNINITIALIZED = -1,
+  UNINITIALIZED = -2,
+  INITIALIZED = -1,
   FIRST = 1,
   PAUSE = 0,
   SECOND = 2,

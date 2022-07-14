@@ -3,11 +3,12 @@ import BigNumber from 'bignumber.js';
 import { Stage } from '@/types';
 
 export const stageTexts = {
-  [Stage.UNINITIALIZED]: 'Stage 1 will start in:',
+  [Stage.UNINITIALIZED]: 'Crowdsale will start soon',
+  [Stage.INITIALIZED]: 'Stage 1 will start in:',
   [Stage.FIRST]: 'Stage 1 will end in:',
   [Stage.PAUSE]: 'Stage 2 will start in:',
   [Stage.SECOND]: 'Stage 2 will end in:',
-  [Stage.END]: 'Crowdsale ended',
+  [Stage.END]: 'Crowdsale has ended',
 };
 
 export const getTimeLeftEnd = ({
