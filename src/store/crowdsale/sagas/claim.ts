@@ -5,6 +5,7 @@ import userSelector from '@/store/user/selectors';
 
 import { claim } from '../actions';
 import actionTypes from '../actionTypes';
+import { updateCrowdSaleState } from '../reducer';
 import { getCrowdsaleContract } from '../utils';
 
 export function* claimSaga({ type, payload: { web3Provider } }: ReturnType<typeof claim>) {
@@ -14,6 +15,7 @@ export function* claimSaga({ type, payload: { web3Provider } }: ReturnType<typeo
   const { address: userAddress } = yield* select(userSelector.getUser);
   try {
     yield* call(crowdsaleContract.methods.claim().send, { from: userAddress });
+    yield* put(updateCrowdSaleState({ userBought: 0 }));
 
     yield* put(success(type));
   } catch (err) {

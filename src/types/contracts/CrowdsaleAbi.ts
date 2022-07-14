@@ -147,6 +147,8 @@ export interface CrowdsaleAbi extends BaseContract {
       account: string
     ): NonPayableTransactionObject<void>;
 
+    seldD(): NonPayableTransactionObject<void>;
+
     sellEnd(): NonPayableTransactionObject<string>;
 
     softcap(): NonPayableTransactionObject<string>;

@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { all, call, put, select, takeLatest } from 'typed-redux-saga';
 
-import { ETHER_DECIMALS } from '@/config/constants';
+import { ZEROGAS_DECIMALS } from '@/config/constants';
 import apiActions from '@/store/api/actions';
 import tokenActionTypes from '@/store/tokens/actionTypes';
 import { getTokensSaga } from '@/store/tokens/sagas/getTokens';
@@ -48,17 +48,17 @@ export function* getCrowdsaleInfoSaga({
 
     yield* put(
       updateCrowdSaleState({
-        hardcap: getNaturalTokenAmount(parseInt(hardcap, 10), ETHER_DECIMALS),
-        totalBought: getNaturalTokenAmount(parseInt(totalBought, 10), ETHER_DECIMALS),
-        userBought: getNaturalTokenAmount(+userBought, ETHER_DECIMALS),
+        hardcap: getNaturalTokenAmount(parseInt(hardcap, 10), ZEROGAS_DECIMALS),
+        totalBought: getNaturalTokenAmount(parseInt(totalBought, 10), ZEROGAS_DECIMALS),
+        userBought: getNaturalTokenAmount(+userBought, ZEROGAS_DECIMALS),
         stage1StartDate: stageTimestamps ? +stageTimestamps[0][0] : 0,
         stage1EndDate: stageTimestamps ? +stageTimestamps[0][1] : 0,
         stage2StartDate: stageTimestamps ? +stageTimestamps[1][0] : 0,
         stage2EndDate: stageTimestamps ? +stageTimestamps[1][1] : 0,
         zeroGasPrice: new BigNumber(+price.price).dividedBy(+price.denominator).toNumber(),
-        softcap: getNaturalTokenAmount(+softcap, ETHER_DECIMALS),
-        minPurchase: getNaturalTokenAmount(+allowance[0], ETHER_DECIMALS),
-        maxPurchase: getNaturalTokenAmount(+allowance[1], ETHER_DECIMALS),
+        softcap: getNaturalTokenAmount(+softcap, ZEROGAS_DECIMALS),
+        minPurchase: getNaturalTokenAmount(+allowance[0], ZEROGAS_DECIMALS),
+        maxPurchase: getNaturalTokenAmount(+allowance[1], ZEROGAS_DECIMALS),
       }),
     );
 

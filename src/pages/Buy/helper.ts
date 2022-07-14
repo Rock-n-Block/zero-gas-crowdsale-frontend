@@ -37,4 +37,4 @@ export const getTimeLeftEnd = ({
 
 export const getFormatNumber = (number: number) => number.toLocaleString().replace(',', ' ');
 
-export const getFormatFiat = (fiat: number) => new BigNumber(fiat).decimalPlaces(2).toString();
+export const getFormatFiat = (fiat: number) => new BigNumber(fiat).decimalPlaces(3).toString();

@@ -26,7 +26,7 @@ const DAY = HOUR * 24;
  * } | null
  */
 export const useTimeLeft = (endTime: DateLike, onTimerOut?: () => void) => {
-  const timer = useRef<NodeJS.Timer | null>(null);
+  const timer = useRef<NodeJS.Timer>();
   const [timeLeft, setTimeLeft] = useState<ITimeLeft>({
     days: 0,
     hours: 0,
@@ -34,12 +34,7 @@ export const useTimeLeft = (endTime: DateLike, onTimerOut?: () => void) => {
     seconds: 0,
   });
 
-  const calculateTimeLeft = useCallback(() => {
-    // If endTime is incorrect
-    if (+endTime === 0) {
-      return;
-    }
-
+  const handleInterval = useCallback(() => {
     const difference = +endTime - Date.now();
     if (difference > 0) {
       let timeTracker = difference;
@@ -58,20 +53,21 @@ export const useTimeLeft = (endTime: DateLike, onTimerOut?: () => void) => {
       });
     } else if (timer.current) {
       clearInterval(timer.current);
-      timer.current = null;
+      timer.current = undefined;
       setTimeout(() => {
         onTimerOut?.();
       }, 1000);
     }
-  }, [onTimerOut, endTime]);
+  }, [endTime, onTimerOut]);
 
   useEffect(() => {
-    if (!timer.current) {
+    clearInterval(timer.current);
+    if (+endTime !== 0) {
       timer.current = setInterval(() => {
-        calculateTimeLeft();
+        handleInterval();
       }, 1000);
     }
-  }, [calculateTimeLeft]);
+  }, [endTime, handleInterval]);
 
   // If endTime is incorrect
   return +endTime === 0

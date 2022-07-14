@@ -138,7 +138,7 @@
   {
     "inputs": [{ "internalType": "address", "name": "user", "type": "address" }],
     "name": "getAllowable",
-    "outputs": [{ "internalType": "uint256[2]", "name": "alowable", "type": "uint256[2]" }],
+    "outputs": [{ "internalType": "uint256[2]", "name": "allowable", "type": "uint256[2]" }],
     "stateMutability": "view",
     "type": "function"
   },
@@ -244,6 +244,13 @@
       { "internalType": "address", "name": "account", "type": "address" }
     ],
     "name": "revokeRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "seldD",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
