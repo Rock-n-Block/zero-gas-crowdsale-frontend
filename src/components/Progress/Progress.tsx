@@ -2,6 +2,7 @@ import { FC, PropsWithChildren } from 'react';
 import cn from 'clsx';
 
 import { cssVariable } from '@/utils';
+
 import s from './styles.module.scss';
 
 export interface ProgressProps {

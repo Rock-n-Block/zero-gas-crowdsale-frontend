@@ -17,9 +17,18 @@
       &:hover {
         transform: translateY(-5px);
         box-shadow: 0px 4px 0px 0px $dark-0;
+
+        &:disabled {
+          transform: none;
+          box-shadow: none;
+        }
       }
       &:hover {
         cursor: pointer;
+
+        &:disabled {
+          cursor: default;
+        }
       }
       &:active {
         transform: translateY(0);

@@ -3,8 +3,7 @@ import { useDispatch } from 'react-redux';
 import cn from 'clsx';
 
 import { CrossIcon, ZeroGasIcon } from '@/assets/img';
-import { Button, Typography } from '@/components';
-import { LoadingModal } from '@/components/LoadingModal';
+import { Button, Loader, Typography } from '@/components';
 import { useShallowSelector } from '@/hooks';
 import { useTimeLeft } from '@/hooks/useTimeLeft';
 import crowdSaleActionType from '@/store/crowdsale/actionTypes';
@@ -101,7 +100,7 @@ const Buy = () => {
           </div>
         </div>
       </div>
-      <LoadingModal visible={getCrowdsaleInfoStatus === RequestStatus.REQUEST} />
+      <Loader visible={getCrowdsaleInfoStatus === RequestStatus.REQUEST} />
     </>
   );
 };
