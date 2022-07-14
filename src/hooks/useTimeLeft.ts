@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+
 import { DateLike } from '@/types';
 
 export interface ITimeLeft {
@@ -34,6 +35,11 @@ export const useTimeLeft = (endTime: DateLike, onTimerOut?: () => void) => {
   });
 
   const calculateTimeLeft = useCallback(() => {
+    // If endTime is incorrect
+    if (+endTime === 0) {
+      return;
+    }
+
     const difference = +endTime - Date.now();
     if (difference > 0) {
       let timeTracker = difference;
@@ -67,5 +73,13 @@ export const useTimeLeft = (endTime: DateLike, onTimerOut?: () => void) => {
     }
   }, [calculateTimeLeft]);
 
-  return timeLeft;
+  // If endTime is incorrect
+  return +endTime === 0
+    ? {
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+      }
+    : timeLeft;
 };
