@@ -21,7 +21,7 @@ export function* approveSaga({
   const tokenContract = getTokenContract(web3Provider, tokenAddress);
 
   try {
-    yield* call(tokenContract.methods.approve(crowdsaleAddress, amount).send, {
+    yield* call(tokenContract.methods.approve(crowdsaleAddress, parseInt(amount, 10)).send, {
       from: userAddress,
     });
     yield* put(apiActions.success(type));
