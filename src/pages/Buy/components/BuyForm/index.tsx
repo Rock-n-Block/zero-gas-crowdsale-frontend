@@ -113,7 +113,7 @@ export const BuyForm = ({ className, stage }: BuyFormProps) => {
   const canRefund = useMemo(() => isRefund && userBought > 0, [isRefund, userBought]);
   const canInput = useMemo(() => stage !== Stage.END, [stage]);
 
-  const getCanClaimRised = useCallback(() => {
+  const canClaimRised = useMemo(() => {
     if (totalBought < softcap && new Date() > stage2EndDate) {
       // Have 0GAS to claim
       return balances[getZerogasAddress()];
@@ -136,8 +136,6 @@ export const BuyForm = ({ className, stage }: BuyFormProps) => {
     }
     return false;
   }, [balances, hardcap, softcap, stage2EndDate, totalBought, zerogasLeft]);
-
-  const canClaimRised = useMemo(() => getCanClaimRised(), [getCanClaimRised]);
 
   const handleValidateSendAmount = useCallback(
     (value: number, newToken?: TOption) => {
