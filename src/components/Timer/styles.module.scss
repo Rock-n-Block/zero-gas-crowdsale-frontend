@@ -27,3 +27,15 @@
     margin-right: 0;
   }
 }
+
+@include large-tablet {
+  .container {
+    .cell {
+      margin-right: 6px;
+
+      .label {
+        font-size: 16px;
+      }
+    }
+  }
+}

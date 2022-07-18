@@ -7,3 +7,4 @@ export { default as useInterval } from './useInterval';
 export { default as useEventListener } from './useEventListener';
 export { default as useOutsideClick } from './useOutsideClick';
 export { default as useUpdateEffect } from './useUpdateEffect';
+export { default as useHandleBuyClick } from './useHandleBuyClick';

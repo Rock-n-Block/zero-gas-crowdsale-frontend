@@ -9,3 +9,11 @@
     margin-bottom: 24px;
   }
 }
+
+@include large-tablet {
+  .card {
+    .stageWillStart {
+      font-size: 16px;
+    }
+  }
+}

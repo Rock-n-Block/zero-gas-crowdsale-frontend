@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import { BurgerIcon } from '@/assets/img';
 import { Address, Button, Typography } from '@/components';
-import { useShallowSelector } from '@/hooks';
+import { useHandleBuyClick, useShallowSelector } from '@/hooks';
 import { useWalletConnectorContext } from '@/services';
 import { updateCrowdSaleOpenState } from '@/store/crowdsale/reducer';
 import { setActiveModal } from '@/store/modals/reducer';
@@ -35,17 +35,12 @@ export const Menu = ({ isOpen, setIsOpen }: MenuProps) => {
     }
   }, [connect, dispatch, userAddress]);
 
-  const handleClickBuy = useCallback(() => {
-    if (userAddress) {
-      dispatch(updateCrowdSaleOpenState(true));
-    } else {
-      connect(WalletProviders.metamask, Chains.Kovan);
-    }
-  }, [connect, dispatch, userAddress]);
+  const handleBuyClick = useHandleBuyClick();
 
   const handleBurgerClick = useCallback(() => {
     setIsOpen((state) => !state);
-  }, [setIsOpen]);
+    dispatch(updateCrowdSaleOpenState(false));
+  }, [dispatch, setIsOpen]);
 
   return (
     <section className={s.wrapper}>
@@ -55,7 +50,7 @@ export const Menu = ({ isOpen, setIsOpen }: MenuProps) => {
             {isAuthenticated ? <Address address={userAddress} /> : 'Connect wallet'}
           </Typography>
         </Button>
-        <Button onClick={handleClickBuy} variant="outlined" className={s.buy}>
+        <Button onClick={handleBuyClick} variant="outlined" className={s.buy}>
           <Typography type="body2" weight={900} fontFamily="DrukCyr Wide">
             Buy
           </Typography>

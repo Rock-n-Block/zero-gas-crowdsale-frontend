@@ -10,21 +10,21 @@ import { ZEROGAS_DECIMALS } from '@/config/constants';
 import { useShallowSelector } from '@/hooks';
 import { useWalletConnectorContext } from '@/services';
 import { buy, claim, refund } from '@/store/crowdsale/actions';
+import CrowdSaleActionType from '@/store/crowdsale/actionTypes';
 import { updateCrowdSaleState } from '@/store/crowdsale/reducer';
 import crowdSaleSelectors from '@/store/crowdsale/selectors';
 import { getCrowdsaleContract } from '@/store/crowdsale/utils';
 import tokenSelectors from '@/store/tokens/selectors';
+import uiSelectors from '@/store/ui/selectors';
 import userSelector from '@/store/user/selectors';
 import { RequestStatus, Stage, Token } from '@/types';
 import { Buy } from '@/types/contracts/CrowdsaleAbi';
 import { getDaysLeft } from '@/utils';
 import { getDecimalTokenAmount, getNaturalTokenAmount } from '@/utils/getTokenAmount';
-import uiSelectors from '@/store/ui/selectors';
 
 import { getFormatNumber } from '../../helper';
 
 import s from './styles.module.scss';
-import CrowdSaleActionType from '@/store/crowdsale/actionTypes';
 
 const getTokenOption = (token: Token): TOption => ({
   value: token.address,
@@ -90,11 +90,15 @@ export const BuyForm = ({ className, stage }: BuyFormProps) => {
   );
   const canClaim = useMemo(
     () => (new Date() > stage2EndDate || totalBought >= hardcap) && userBought > 0,
-    [hardcap, stage2EndDate, totalBought, userBought],
+    [hardcap, stage2EndDate, totalBought, userBought, stage],
+  );
+  const isClaim = useMemo(
+    () => new Date() > stage2EndDate || totalBought >= hardcap,
+    [hardcap, stage2EndDate, totalBought, stage],
   );
   const isRefund = useMemo(
     () => new Date() > stage2EndDate && totalBought < softcap,
-    [softcap, stage2EndDate, totalBought],
+    [softcap, stage2EndDate, totalBought, stage],
   );
   const canRefund = useMemo(() => isRefund && userBought > 0, [isRefund, userBought]);
   const canInput = useMemo(() => stage !== Stage.END, [stage]);
@@ -327,7 +331,7 @@ export const BuyForm = ({ className, stage }: BuyFormProps) => {
               onClick={handleClaim}
             >
               <Typography type="body2" weight={700}>
-                {new Date() > stage2EndDate ? <>CLAIM</> : <>{claimDaysLeft} DAYS</>}
+                {isClaim ? <>CLAIM</> : <>{claimDaysLeft} DAYS</>}
               </Typography>
             </Button>
           </>

@@ -1,7 +1,3 @@
-import { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
-import cn from 'clsx';
-
 import {
   ArrowRightIcon,
   msgFallingTx,
@@ -11,17 +7,15 @@ import {
 } from '@/assets/img';
 import { Button, InfinityLine, Typography } from '@/components';
 import { Divider } from '@/containers';
-import { updateCrowdSaleOpenState } from '@/store/crowdsale/reducer';
+import { useHandleBuyClick } from '@/hooks';
 
 import { Advantage, ProsList } from '../../components';
 
 import s from './styles.module.scss';
 
 export const Main = () => {
-  const dispatch = useDispatch();
-  const handleBuyClick = useCallback(() => {
-    dispatch(updateCrowdSaleOpenState(true));
-  }, [dispatch]);
+  const handleBuyClick = useHandleBuyClick();
+
   return (
     <div className={s.wrapper}>
       <div className={s.container}>

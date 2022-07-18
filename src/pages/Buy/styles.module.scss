@@ -35,7 +35,7 @@
 
         .zGasIcon {
           padding: 0 10px;
-          flex: 0 0 15%;
+          flex: 0 0 20%;
           height: 100%;
         }
 
@@ -93,18 +93,30 @@
     .container {
       padding: 25px 15px;
 
-      .title {
-        font-size: 32px;
-      }
+      .head {
+        @include flex(row, flex-start, flex-start);
 
-      .exit {
-        position: absolute;
-        right: 12px;
-        top: 0;
+        .exit {
+          position: absolute;
+          right: 12px;
+          top: 0;
+        }
+
+        .zerogas {
+          width: 300px;
+
+          .title {
+            font-size: 32px;
+          }
+        }
       }
 
       .content {
         grid-template-columns: 1fr;
+
+        .card {
+          padding: 12px 4px;
+        }
       }
     }
   }

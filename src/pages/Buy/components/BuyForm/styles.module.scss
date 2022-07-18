@@ -66,3 +66,16 @@
     }
   }
 }
+
+@include large-tablet {
+  .card {
+    .form {
+      .formButton {
+        .formButtonTypography {
+          white-space: nowrap;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
