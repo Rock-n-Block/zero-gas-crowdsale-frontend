@@ -9,11 +9,11 @@ import { NumberInput } from '@/components/NumberInput';
 import { ZEROGAS_DECIMALS } from '@/config/constants';
 import { useShallowSelector } from '@/hooks';
 import { useWalletConnectorContext } from '@/services';
-import { buy, claim, refund } from '@/store/crowdsale/actions';
+import { buy, claim, claimRised, refund } from '@/store/crowdsale/actions';
 import CrowdSaleActionType from '@/store/crowdsale/actionTypes';
 import { updateCrowdSaleState } from '@/store/crowdsale/reducer';
 import crowdSaleSelectors from '@/store/crowdsale/selectors';
-import { getCrowdsaleContract } from '@/store/crowdsale/utils';
+import { getCrowdsaleContract, getZerogasAddress } from '@/store/crowdsale/utils';
 import tokenSelectors from '@/store/tokens/selectors';
 import uiSelectors from '@/store/ui/selectors';
 import userSelector from '@/store/user/selectors';
@@ -36,6 +36,8 @@ const getReceiveAmount = (sendAmount: number, sendPrice: number, receivePrice: n
   return (sendAmount * sendPrice) / receivePrice;
 };
 
+// const getCanClaimRised =
+
 export interface BuyFormProps {
   className?: string;
   stage: Stage;
@@ -51,14 +53,17 @@ export const BuyForm = ({ className, stage }: BuyFormProps) => {
   const { tokens } = useShallowSelector(tokenSelectors.getTokens);
   const { tokenBalances } = useShallowSelector(userSelector.getUser);
   const {
+    isAdmin,
     hardcap,
     softcap,
     totalBought,
     userBought,
+    totalClaimed,
     stage2EndDate,
     minPurchase,
     maxPurchase,
     zeroGasPrice,
+    balances,
   } = useShallowSelector(crowdSaleSelectors.getCrowdSale);
   const dispatch = useDispatch();
   const { walletService } = useWalletConnectorContext();
@@ -77,6 +82,11 @@ export const BuyForm = ({ className, stage }: BuyFormProps) => {
   const totalAvailable = useMemo(() => hardcap - totalBought, [hardcap, totalBought]);
 
   const claimDaysLeft = useMemo(() => getDaysLeft(stage2EndDate), [stage2EndDate]);
+
+  const zerogasLeft = useMemo(
+    () => balances[getZerogasAddress()] - totalBought + totalClaimed,
+    [balances, totalBought, totalClaimed],
+  );
 
   const canBuy = useMemo(
     () =>
@@ -102,6 +112,32 @@ export const BuyForm = ({ className, stage }: BuyFormProps) => {
   );
   const canRefund = useMemo(() => isRefund && userBought > 0, [isRefund, userBought]);
   const canInput = useMemo(() => stage !== Stage.END, [stage]);
+
+  const getCanClaimRised = useCallback(() => {
+    if (totalBought < softcap && new Date() > stage2EndDate) {
+      // Have 0GAS to claim
+      return balances[getZerogasAddress()];
+    }
+    if (totalBought >= softcap && new Date() < stage2EndDate) {
+      // Have user tokens to claim
+      return (
+        Object.entries(balances)
+          .filter(([address]) => address !== getZerogasAddress())
+          .find(([, balance]) => balance > 0) !== undefined
+      );
+    }
+    if ((totalBought >= softcap && new Date() > stage2EndDate) || totalBought >= hardcap) {
+      // Have user tokens [and left 0GAS] to claim
+      return (
+        Object.entries(balances)
+          .filter(([address]) => address !== getZerogasAddress())
+          .find(([, balance]) => balance > 0) !== undefined || zerogasLeft > 0
+      );
+    }
+    return false;
+  }, [balances, hardcap, softcap, stage2EndDate, totalBought, zerogasLeft]);
+
+  const canClaimRised = useMemo(() => getCanClaimRised(), [getCanClaimRised]);
 
   const handleValidateSendAmount = useCallback(
     (value: number, newToken?: TOption) => {
@@ -204,6 +240,16 @@ export const BuyForm = ({ className, stage }: BuyFormProps) => {
     [dispatch, walletService],
   );
 
+  const handleClaimRised = useCallback(
+    () =>
+      dispatch(
+        claimRised({
+          web3Provider: walletService.Web3(),
+        }),
+      ),
+    [dispatch, walletService],
+  );
+
   const handleBuyEvent = useCallback(
     (error: Error, result: Buy) => {
       if (error) {
@@ -285,7 +331,7 @@ export const BuyForm = ({ className, stage }: BuyFormProps) => {
           disabled={!canInput}
         />
         <Typography type="body2" className={s.helpText}>
-          You buy 0GAS Tokens by sending USDT to the contract
+          You buy 0GAS Tokens by sending {selectedToken?.label} to the contract
         </Typography>
         <Button variant="outlined" className={s.formButton} disabled={!canBuy} onClick={handleBuy}>
           <Typography type="body1" fontFamily="DrukCyr Wide" className={s.formButtonTypography}>
@@ -297,13 +343,7 @@ export const BuyForm = ({ className, stage }: BuyFormProps) => {
       <div className={s.claim}>
         {isRefund ? (
           <>
-            <Typography type="body2">
-              Refund your
-              <Typography type="body2" weight={600} className={s.displayInline}>
-                {userBought}{' '}
-              </Typography>{' '}
-              0GAS tokens
-            </Typography>
+            <Typography type="body2">Refund your tokens</Typography>
             <Button
               variant="outlined"
               className={s.claimButton}
@@ -337,6 +377,21 @@ export const BuyForm = ({ className, stage }: BuyFormProps) => {
           </>
         )}
       </div>
+      {isAdmin && (
+        <div className={s.claim}>
+          <Typography type="body2">Claim users&apos; and/or left 0GAS tokens</Typography>
+          <Button
+            variant="outlined"
+            className={s.claimButton}
+            disabled={!canClaimRised}
+            onClick={handleClaimRised}
+          >
+            <Typography type="body2" weight={700}>
+              CLAIM
+            </Typography>
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

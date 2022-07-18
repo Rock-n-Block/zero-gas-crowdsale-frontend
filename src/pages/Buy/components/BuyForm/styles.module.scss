@@ -58,11 +58,13 @@
 
   .claim {
     @include flex(row, space-between, center);
+    margin-bottom: 8px;
 
     .claimButton {
       border: 1px solid $dark-0;
       border-radius: 650;
       white-space: nowrap;
+      min-width: 128px;
     }
   }
 }
