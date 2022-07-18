@@ -46,24 +46,24 @@ export const contractsConfig: IContracts = {
   names: Object.keys(ContractsNames),
   decimals: 18,
   contracts: {
-    [ContractsNames.crowdsale]: {
-      mainnet: {
-        address: '0x615fdCF804b604A493ee518f5FB1809cFecbD6cD',
-        abi: crowdsaleAbi,
-      },
-      testnet: {
-        address: '0x1b9D94a3853BFd32947eD451436e6DA06cDb2C4E',
-        abi: crowdsaleAbi,
-      },
-    },
     [ContractsNames.zerogas]: {
       mainnet: {
         address: '',
         abi: erc20Abi,
       },
       testnet: {
-        address: '0x5c122fEdcD8f6034Dca150D32c96475E213624A8',
+        address: '0x0A563BCb1fc6d236416EdCF674B0Ce11Cb73b6A3',
         abi: erc20Abi,
+      },
+    },
+    [ContractsNames.crowdsale]: {
+      mainnet: {
+        address: '0x615fdCF804b604A493ee518f5FB1809cFecbD6cD',
+        abi: crowdsaleAbi,
+      },
+      testnet: {
+        address: '0x5c122fEdcD8f6034Dca150D32c96475E213624A8',
+        abi: crowdsaleAbi,
       },
     },
   },
