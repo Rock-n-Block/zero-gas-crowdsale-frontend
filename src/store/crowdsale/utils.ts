@@ -4,6 +4,18 @@ import { contractsConfig, ContractsNames } from '@/config';
 import { isMainnet } from '@/config/constants';
 import { CrowdsaleAbi, Stage } from '@/types';
 
+export function getCrowdsaleAddress() {
+  const { address } =
+    contractsConfig.contracts[ContractsNames.crowdsale][isMainnet ? 'mainnet' : 'testnet'];
+  return address;
+}
+
+export function getZerogasAddress() {
+  const { address } =
+    contractsConfig.contracts[ContractsNames.zerogas][isMainnet ? 'mainnet' : 'testnet'];
+  return address;
+}
+
 export function getCrowdsaleContract(web3Provider: Web3): CrowdsaleAbi {
   const { abi: crowdsaleAbi, address: crowdsaleAddress } =
     contractsConfig.contracts[ContractsNames.crowdsale][isMainnet ? 'mainnet' : 'testnet'];

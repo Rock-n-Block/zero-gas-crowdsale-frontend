@@ -1,7 +1,12 @@
 import { createAction } from '@reduxjs/toolkit';
 
 import { GetCrowdsaleInfoPayload } from '@/types';
-import { BuyPayload, ClaimPayload, RefundPayload } from '@/types/requests';
+import {
+  BuyPayload,
+  ClaimPayload,
+  GetCrowdsaleBalancesPayload,
+  RefundPayload,
+} from '@/types/requests';
 
 import actionTypes from './actionTypes';
 
@@ -12,3 +17,7 @@ export const getCrowdsaleInfo = createAction<GetCrowdsaleInfoPayload>(
 export const buy = createAction<BuyPayload>(actionTypes.BUY);
 export const claim = createAction<ClaimPayload>(actionTypes.CLAIM);
 export const refund = createAction<RefundPayload>(actionTypes.REFUND);
+export const getCrowdsaleBalances = createAction<GetCrowdsaleBalancesPayload>(
+  actionTypes.GET_CROWDSALE_BALANCES,
+);
+export const claimRised = createAction<ClaimPayload>(actionTypes.CLAIM_RISED);

@@ -2,7 +2,7 @@ import { TChainsConfig } from '@amfi/connect-wallet/dist/interface';
 
 import { Chains, IConnectWallet, IContracts, WalletProviders } from '@/types';
 
-import { crowdsaleAbi } from './abi';
+import { crowdsaleAbi, erc20Abi } from './abi';
 import { isMainnet } from './constants';
 
 const INFURA_KEY = 'c40df013fb4d421db10a8316fabb5deb';
@@ -37,6 +37,7 @@ export const connectWallet = (chainName: Chains): IConnectWallet => {
 // eslint-disable-next-line no-shadow
 export enum ContractsNames {
   crowdsale = 'crowdsale',
+  zerogas = 'zerogas',
 }
 
 export type IContractsNames = keyof typeof ContractsNames;
@@ -51,8 +52,18 @@ export const contractsConfig: IContracts = {
         abi: crowdsaleAbi,
       },
       testnet: {
-        address: '0x17Ca5ac8E89059f2aA17592F8f9A5bdC8fE0aa56',
+        address: '0xDC0a71BDEB2a9c0a86B55b977D92FF9552a26274',
         abi: crowdsaleAbi,
+      },
+    },
+    [ContractsNames.zerogas]: {
+      mainnet: {
+        address: '',
+        abi: erc20Abi,
+      },
+      testnet: {
+        address: '0x0A563BCb1fc6d236416EdCF674B0Ce11Cb73b6A3',
+        abi: erc20Abi,
       },
     },
   },
