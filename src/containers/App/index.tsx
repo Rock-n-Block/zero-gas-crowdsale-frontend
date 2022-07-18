@@ -46,11 +46,12 @@ const App: FC = () => {
   }, [isBuyOpen, setShouldRender]);
 
   useEffect(() => {
-    // If the user is authenticated fetch profile and crowdsale data
+    // If the user is authenticated fetch profile
     if (isAuthenticated) {
       dispatch(getUserInfo({ web3Provider: walletService.Web3() }));
-      dispatch(getCrowdsaleInfo({ web3Provider: walletService.Web3() }));
     }
+
+    dispatch(getCrowdsaleInfo({ web3Provider: walletService.Web3() }));
   }, [dispatch, isAuthenticated, walletService]);
 
   const handleInterval = useCallback(() => {

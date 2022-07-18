@@ -1,5 +1,7 @@
 export const isMainnet = !!process.env.REACT_IS_MAINNET;
 
+export const NULL_ADDRESS = '0x0000000000000000000000000000000000000000';
+
 export const ETHER_DECIMALS = 18;
 export const ETHER_ADDRESS = '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE';
 

@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+import { NULL_ADDRESS } from '@/config/constants';
 import { UserState } from '@/types';
 
 const initialState: UserState = {
-  address: '',
+  address: NULL_ADDRESS,
   provider: '',
 
   tokenBalances: {},
