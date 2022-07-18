@@ -28,3 +28,7 @@ export type BuyResponse = {
     signature: string;
   };
 };
+
+export type GetTokensResponse = {
+  data: any[];
+};
