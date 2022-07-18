@@ -4,6 +4,8 @@ export type Token = {
   fullName: string;
   symbol: string;
   image: string;
+
+  decimals: number;
 };
 
 export type TokensState = {

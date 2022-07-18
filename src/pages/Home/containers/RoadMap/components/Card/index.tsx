@@ -14,7 +14,7 @@ export const Card = ({ title, content, className }: CardProps) => {
   const paragraphs = content.split('\n').filter((c) => c.length !== 0);
   return (
     <div className={cn(s.wrapper, className)}>
-      <Typography type="h3" fontFamily="DrukCyr Wide" weight={900}>
+      <Typography type="h3" fontFamily="DrukCyr Wide" weight={900} className={s.title}>
         {title}
       </Typography>
       {paragraphs.length === 1 ? (

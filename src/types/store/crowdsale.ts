@@ -12,9 +12,11 @@ export enum Stage {
 export type CrowdSaleState = {
   isOpen: boolean;
 
+  isAdmin: boolean;
   hardcap: number; // in 0GAS
   totalBought: number; // in 0GAS
   userBought: number; // in 0GAS
+  totalClaimed: number; // in 0GAS
 
   stage1StartDate: number;
   stage1EndDate: number;
@@ -25,6 +27,8 @@ export type CrowdSaleState = {
   softcap: number; // in 0GAS
   minPurchase: number; // least one-time buy amount in 0GAS
   maxPurchase: number; // left to buy in 0GAS
+
+  balances: { [address: string]: number };
 };
 
 export interface GetCrowdsaleInfoPayload {

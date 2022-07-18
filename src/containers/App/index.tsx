@@ -35,6 +35,7 @@ const App: FC = () => {
     [CrowdSaleActionType.BUY]: buyStatus,
     [CrowdSaleActionType.CLAIM]: claimStatus,
     [CrowdSaleActionType.REFUND]: refundStatus,
+    [CrowdSaleActionType.CLAIM_RISED]: claimRisedStatus,
   } = useShallowSelector(uiSelectors.getUI);
   const {
     modalState: { txHash },
@@ -62,6 +63,7 @@ const App: FC = () => {
     dispatch(apiActions.reset(CrowdSaleActionType.BUY));
     dispatch(apiActions.reset(CrowdSaleActionType.CLAIM));
     dispatch(apiActions.reset(CrowdSaleActionType.REFUND));
+    dispatch(apiActions.reset(CrowdSaleActionType.CLAIM_RISED));
     dispatch(closeModal());
   }, [dispatch]);
 
@@ -70,16 +72,16 @@ const App: FC = () => {
     [getUserInfoStatus],
   );
   const shouldShowLoading = useMemo(
-    () => [buyStatus, claimStatus, refundStatus].includes(RequestStatus.REQUEST),
-    [buyStatus, claimStatus, refundStatus],
+    () => [buyStatus, claimStatus, refundStatus, claimRisedStatus].includes(RequestStatus.REQUEST),
+    [buyStatus, claimRisedStatus, claimStatus, refundStatus],
   );
   const shouldShowSuccess = useMemo(
-    () => [buyStatus, claimStatus, refundStatus].includes(RequestStatus.SUCCESS),
-    [buyStatus, claimStatus, refundStatus],
+    () => [buyStatus, claimStatus, refundStatus, claimRisedStatus].includes(RequestStatus.SUCCESS),
+    [buyStatus, claimRisedStatus, claimStatus, refundStatus],
   );
   const shouldShowError = useMemo(
-    () => [buyStatus, claimStatus, refundStatus].includes(RequestStatus.ERROR),
-    [buyStatus, claimStatus, refundStatus],
+    () => [buyStatus, claimStatus, refundStatus, claimRisedStatus].includes(RequestStatus.ERROR),
+    [buyStatus, claimRisedStatus, claimStatus, refundStatus],
   );
 
   return (

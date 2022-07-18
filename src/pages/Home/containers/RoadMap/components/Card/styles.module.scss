@@ -6,7 +6,11 @@
     border: 2px solid $dark-0;
     width: clamp(300px, 100%, 388px);
     border-radius: 20px;
+    .title {
+      margin-bottom: 24px;
+    }
     .list{
         list-style: outside;
+        margin: 0 32px;
     }
 }

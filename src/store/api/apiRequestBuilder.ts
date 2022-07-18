@@ -3,6 +3,7 @@ import {
   BuyData,
   BuyResponse,
   GetMetamaskMessageResponse,
+  GetTokensResponse,
   MetamaskLoginData,
   MetamaskLoginResponse,
 } from '@/types/api';
@@ -23,11 +24,11 @@ export const baseApi = {
       data,
     }) as any;
   },
-  getTokens() {
+  getTokens(): GetTokensResponse {
     return ajax({
       method: 'get',
       url: URL.tokens,
-    });
+    }) as any;
   },
   buy(data: BuyData): BuyResponse {
     return ajax({
