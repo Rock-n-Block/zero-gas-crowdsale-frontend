@@ -10,8 +10,8 @@ import { updateCrowdSaleOpenState } from '@/store/crowdsale/reducer';
 import s from './styles.module.scss';
 
 interface LinkItemProps {
-  to: string;
-  href: string;
+  to?: string;
+  href?: string;
   label: string;
   onClick?: () => void;
 }
