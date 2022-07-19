@@ -10,7 +10,7 @@ import s from './styles.module.scss';
 export interface LoadingModalProps {
   className?: ModalProps['className'];
   visible: ModalProps['visible'];
-  onClose: ModalProps['onClose'];
+  onClose?: ModalProps['onClose'];
 }
 
 export const LoadingModal: FC<LoadingModalProps> = ({ ...rest }) => {
