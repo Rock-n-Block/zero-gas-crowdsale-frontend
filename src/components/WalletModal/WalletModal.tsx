@@ -32,7 +32,7 @@ export const WalletModal: FC<WalletModalProps> = ({ ...rest }) => {
     disconnect();
 
     dispatch(closeModal());
-  }, []);
+  }, [disconnect, dispatch]);
 
   return (
     <Modal closeable closeIcon={<CrossIcon />} {...rest}>

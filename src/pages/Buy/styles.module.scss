@@ -19,27 +19,33 @@
 
     .head {
       margin-bottom: 20px;
-      @include flex(row, space-between, flex-start);
+      @include flex(row);
       position: relative;
+
+      .zerogas {
+        margin: 0 auto;
+
+        .title {
+          font-size: 48px;
+          line-height: 44px;
+          text-transform: uppercase;
+          @include flex(row, center, center);
+          margin-bottom: 24px;
+
+          .zGasIcon {
+            padding: 0 10px;
+            flex: 0 0 20%;
+            height: 100%;
+          }
+        }
+      }
 
       .exit {
         padding: 4px;
         background-color: $accent;
-      }
-
-      .title {
-        font-size: 48px;
-        line-height: 44px;
-        text-transform: uppercase;
-        @include flex(row, center, center);
-
-        .zGasIcon {
-          padding: 0 10px;
-          flex: 0 0 20%;
-          height: 100%;
-        }
-
-        margin-bottom: 24px;
+        position: absolute;
+        right: 12px;
+        top: 0;
       }
     }
 

@@ -27,3 +27,13 @@
     }
   }
 }
+
+@include large-tablet {
+  .card {
+    .cardTitle {
+      white-space: nowrap;
+      font-size: 16px;
+      text-align: center;
+    }
+  }
+}

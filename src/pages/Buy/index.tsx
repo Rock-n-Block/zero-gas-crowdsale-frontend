@@ -101,7 +101,6 @@ const Buy = () => {
         ) : (
           <div className={s.container}>
             <div className={s.head}>
-              <div style={{ width: 50 }} />
               <div className={s.zerogas}>
                 <Typography className={s.title} type="h1" fontFamily="DrukCyr Wide" weight={900}>
                   Buy

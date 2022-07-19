@@ -44,7 +44,7 @@ export const SuccessModal: FC<SuccessModalProps> = ({ transactionHash, ...rest }
               <Address address={transactionHash} />
             </Typography>
             <button type="button" className={s.copy}>
-              <CopyIcon />
+              <CopyIcon className={s.icon} />
             </button>
           </Button>
         )}
