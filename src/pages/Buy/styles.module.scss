@@ -91,7 +91,7 @@
 @include large-tablet {
   .wrapper {
     .container {
-      padding: 25px 15px;
+      padding: 25px 4px;
 
       .head {
         @include flex(row, flex-start, flex-start);
@@ -115,7 +115,7 @@
         grid-template-columns: 1fr;
 
         .card {
-          padding: 12px 4px;
+          padding: 12px 10px;
         }
       }
     }

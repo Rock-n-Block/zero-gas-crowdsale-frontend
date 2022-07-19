@@ -39,3 +39,9 @@
   padding-left: 24px;
   color: $error
 }
+
+@include large-tablet {
+  .container {
+    padding-left: 12px;
+  }
+}

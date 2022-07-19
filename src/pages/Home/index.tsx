@@ -30,7 +30,7 @@ const Home = () => {
       <Parallax speed={-13}>
         <Tokenomics />
       </Parallax>
-      <Parallax speed={20}>
+      <Parallax speed={15}>
         <RoadMap />
       </Parallax>
       <Parallax speed={0}>

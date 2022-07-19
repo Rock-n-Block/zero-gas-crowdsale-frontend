@@ -24,7 +24,7 @@ export const Menu = ({ isOpen, setIsOpen }: MenuProps) => {
   const { connect } = useWalletConnectorContext();
 
   const handleClickConnect = useCallback(() => {
-    if (userAddress) {
+    if (isAuthenticated) {
       dispatch(
         setActiveModal({
           activeModal: Modals.Wallet,
@@ -33,7 +33,7 @@ export const Menu = ({ isOpen, setIsOpen }: MenuProps) => {
     } else {
       connect(WalletProviders.metamask, Chains.Kovan);
     }
-  }, [connect, dispatch, userAddress]);
+  }, [connect, dispatch, isAuthenticated]);
 
   const handleBuyClick = useHandleBuyClick();
 

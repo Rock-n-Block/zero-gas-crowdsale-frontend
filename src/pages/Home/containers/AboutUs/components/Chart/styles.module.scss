@@ -72,6 +72,7 @@
     }
     .chart{
         &Element{
+            top: calc(var(--y) * 0.8px);
             width: 45px;
             height: 45px;
         }

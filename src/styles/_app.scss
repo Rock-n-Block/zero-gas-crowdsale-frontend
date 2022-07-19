@@ -2,9 +2,11 @@
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 
+  // Chrome, Safari (macOS/iOS)
   &::-webkit-scrollbar {
     width: 6px;
     height: 2px;
+    display: none;
   }
 
   &::-webkit-scrollbar-track {
@@ -16,7 +18,8 @@
     border: 3px solid #cffd51;
   }
 
-  scrollbar-width: thin;
+  // Firefox
+  scrollbar-width: none;
   scrollbar-color: #cffd51 #161313;
 }
 
