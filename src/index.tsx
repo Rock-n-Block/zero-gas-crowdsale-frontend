@@ -31,4 +31,12 @@ const app = (
     </PersistGate>
   </Provider>
 );
-ReactDOM.render(app, root);
+
+(async () => {
+  // Dynamically add eruda
+  if (process.env.NODE_ENV === 'development') {
+    await import('./eruda');
+  }
+
+  ReactDOM.render(app, root);
+})();
