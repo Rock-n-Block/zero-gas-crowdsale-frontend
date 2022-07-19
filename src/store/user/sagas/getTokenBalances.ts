@@ -30,7 +30,7 @@ export function* getTokenBalancesSaga({
   } catch (err) {
     console.error(err);
     yield* put(error(type, err));
-    throw err;
+    throw err; // TODO: throw in saga breaks takeLatest listener
   }
 }
 

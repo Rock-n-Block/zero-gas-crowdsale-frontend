@@ -114,6 +114,7 @@ const WalletConnectContext: FC<PropsWithChildren<any>> = ({ children }) => {
           }
         } catch (error: any) {
           console.error(error);
+
           // metamask doesn't installed,
           // redirect to download MM or open MM on mobile
           if (!window.ethereum) {
@@ -133,6 +134,8 @@ const WalletConnectContext: FC<PropsWithChildren<any>> = ({ children }) => {
               params: [networkDataForAddToMetamask],
             });
           }
+
+          throw error;
         }
       }
     },

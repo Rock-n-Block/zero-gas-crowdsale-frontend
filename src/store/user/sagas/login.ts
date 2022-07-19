@@ -44,7 +44,6 @@ export function* loginSaga({
     // Possibly user has rejected message signing
     console.error(err);
     yield* put(error(type, err));
-    throw err;
   }
 }
 

@@ -21,7 +21,6 @@ export function* claimSaga({ type, payload: { web3Provider } }: ReturnType<typeo
   } catch (err) {
     console.error(err);
     yield* put(error(type, err));
-    throw err;
   }
 }
 
