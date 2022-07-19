@@ -20,7 +20,13 @@ export const TokenList = ({ className }: TokenListProps) => {
 
   return (
     <div className={cn(s.card, className)}>
-      <Typography type="body1" fontFamily="DrukCyr Wide" weight={900} className={s.cardTitle}>
+      <Typography
+        type="body1"
+        fontFamily="DrukCyr Wide"
+        weight={900}
+        className={s.cardTitle}
+        align="center"
+      >
         Current prices
       </Typography>
       <div className={s.currencyListItem}>
