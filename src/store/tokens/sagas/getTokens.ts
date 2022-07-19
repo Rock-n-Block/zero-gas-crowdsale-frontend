@@ -48,6 +48,7 @@ export function* getTokensSaga({ type, payload: { web3Provider } }: ReturnType<t
   } catch (err) {
     console.error(err);
     yield* put(apiActions.error(type, err));
+    throw err;
   }
 }
 

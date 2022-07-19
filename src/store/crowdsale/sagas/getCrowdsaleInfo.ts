@@ -86,6 +86,7 @@ export function* getCrowdsaleInfoSaga({
   } catch (err) {
     console.error(err);
     yield* put(apiActions.error(type, err));
+    throw err;
   }
 }
 

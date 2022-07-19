@@ -78,6 +78,7 @@ export function* buySaga({
   } catch (err) {
     console.error(err);
     yield* put(error(type, err));
+    throw err;
   }
 }
 

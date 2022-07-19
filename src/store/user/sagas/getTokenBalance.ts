@@ -34,7 +34,8 @@ export function* getTokenBalanceSaga({
     yield put(success(type));
   } catch (err) {
     console.error(err);
-    yield put(error(type, err));
+    yield* put(error(type, err));
+    throw err;
   }
 }
 

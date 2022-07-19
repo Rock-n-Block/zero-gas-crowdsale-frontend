@@ -7,7 +7,7 @@ import { Button, Dropdown, Progress, Typography } from '@/components';
 import { TOption } from '@/components/Dropdown';
 import { NumberInput } from '@/components/NumberInput';
 import { ZEROGAS_DECIMALS } from '@/config/constants';
-import { useShallowSelector } from '@/hooks';
+import { useShallowSelector, useUpdateEffect } from '@/hooks';
 import { useWalletConnectorContext } from '@/services';
 import { buy, claim, claimRised, refund } from '@/store/crowdsale/actions';
 import CrowdSaleActionType from '@/store/crowdsale/actionTypes';
@@ -168,6 +168,7 @@ export const BuyForm = ({ className, stage }: BuyFormProps) => {
   const handleTokenChange = useCallback(
     (option: TOption) => {
       setSelectedToken(option);
+
       const newSendAmount = getReceiveAmount(
         +receiveAmount,
         zeroGasPrice,
@@ -265,6 +266,16 @@ export const BuyForm = ({ className, stage }: BuyFormProps) => {
   );
 
   useEffect(() => {
+    const newReceiveAmount = getReceiveAmount(
+      +sendAmount,
+      tokens[sendToken?.value].value,
+      zeroGasPrice,
+    );
+    setReceiveAmount(newReceiveAmount.toString());
+    handleValidateReceiveAmount(newReceiveAmount);
+  }, [tokens, zeroGasPrice]);
+
+  useEffect(() => {
     if (buyStatus === RequestStatus.SUCCESS) {
       setSendAmount('');
       setReceiveAmount('');
@@ -283,7 +294,7 @@ export const BuyForm = ({ className, stage }: BuyFormProps) => {
         <Typography type="body2">
           Sold{' '}
           <Typography type="body2" weight={600} className={s.displayInline}>
-            {totalBought}{' '}
+            {Math.floor(totalBought)}{' '}
           </Typography>
           out of{' '}
           <Typography type="body2" weight={600} className={s.displayInline}>
@@ -329,7 +340,7 @@ export const BuyForm = ({ className, stage }: BuyFormProps) => {
           disabled={!canInput}
         />
         <Typography type="body2" className={s.helpText}>
-          You buy 0GAS Tokens by sending {selectedToken?.label} to the contract
+          You buy 0GAS Tokens by sending {sendToken?.label} to the contract
         </Typography>
         <Button variant="outlined" className={s.formButton} disabled={!canBuy} onClick={handleBuy}>
           <Typography type="body1" fontFamily="DrukCyr Wide" className={s.formButtonTypography}>

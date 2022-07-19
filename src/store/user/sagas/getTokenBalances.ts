@@ -13,7 +13,7 @@ export function* getTokenBalancesSaga({
   type,
   payload: { web3Provider },
 }: ReturnType<typeof getTokenBalances>) {
-  yield put(request(type));
+  yield* put(request(type));
 
   const { tokens } = yield* select(tokenSelectors.getTokens);
   try {
@@ -26,10 +26,11 @@ export function* getTokenBalancesSaga({
       ),
     );
 
-    yield put(success(type));
+    yield* put(success(type));
   } catch (err) {
     console.error(err);
-    yield put(error(type, err));
+    yield* put(error(type, err));
+    throw err;
   }
 }
 
