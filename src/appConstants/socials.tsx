@@ -43,7 +43,7 @@ export const socials: TSocials[] = [
     label: 'Reddit',
   },
   {
-    link: 'https://discord.gg/DuywSQmx',
+    link: 'https://discord.gg/VY7YaCgE52',
     name: 'discord',
     label: 'Discord',
   },
@@ -53,7 +53,7 @@ export const socials: TSocials[] = [
     label: 'Telegram Channel',
   },
   {
-    link: 'https://www.facebook.com/ZeroGasOfficial',
+    link: 'https://www.facebook.com/ZeroGasDex',
     name: 'facebook',
     label: 'Facebook',
   },
@@ -63,7 +63,7 @@ export const socials: TSocials[] = [
     label: 'Twitter',
   },
   {
-    link: 'https://medium.com',
+    link: 'https://medium.com/@0gas.dex',
     name: 'medium',
     label: 'Medium',
   },

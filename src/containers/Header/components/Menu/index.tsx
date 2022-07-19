@@ -55,15 +55,17 @@ export const Menu = ({ isOpen, setIsOpen }: MenuProps) => {
             {isAuthenticated ? <Address address={userAddress} /> : 'Connect wallet'}
           </Typography>
         </Button>
+        {!isOpen && (
+        <>
         <Button onClick={handleClickBuy} variant="outlined" className={s.buy}>
           <Typography type="body2" weight={900} fontFamily="DrukCyr Wide">
             Buy
           </Typography>
         </Button>
-        {!isOpen && (
           <Button className={s.burger} variant="outlined" onClick={handleBurgerClick}>
             <BurgerIcon />
           </Button>
+        </>
         )}
       </div>
     </section>

@@ -13,6 +13,14 @@ export const anchorLinks = [
     to: '/#roadMap',
     label: 'Roadmap',
   },
+  {
+    to: '/#partners',
+    label: 'Partners',
+  },
+  {
+    href: '/litepaper.pdf',
+    label: 'Litepaper',
+  },
 ];
 
 export const routes = [
