@@ -96,7 +96,7 @@ const App: FC = () => {
       </div>
 
       <Loader visible={shouldShowLoader} />
-      <LoadingModal visible={shouldShowLoading} />
+      <LoadingModal visible={shouldShowLoading} onClose={handleCloseModal} />
       <SuccessModal
         visible={shouldShowSuccess}
         transactionHash={txHash}

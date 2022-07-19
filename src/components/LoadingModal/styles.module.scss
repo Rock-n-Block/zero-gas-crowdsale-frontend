@@ -4,11 +4,11 @@
 .container {
   @include flex(column, stretch, center, nowrap);
   padding: 30px;
+  padding-top: 0;
 
   .title {
     text-transform: uppercase;
     margin: 0;
-    margin-bottom: 5%;
     text-align: center;
   }
 }

@@ -10,11 +10,12 @@ import s from './styles.module.scss';
 export interface LoadingModalProps {
   className?: ModalProps['className'];
   visible: ModalProps['visible'];
+  onClose: ModalProps['onClose'];
 }
 
 export const LoadingModal: FC<LoadingModalProps> = ({ ...rest }) => {
   return (
-    <Modal closeable={false} closeIcon={<CrossIcon />} {...rest}>
+    <Modal closeable closeIcon={<CrossIcon />} {...rest}>
       <div className={s.container}>
         <Typography
           type="body1"
