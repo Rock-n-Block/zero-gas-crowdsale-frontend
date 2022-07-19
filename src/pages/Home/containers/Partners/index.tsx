@@ -9,7 +9,7 @@ import s from './styles.module.scss';
 
 export const Partners = () => {
   return (
-    <div className={s.wrapper}>
+    <div className={s.wrapper} id="partners">
       <div className={s.container}>
         <Typography className={s.title} type="h2" fontFamily="DrukCyr Wide" weight={900}>
           Partners and investors

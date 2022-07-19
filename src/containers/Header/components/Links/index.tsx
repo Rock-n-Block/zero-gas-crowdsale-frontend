@@ -11,13 +11,14 @@ import s from './styles.module.scss';
 
 interface LinkItemProps {
   to: string;
+  href: string;
   label: string;
   onClick?: () => void;
 }
 
-export const LinkItem = ({ to, label, onClick }: LinkItemProps) => {
+export const LinkItem = ({ to, href, label, onClick }: LinkItemProps) => {
   return (
-    <Button className={s.linkWrapper} to={to} variant="text" onClick={onClick}>
+    <Button className={s.linkWrapper} to={to} href={href} variant="text" onClick={onClick}>
       <Typography weight={900} type="body2" fontFamily="DrukCyr Wide" className={s.linkLabel}>
         {label}
       </Typography>
