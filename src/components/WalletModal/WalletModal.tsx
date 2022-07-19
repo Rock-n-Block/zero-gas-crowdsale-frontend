@@ -53,7 +53,7 @@ export const WalletModal: FC<WalletModalProps> = ({ ...rest }) => {
             <Address address={userAddress} />
           </Typography>
           <button type="button" className={s.copy}>
-            <CopyIcon />
+            <CopyIcon className={s.icon} />
           </button>
         </Button>
 
