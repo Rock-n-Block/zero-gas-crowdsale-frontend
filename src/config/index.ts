@@ -52,7 +52,7 @@ export const contractsConfig: IContracts = {
         abi: erc20Abi,
       },
       testnet: {
-        address: '0x87c940Ec036F2546b4575d4c45539a49fA22738F',
+        address: '0x0A563BCb1fc6d236416EdCF674B0Ce11Cb73b6A3',
         abi: erc20Abi,
       },
     },
