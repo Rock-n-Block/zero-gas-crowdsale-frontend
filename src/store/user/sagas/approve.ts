@@ -22,11 +22,14 @@ export function* approveSaga({
   const tokenContract = getTokenContract(web3Provider, tokenAddress);
 
   try {
+    console.log('Before `yield* call(tokenContract.methods.approve(crowdsaleAddress, amount)`');
     yield* call(tokenContract.methods.approve(crowdsaleAddress, amount).send, {
       from: userAddress,
     });
+    console.log('After `yield* call(tokenContract.methods.approve(crowdsaleAddress, amount)`');
     yield* put(apiActions.success(type));
   } catch (err) {
+    console.log('error in approve saga');
     console.error(err);
     yield* put(apiActions.error(type));
     throw err;

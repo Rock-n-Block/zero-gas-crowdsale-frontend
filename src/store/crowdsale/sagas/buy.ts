@@ -27,6 +27,7 @@ export function* buySaga({
     if (tokenAddress !== ETHER_ADDRESS) {
       const tokenContract = getTokenContract(web3Provider, tokenAddress);
       const tokenDecimals = yield* call(tokenContract.methods.decimals().call);
+      console.log('Before yield* call(approveSaga`');
       yield* call(approveSaga, {
         type: userActionTypes.APPROVE,
         payload: {
@@ -35,6 +36,7 @@ export function* buySaga({
           tokenAddress,
         },
       });
+      console.log('After yield* call(approveSaga`');
     }
 
     const { data } = yield* call(baseApi.buy, {
@@ -76,6 +78,7 @@ export function* buySaga({
 
     yield* put(success(type));
   } catch (err) {
+    console.log('error in buy saga');
     console.error(err);
     yield* put(error(type, err));
   }
