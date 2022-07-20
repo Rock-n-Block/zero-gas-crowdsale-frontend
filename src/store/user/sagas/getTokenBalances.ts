@@ -7,6 +7,7 @@ import { getTokenBalances } from '../actions';
 import actionTypes from '../actionTypes';
 
 import { getTokenBalanceSaga } from './getTokenBalance';
+import { safe } from '@/store/utils';
 
 // Fetch balances for all available token/contracts/assets
 export function* getTokenBalancesSaga({
@@ -30,10 +31,10 @@ export function* getTokenBalancesSaga({
   } catch (err) {
     console.error(err);
     yield* put(error(type, err));
-    throw err; // TODO: throw in saga breaks takeLatest listener
+    throw err;
   }
 }
 
 export default function* listener() {
-  yield* takeLatest(actionTypes.GET_TOKEN_BALANCES, getTokenBalancesSaga);
+  yield* takeLatest(actionTypes.GET_TOKEN_BALANCES, safe(getTokenBalancesSaga));
 }
