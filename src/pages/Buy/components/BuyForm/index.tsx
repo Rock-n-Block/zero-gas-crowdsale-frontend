@@ -265,7 +265,7 @@ export const BuyForm = ({ className, stage }: BuyFormProps) => {
     [dispatch, totalBought],
   );
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     const newReceiveAmount = getReceiveAmount(
       +sendAmount,
       tokens[sendToken?.value].value,
