@@ -8,6 +8,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { App, OverlayProvider } from '@/containers';
 import { WalletConnectContext } from '@/services';
 
+import { isMainnet } from './config/constants';
 import store from './store/configureStore';
 import { Buy } from './pages';
 
@@ -34,7 +35,7 @@ const app = (
 
 (async () => {
   // Dynamically add eruda
-  if (process.env.NODE_ENV === 'development') {
+  if (!isMainnet) {
     await import('./eruda');
   }
 
