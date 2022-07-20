@@ -52,7 +52,7 @@ export const contractsConfig: IContracts = {
         abi: erc20Abi,
       },
       testnet: {
-        address: '0x0A563BCb1fc6d236416EdCF674B0Ce11Cb73b6A3',
+        address: '0x87c940Ec036F2546b4575d4c45539a49fA22738F',
         abi: erc20Abi,
       },
     },
@@ -62,7 +62,7 @@ export const contractsConfig: IContracts = {
         abi: crowdsaleAbi,
       },
       testnet: {
-        address: '0xA57425f72EFf3c01dFa4476b02590367eDF8956f',
+        address: '0x61Fdd93f4A71A0732683502b0210faECb3a69f1b',
         abi: crowdsaleAbi,
       },
     },
