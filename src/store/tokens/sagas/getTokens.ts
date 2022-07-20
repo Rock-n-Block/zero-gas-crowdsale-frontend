@@ -8,6 +8,7 @@ import { getTokenContract } from '@/store/user/utils';
 import { getTokens } from '../actions';
 import actionTypes from '../actionTypes';
 import { updateTokensState } from '../reducer';
+import { safe } from '@/store/utils';
 
 export function* getTokensSaga({ type, payload: { web3Provider } }: ReturnType<typeof getTokens>) {
   yield* put(apiActions.request(type));
@@ -53,5 +54,5 @@ export function* getTokensSaga({ type, payload: { web3Provider } }: ReturnType<t
 }
 
 export default function* listener() {
-  yield takeLatest(actionTypes.GET_TOKENS, getTokensSaga);
+  yield takeLatest(actionTypes.GET_TOKENS, safe(getTokensSaga));
 }

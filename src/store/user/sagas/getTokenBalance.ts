@@ -9,6 +9,7 @@ import actionTypes from '../actionTypes';
 import { updateTokensState } from '../reducer';
 import userSelector from '../selectors';
 import { getTokenContract } from '../utils';
+import { safe } from '@/store/utils';
 
 export function* getTokenBalanceSaga({
   type,
@@ -40,5 +41,5 @@ export function* getTokenBalanceSaga({
 }
 
 export default function* listener() {
-  yield takeLatest(actionTypes.GET_TOKEN_BALANCE, getTokenBalanceSaga);
+  yield takeLatest(actionTypes.GET_TOKEN_BALANCE, safe(getTokenBalanceSaga));
 }

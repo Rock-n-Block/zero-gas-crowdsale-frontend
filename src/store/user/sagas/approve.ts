@@ -8,6 +8,7 @@ import { approve } from '../actions';
 import actionTypes from '../actionTypes';
 import userSelector from '../selectors';
 import { getTokenContract } from '../utils';
+import { safe } from '@/store/utils';
 
 export function* approveSaga({
   type,
@@ -33,5 +34,5 @@ export function* approveSaga({
 }
 
 export default function* listener() {
-  yield takeLatest(actionTypes.APPROVE, approveSaga);
+  yield takeLatest(actionTypes.APPROVE, safe(approveSaga));
 }

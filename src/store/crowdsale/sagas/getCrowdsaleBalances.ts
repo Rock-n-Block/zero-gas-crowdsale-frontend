@@ -10,6 +10,7 @@ import { getCrowdsaleBalances } from '../actions';
 import actionTypes from '../actionTypes';
 import { updateCrowdSaleState } from '../reducer';
 import { getCrowdsaleAddress, getZerogasAddress } from '../utils';
+import { safe } from '@/store/utils';
 
 export function* getCrowdsaleBalancesSaga({
   type,
@@ -60,5 +61,5 @@ export function* getCrowdsaleBalancesSaga({
 }
 
 export default function* listener() {
-  yield* takeLatest(actionTypes.GET_CROWDSALE_BALANCES, getCrowdsaleBalancesSaga);
+  yield* takeLatest(actionTypes.GET_CROWDSALE_BALANCES, safe(getCrowdsaleBalancesSaga));
 }
