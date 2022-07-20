@@ -111,7 +111,7 @@ export const BuyForm = ({ className, stage }: BuyFormProps) => {
     [softcap, stage2EndDate, totalBought, stage],
   );
   const canRefund = useMemo(() => isRefund && userBought > 0, [isRefund, userBought]);
-  const canInput = useMemo(() => stage === Stage.FIRST && stage === Stage.SECOND, [stage]);
+  const canInput = useMemo(() => stage === Stage.FIRST || stage === Stage.SECOND, [stage]);
 
   const canClaimRised = useMemo(() => {
     if (totalBought < softcap && new Date() > stage2EndDate) {
