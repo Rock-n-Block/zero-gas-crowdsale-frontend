@@ -111,7 +111,7 @@ export const BuyForm = ({ className, stage }: BuyFormProps) => {
     [softcap, stage2EndDate, totalBought, stage],
   );
   const canRefund = useMemo(() => isRefund && userBought > 0, [isRefund, userBought]);
-  const canInput = useMemo(() => stage !== Stage.END, [stage]);
+  const canInput = useMemo(() => stage === Stage.FIRST && stage === Stage.SECOND, [stage]);
 
   const canClaimRised = useMemo(() => {
     if (totalBought < softcap && new Date() > stage2EndDate) {
@@ -266,13 +266,15 @@ export const BuyForm = ({ className, stage }: BuyFormProps) => {
   );
 
   useUpdateEffect(() => {
-    const newReceiveAmount = getReceiveAmount(
-      +sendAmount,
-      tokens[sendToken?.value].value,
-      zeroGasPrice,
-    );
-    setReceiveAmount(newReceiveAmount.toString());
-    handleValidateReceiveAmount(newReceiveAmount);
+    if (sendAmount) {
+      const newReceiveAmount = getReceiveAmount(
+        +sendAmount,
+        tokens[sendToken?.value].value,
+        zeroGasPrice,
+      );
+      setReceiveAmount(newReceiveAmount.toString());
+      handleValidateReceiveAmount(newReceiveAmount);
+    }
   }, [tokens, zeroGasPrice]);
 
   useEffect(() => {
