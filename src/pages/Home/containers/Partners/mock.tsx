@@ -18,4 +18,5 @@ export const partners = [
   { id: 6, image: newTribeSrc, href: 'https://www.newtribe.capital/' },
   { id: 7, image: moralisSrc, href: 'https://moralis.io/' },
   { id: 8, image: metaVisionSrc, href: 'https://www.metavision.ae/' },
+  { id: 8, text: 'PARTNERSHIPS', href: 'mailto:admin@0gas.org' },
 ];

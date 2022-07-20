@@ -17,7 +17,13 @@ export const Partners = () => {
         <div className={s.grid}>
           {partners.map((partner) => (
             <Button key={partner.id} variant="outlined" href={partner.href} className={s.partner}>
-              <img src={partner.image} alt={`partner ${partner.id}`} className={s.partnerImage} />
+              {partner.image ? (
+                <img src={partner.image} alt={`partner ${partner.id}`} className={s.partnerImage} />
+              ) : (
+                <Typography type="body1" fontFamily="DrukCyr Wide" weight={900}>
+                  {partner.text}
+                </Typography>
+              )}
             </Button>
           ))}
         </div>
