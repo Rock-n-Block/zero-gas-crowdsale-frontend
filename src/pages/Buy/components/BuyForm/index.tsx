@@ -169,15 +169,17 @@ export const BuyForm = ({ className, stage }: BuyFormProps) => {
     (option: TOption) => {
       setSelectedToken(option);
 
-      const newSendAmount = getReceiveAmount(
-        +receiveAmount,
-        zeroGasPrice,
-        tokens[option?.value].value,
-      );
-      setSendAmount(newSendAmount.toString());
-      handleValidateSendAmount(newSendAmount, option);
+      if (sendAmount) {
+        const newSendAmount = getReceiveAmount(
+          +receiveAmount,
+          zeroGasPrice,
+          tokens[option?.value].value,
+        );
+        setSendAmount(newSendAmount.toString());
+        handleValidateSendAmount(newSendAmount, option);
+      }
     },
-    [handleValidateSendAmount, receiveAmount, tokens, zeroGasPrice],
+    [handleValidateSendAmount, receiveAmount, sendAmount, tokens, zeroGasPrice],
   );
 
   const handleSendAmountChange = useCallback(
