@@ -70,3 +70,11 @@ declare module '*.module.sass' {
   const classes: { readonly [key: string]: string };
   export default classes;
 }
+
+declare module 'eruda' {
+  export function init();
+  export function add(module: any);
+}
+
+declare module 'eruda-code';
+declare module 'eruda-dom';
