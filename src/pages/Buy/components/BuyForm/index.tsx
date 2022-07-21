@@ -310,7 +310,7 @@ export const BuyForm = ({ className, stage }: BuyFormProps) => {
       <Typography type="body2" className={s.softCap}>
         The softcap amount is{' '}
         <Typography type="body2" weight={600} className={s.displayInline}>
-          {softcap}
+          {getFormatNumber(softcap)}
         </Typography>{' '}
         0GAS
       </Typography>
