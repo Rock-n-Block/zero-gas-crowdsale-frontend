@@ -85,7 +85,7 @@ export const Info = ({
         value={`${presale}%`}
       />
       <Element title="Uniswap" value={`${uniswap}%`} />
-      <Element title="ZEROGAS team " value={`${team}%`} />
+      <Element title="ZEROGAS DEX " value={`${team}%`} />
       <Element title="Vesting for exchanges" value={`${vesting}%`} />
       <hr />
       <Element title="Presale price" value={`$${price}`} softness="hard" />
