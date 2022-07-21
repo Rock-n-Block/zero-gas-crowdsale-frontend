@@ -19,6 +19,7 @@ export { ReactComponent as ArrowDownIcon } from './icons/arrowDown.svg';
 export { ReactComponent as ArchangelTokenIcon } from './icons/archangelTokenIcon.svg';
 export { ReactComponent as RockNBlockIcon } from './icons/rocknblockIcon.svg';
 export { ReactComponent as RockNBlockText } from './icons/rocknblockText.svg';
+export { ReactComponent as LockIcon } from './icons/lock.svg';
 
 export { default as impossibleFinanceSrc } from './partners/impossibleFinanceLogo.svg';
 export { default as binanceSrc } from './partners/binanceLogo.png';

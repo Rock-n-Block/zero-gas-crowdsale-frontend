@@ -49,6 +49,14 @@
       margin-right: auto;
       margin-bottom: 32px;
 
+      &:disabled {
+        background-color: transparent;
+
+        .formButtonTypography {
+          margin-left: 16px;
+        }
+      }
+
       .formButtonTypography {
         text-transform: uppercase;
         font-size: 20px;

@@ -2,7 +2,7 @@ import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import cn from 'clsx';
 
-import { ZeroGasIcon } from '@/assets/img';
+import { LockIcon, ZeroGasIcon } from '@/assets/img';
 import { Button, Dropdown, Progress, Typography } from '@/components';
 import { TOption } from '@/components/Dropdown';
 import { NumberInput } from '@/components/NumberInput';
@@ -347,6 +347,7 @@ export const BuyForm = ({ className, stage }: BuyFormProps) => {
           You buy 0GAS Tokens by sending {sendToken?.label} to the contract
         </Typography>
         <Button variant="outlined" className={s.formButton} disabled={!canBuy} onClick={handleBuy}>
+          <LockIcon />
           <Typography type="body1" fontFamily="DrukCyr Wide" className={s.formButtonTypography}>
             Buy zerogas
           </Typography>
