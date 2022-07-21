@@ -5,11 +5,11 @@ import { Chains, IConnectWallet, IContracts, WalletProviders } from '@/types';
 import { crowdsaleAbi, erc20Abi } from './abi';
 import { isMainnet } from './constants';
 
-const INFURA_KEY = process.env.REACT_INFURA_KEY;
-const ZEROGAS_ADDRESS_MAINNET = process.env.REACT_ZEROGAS_ADDRESS_MAINNET;
-const ZEROGAS_ADDRESS_TESTNET = process.env.REACT_ZEROGAS_ADDRESS_TESTNET;
-const CROWDSALE_ADDRESS_MAINNET = process.env.REACT_CROWDSALE_ADDRESS_MAINNET;
-const CROWDSALE_ADDRESS_TESTNET = process.env.REACT_CROWDSALE_ADDRESS_TESTNET;
+const INFURA_KEY = process.env.REACT_APP_INFURA_KEY;
+const ZEROGAS_ADDRESS_MAINNET = process.env.REACT_APP_ZEROGAS_ADDRESS_MAINNET;
+const ZEROGAS_ADDRESS_TESTNET = process.env.REACT_APP_ZEROGAS_ADDRESS_TESTNET;
+const CROWDSALE_ADDRESS_MAINNET = process.env.REACT_APP_CROWDSALE_ADDRESS_MAINNET;
+const CROWDSALE_ADDRESS_TESTNET = process.env.REACT_APP_CROWDSALE_ADDRESS_TESTNET;
 
 export const chains: TChainsConfig<Chains, WalletProviders> = {
   [Chains.Kovan]: {
