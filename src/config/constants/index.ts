@@ -1,4 +1,4 @@
-export const isMainnet = !!process.env.REACT_IS_MAINNET;
+export const isMainnet = true;
 
 export const NULL_ADDRESS = '0x0000000000000000000000000000000000000000';
 

@@ -5,7 +5,7 @@ import { disconnectWalletState } from '../user/reducer';
 import userSelector from '../user/selectors';
 
 const client: AxiosInstance = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL: 'https://0gas.org/api/v1/',
 });
 
 export default function* ajax<T = unknown>(
