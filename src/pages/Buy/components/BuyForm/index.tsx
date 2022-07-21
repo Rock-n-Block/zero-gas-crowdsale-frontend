@@ -292,7 +292,7 @@ export const BuyForm = ({ className, stage }: BuyFormProps) => {
 
   return (
     <div className={cn(s.card, className)}>
-      <Progress value={Math.floor((totalBought / hardcap) * 100)} className={s.progress}>
+      <Progress value={totalBought} maxValue={hardcap} className={s.progress}>
         <Typography type="body2">
           Sold{' '}
           <Typography type="body2" weight={600} className={s.displayInline}>
