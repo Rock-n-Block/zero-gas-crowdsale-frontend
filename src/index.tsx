@@ -9,6 +9,7 @@ import { App, OverlayProvider } from '@/containers';
 import { WalletConnectContext } from '@/services';
 
 import { isMainnet } from './config/constants';
+import { OverflowProvider } from './hooks/useOverflow';
 import store from './store/configureStore';
 import { Buy } from './pages';
 
@@ -24,7 +25,9 @@ const app = (
           <OverlayProvider overlayChildren={[<Buy key="buy" />]}>
             <ParallaxProvider>
               <ToastContainer hideProgressBar />
-              <App />
+              <OverflowProvider>
+                <App />
+              </OverflowProvider>
             </ParallaxProvider>
           </OverlayProvider>
         </WalletConnectContext>

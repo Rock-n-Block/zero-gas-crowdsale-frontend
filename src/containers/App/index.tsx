@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { ErrorModal, Loader, SuccessModal } from '@/components';
 import { LoadingModal } from '@/components/LoadingModal';
 import { Header, RouterManager } from '@/containers';
-import { useAnchorLink, useInterval, useShallowSelector } from '@/hooks';
+import { useAnchorLink, useInterval, useOverflow, useShallowSelector } from '@/hooks';
 import { useWalletConnectorContext } from '@/services';
 import apiActions from '@/store/api/actions';
 import { getCrowdsaleInfo } from '@/store/crowdsale/actions';
@@ -18,12 +18,14 @@ import { getUserInfo } from '@/store/user/actions';
 import userActionTypes from '@/store/user/actionTypes';
 import userSelector from '@/store/user/selectors';
 import { RequestStatus } from '@/types';
+import { cssVariable } from '@/utils';
 
 import { useOverlay } from '../Overlay';
 
 import s from './App.module.scss';
 
 const App: FC = () => {
+  const { overflow } = useOverflow();
   const isAuthenticated = useShallowSelector(userSelector.getIsAuthenticated);
   const isBuyOpen = useShallowSelector(crowdSaleSelectors.getProp('isOpen'));
   useAnchorLink();
@@ -36,6 +38,7 @@ const App: FC = () => {
     [CrowdSaleActionType.CLAIM]: claimStatus,
     [CrowdSaleActionType.REFUND]: refundStatus,
     [CrowdSaleActionType.CLAIM_RISED]: claimRisedStatus,
+    [CrowdSaleActionType.GET_CROWDSALE_INFO]: getCrowdsaleInfoStatus,
   } = useShallowSelector(uiSelectors.getUI);
   const {
     modalState: { txHash },
@@ -69,8 +72,10 @@ const App: FC = () => {
   }, [dispatch]);
 
   const shouldShowLoader = useMemo(
-    () => getUserInfoStatus === RequestStatus.REQUEST,
-    [getUserInfoStatus],
+    () =>
+      getUserInfoStatus === RequestStatus.REQUEST ||
+      getCrowdsaleInfoStatus === RequestStatus.REQUEST,
+    [getCrowdsaleInfoStatus, getUserInfoStatus],
   );
   const shouldShowLoading = useMemo(
     () => [buyStatus, claimStatus, refundStatus, claimRisedStatus].includes(RequestStatus.REQUEST),
@@ -87,7 +92,7 @@ const App: FC = () => {
 
   return (
     <>
-      <div className={s.mainWrapper}>
+      <div style={cssVariable({ appOverflow: overflow })} className={s.mainWrapper}>
         <Header />
 
         <div className={s.pageWrapper}>

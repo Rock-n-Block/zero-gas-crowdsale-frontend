@@ -1,8 +1,9 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import cn from 'clsx';
 import Dialog from 'rc-dialog/lib/Dialog';
 
 import { zeroGasGifSrc } from '@/assets/img';
+import { useOverflow } from '@/hooks';
 
 import { Typography } from '../Typography';
 
@@ -15,6 +16,12 @@ export interface LoaderProps {
 }
 
 export const Loader: FC<LoaderProps> = ({ className, visible }) => {
+  const overflowContext = useOverflow();
+
+  useEffect(() => {
+    overflowContext?.setOverflow(visible ? 'hidden' : 'auto');
+  }, [overflowContext, visible]);
+
   return (
     <Dialog
       prefixCls="modal"

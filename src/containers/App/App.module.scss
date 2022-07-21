@@ -3,9 +3,9 @@
 
 .mainWrapper {
   position: relative;
-  overflow: hidden;
+  overflow: var(--appOverflow);
+  height: 100vh;
   z-index: 0;
-  min-height: 100vh;
   @include flex(column, flex-start, center);
 
   footer {

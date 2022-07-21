@@ -35,10 +35,6 @@ const Buy = () => {
     isOpen,
   } = useShallowSelector(crowdSaleSelectors.getCrowdSale);
 
-  const { [crowdSaleActionType.GET_CROWDSALE_INFO]: getCrowdsaleInfoStatus } = useShallowSelector(
-    uiSelectors.getUI,
-  );
-
   const [stage, setStage] = useState(Stage.UNINITIALIZED);
 
   useEffect(() => {
@@ -83,48 +79,45 @@ const Buy = () => {
   const timeLeft = useTimeLeft(timeLeftEnd, handleTimerOut);
 
   return (
-    <>
-      <div className={cn(s.wrapper, { [s.open]: isOpen })}>
-        {stage === Stage.UNINITIALIZED ? (
-          <div className={s.comingSoonContainer}>
-            <div className={s.head}>
-              <Button className={s.exit} onClick={handleClose} variant="outlined">
-                <CrossIcon />
-              </Button>
-            </div>
-            <div className={s.content}>
-              <Typography type="h2" className={s.comingSoon}>
-                Coming soon
+    <div className={cn(s.wrapper, { [s.open]: isOpen })}>
+      {stage === Stage.UNINITIALIZED ? (
+        <div className={s.comingSoonContainer}>
+          <div className={s.head}>
+            <Button className={s.exit} onClick={handleClose} variant="outlined">
+              <CrossIcon />
+            </Button>
+          </div>
+          <div className={s.content}>
+            <Typography type="h2" className={s.comingSoon}>
+              Coming soon
+            </Typography>
+          </div>
+        </div>
+      ) : (
+        <div className={s.container}>
+          <div className={s.head}>
+            <div className={s.zerogas}>
+              <Typography className={s.title} type="h1" fontFamily="DrukCyr Wide" weight={900}>
+                Buy
+              </Typography>
+              <Typography className={s.title} type="h1" fontFamily="DrukCyr Wide" weight={900}>
+                Zer <ZeroGasIcon className={s.zGasIcon} /> gas
               </Typography>
             </div>
+            <Button className={s.exit} onClick={handleClose} variant="outlined">
+              <CrossIcon />
+            </Button>
           </div>
-        ) : (
-          <div className={s.container}>
-            <div className={s.head}>
-              <div className={s.zerogas}>
-                <Typography className={s.title} type="h1" fontFamily="DrukCyr Wide" weight={900}>
-                  Buy
-                </Typography>
-                <Typography className={s.title} type="h1" fontFamily="DrukCyr Wide" weight={900}>
-                  Zer <ZeroGasIcon className={s.zGasIcon} /> gas
-                </Typography>
-              </div>
-              <Button className={s.exit} onClick={handleClose} variant="outlined">
-                <CrossIcon />
-              </Button>
-            </div>
-            <div className={s.content}>
-              <StageTimer className={s.card} stage={stage} timeLeft={timeLeft} />
+          <div className={s.content}>
+            <StageTimer className={s.card} stage={stage} timeLeft={timeLeft} />
 
-              <BuyForm className={s.card} stage={stage} />
+            <BuyForm className={s.card} stage={stage} />
 
-              <TokenList className={s.card} />
-            </div>
+            <TokenList className={s.card} />
           </div>
-        )}
-      </div>
-      <Loader visible={getCrowdsaleInfoStatus === RequestStatus.REQUEST} />
-    </>
+        </div>
+      )}
+    </div>
   );
 };
 
