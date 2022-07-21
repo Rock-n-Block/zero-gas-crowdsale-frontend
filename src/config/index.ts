@@ -5,7 +5,11 @@ import { Chains, IConnectWallet, IContracts, WalletProviders } from '@/types';
 import { crowdsaleAbi, erc20Abi } from './abi';
 import { isMainnet } from './constants';
 
-const INFURA_KEY = 'c40df013fb4d421db10a8316fabb5deb';
+const INFURA_KEY = process.env.REACT_INFURA_KEY;
+const ZEROGAS_ADDRESS_MAINNET = process.env.REACT_ZEROGAS_ADDRESS_MAINNET;
+const ZEROGAS_ADDRESS_TESTNET = process.env.REACT_ZEROGAS_ADDRESS_TESTNET;
+const CROWDSALE_ADDRESS_MAINNET = process.env.REACT_CROWDSALE_ADDRESS_MAINNET;
+const CROWDSALE_ADDRESS_TESTNET = process.env.REACT_CROWDSALE_ADDRESS_TESTNET;
 
 export const chains: TChainsConfig<Chains, WalletProviders> = {
   [Chains.Kovan]: {
@@ -48,21 +52,21 @@ export const contractsConfig: IContracts = {
   contracts: {
     [ContractsNames.zerogas]: {
       mainnet: {
-        address: '',
+        address: ZEROGAS_ADDRESS_MAINNET,
         abi: erc20Abi,
       },
       testnet: {
-        address: '0x87c940Ec036F2546b4575d4c45539a49fA22738F',
+        address: ZEROGAS_ADDRESS_TESTNET,
         abi: erc20Abi,
       },
     },
     [ContractsNames.crowdsale]: {
       mainnet: {
-        address: '',
+        address: CROWDSALE_ADDRESS_MAINNET,
         abi: crowdsaleAbi,
       },
       testnet: {
-        address: '0xd067aA9FAa0C7bAFaAb5869ef0c43E7f35097D42',
+        address: CROWDSALE_ADDRESS_TESTNET,
         abi: crowdsaleAbi,
       },
     },
