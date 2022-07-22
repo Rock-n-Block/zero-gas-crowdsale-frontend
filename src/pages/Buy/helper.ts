@@ -35,6 +35,6 @@ export const getTimeLeftEnd = ({
   return timeLeftDates[currentStage];
 };
 
-export const getFormatNumber = (number: number) => number.toLocaleString().replace(',', ' ');
+export const getFormatNumber = (number: number) => number.toLocaleString().replaceAll(',', ' ');
 
 export const getFormatFiat = (fiat: number) => new BigNumber(fiat).decimalPlaces(3).toString();
