@@ -94,9 +94,10 @@ export const BuyForm = ({ className, stage }: BuyFormProps) => {
         (stage === Stage.FIRST || stage === Stage.SECOND) &&
         totalBought < hardcap &&
         receiveAmount &&
-        !receiveError
+        !receiveError &&
+        !sendError
       ),
-    [stage, totalBought, hardcap, receiveAmount, receiveError],
+    [stage, totalBought, hardcap, receiveAmount, receiveError, sendError],
   );
   const canClaim = useMemo(
     () => (new Date() > stage2EndDate || totalBought >= hardcap) && userBought > 0,
@@ -347,7 +348,7 @@ export const BuyForm = ({ className, stage }: BuyFormProps) => {
           You buy 0GAS Tokens by sending {sendToken?.label} to the contract
         </Typography>
         <Button variant="outlined" className={s.formButton} disabled={!canBuy} onClick={handleBuy}>
-          <LockIcon />
+          {!canBuy && <LockIcon />}
           <Typography type="body1" fontFamily="DrukCyr Wide" className={s.formButtonTypography}>
             Buy zerogas
           </Typography>
