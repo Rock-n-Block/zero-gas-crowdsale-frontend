@@ -21,7 +21,6 @@ export const Menu = ({ isOpen, setIsOpen }: MenuProps) => {
   const userAddress = useShallowSelector(userSelector.getProp('address'));
   const isAuthenticated = useShallowSelector(userSelector.getIsAuthenticated);
   const dispatch = useDispatch();
-  const { connect } = useWalletConnectorContext();
 
   const handleClickConnect = useCallback(() => {
     if (isAuthenticated) {

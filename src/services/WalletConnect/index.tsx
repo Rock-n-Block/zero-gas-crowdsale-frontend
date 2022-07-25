@@ -17,7 +17,7 @@ import { chains, networkDataForAddToMetamask } from '@/config';
 import { useShallowSelector } from '@/hooks';
 import { WalletService } from '@/services';
 import { getUserInfo, login } from '@/store/user/actions';
-import { disconnectWalletState, updateUserState } from '@/store/user/reducer';
+import { disconnectWalletState } from '@/store/user/reducer';
 import userSelector from '@/store/user/selectors';
 import { Chains, State, UserState, WalletProviders } from '@/types';
 import { notify } from '@/utils';

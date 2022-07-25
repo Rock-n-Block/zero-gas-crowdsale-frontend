@@ -1,7 +1,9 @@
 import { FC, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { CrossIcon, metamaskSrc, walletconnectSrc } from '@/assets/img';
 import { useWalletConnectorContext } from '@/services';
+import { closeModal } from '@/store/modals/reducer';
 import { Chains, WalletProviders } from '@/types';
 
 import { Button } from '../Button';
@@ -18,16 +20,17 @@ export interface SuccessModalProps {
 
 export const ConnectWalletModal: FC<SuccessModalProps> = ({ ...rest }) => {
   const { connect } = useWalletConnectorContext();
+  const dispatch = useDispatch();
 
-  const handleMetaMaskConnect = useCallback(
-    () => connect(WalletProviders.metamask, Chains.Kovan),
-    [connect],
-  );
+  const handleMetaMaskConnect = useCallback(() => {
+    connect(WalletProviders.metamask, Chains.Kovan);
+    dispatch(closeModal());
+  }, [connect]);
 
-  const handleWalletConnectConnect = useCallback(
-    () => connect(WalletProviders.walletconnect, Chains.Kovan),
-    [connect],
-  );
+  const handleWalletConnectConnect = useCallback(() => {
+    connect(WalletProviders.walletconnect, Chains.Kovan);
+    dispatch(closeModal());
+  }, [connect]);
 
   return (
     <Modal closeable closeIcon={<CrossIcon />} {...rest}>
@@ -41,13 +44,17 @@ export const ConnectWalletModal: FC<SuccessModalProps> = ({ ...rest }) => {
         >
           CONNECT WALLET
         </Typography>
-        <Button onClick={handleMetaMaskConnect} className={s.providerButton}>
+        <Button variant="outlined" onClick={handleMetaMaskConnect} className={s.providerButton}>
           <img src={metamaskSrc} alt="metamask" />
           MetaMask
         </Button>
-        <Button onClick={handleWalletConnectConnect} className={s.providerButton}>
+        <Button
+          variant="outlined"
+          onClick={handleWalletConnectConnect}
+          className={s.providerButton}
+        >
           <img src={walletconnectSrc} alt="wallet connect" />
-          Wallet Connect
+          WalletConnect
         </Button>
       </div>
     </Modal>
