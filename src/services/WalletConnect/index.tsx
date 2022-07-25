@@ -58,8 +58,6 @@ const WalletConnectContext: FC<PropsWithChildren<any>> = ({ children }) => {
       // On MetaMask Accounts => Change / Disconnect / Connect
       if (data.name === 'accountsChanged') {
         disconnect();
-        // eslint-disable-next-line @typescript-eslint/no-use-before-define
-        connect(WalletProviders.metamask, Chains.Kovan);
       }
     },
     [disconnect],
@@ -106,7 +104,7 @@ const WalletConnectContext: FC<PropsWithChildren<any>> = ({ children }) => {
               dispatch(
                 login({
                   web3Provider: WalletConnect.Web3(),
-                  provider: accountInfo.type as string,
+                  provider: accountInfo.type as WalletProviders,
                   address: accountInfo.address,
                 }),
               );
@@ -144,8 +142,8 @@ const WalletConnectContext: FC<PropsWithChildren<any>> = ({ children }) => {
 
   useEffect(() => {
     // connect user if he connected previously
-    if (WalletProvider && connect) {
-      connect(WalletProviders.metamask, Chains.Kovan);
+    if (WalletProvider) {
+      connect(WalletProvider, Chains.Kovan);
     }
   }, []);
 

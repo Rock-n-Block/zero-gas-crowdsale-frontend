@@ -18144,6 +18144,16 @@ walker@^1.0.7, walker@~1.0.5:
   dependencies:
     makeerror "1.0.12"
 
+"wallet-connect@https://github.com/cucunber/wallet-instances.git/#wallet/wallet-connect":
+  version "0.0.1"
+  resolved "https://github.com/cucunber/wallet-instances.git/#6aeb54d031aff23dbc0aec6b97407608f0c775d5"
+  dependencies:
+    "@walletconnect/web3-provider" "^1.7.8"
+    rxjs "^7.5.5"
+    tslib "^2.0.0"
+    typescript "^4.7.3"
+    web3 "^1.6.1"
+
 walletlink@^2.1.11:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/walletlink/-/walletlink-2.5.0.tgz#b8db10f4d9f124084feb16d1e2b2d08ba8c20d21"
