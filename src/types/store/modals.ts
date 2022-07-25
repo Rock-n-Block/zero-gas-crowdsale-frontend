@@ -3,6 +3,7 @@ export enum Modals {
   SignIn = 'SignIn',
   Wallet = 'Wallet',
   init = '',
+  Connect = 'Connect',
 }
 
 export interface ModalState {

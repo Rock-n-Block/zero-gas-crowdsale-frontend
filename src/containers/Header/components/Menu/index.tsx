@@ -31,9 +31,13 @@ export const Menu = ({ isOpen, setIsOpen }: MenuProps) => {
         }),
       );
     } else {
-      connect(WalletProviders.walletconnect, Chains.Kovan);
+      dispatch(
+        setActiveModal({
+          activeModal: Modals.Connect,
+        }),
+      );
     }
-  }, [connect, dispatch, isAuthenticated]);
+  }, [dispatch, isAuthenticated]);
 
   const handleBuyClick = useHandleBuyClick();
 
