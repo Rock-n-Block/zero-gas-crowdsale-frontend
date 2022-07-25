@@ -1,0 +1,23 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.container {
+  @include flex(column, stretch, center, nowrap);
+  padding: 0 30px;
+  padding-bottom: 30px;
+
+  .title {
+    text-transform: uppercase;
+    margin: 0;
+    margin-bottom: 8%;
+    text-align: center;
+  }
+
+  .providerButton {
+    width: 100%;
+    margin-bottom: 8px;
+    gap: 16px;
+    font-size: 18px;
+    font-weight: 500;
+  }
+}

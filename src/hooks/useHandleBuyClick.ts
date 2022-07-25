@@ -5,8 +5,9 @@ import { useWalletConnectorContext } from '@/services';
 import { updateCrowdSaleOpenState } from '@/store/crowdsale/reducer';
 import crowdSaleSelectors from '@/store/crowdsale/selectors';
 import { getStage } from '@/store/crowdsale/utils';
+import { setActiveModal } from '@/store/modals/reducer';
 import userSelector from '@/store/user/selectors';
-import { Chains, Stage, WalletProviders } from '@/types';
+import { Modals, Stage } from '@/types';
 
 import useShallowSelector from './useShallowSelector';
 
@@ -34,9 +35,13 @@ export default function useHandleBuyClick() {
     if (isAuthenticated || stage === Stage.UNINITIALIZED) {
       dispatch(updateCrowdSaleOpenState(true));
     } else {
-      connect(WalletProviders.metamask, Chains.Kovan);
+      dispatch(
+        setActiveModal({
+          activeModal: Modals.Connect,
+        }),
+      );
     }
-  }, [connect, dispatch, isAuthenticated, stage]);
+  }, [dispatch, isAuthenticated, stage]);
 
   return handleBuyClick;
 }

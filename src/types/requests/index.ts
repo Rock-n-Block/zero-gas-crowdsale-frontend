@@ -1,6 +1,7 @@
 import Web3 from 'web3';
 
 import { ContractsNames } from '@/config';
+import { WalletProviders } from '..';
 
 export type BodyWithToken<T = never> = {
   token?: string;
@@ -35,7 +36,7 @@ export interface ApproveReq extends RequestWithWeb3Provider {
 export interface getUserInfoPayload extends RequestWithWeb3Provider {}
 
 export interface loginPayload extends RequestWithWeb3Provider {
-  provider: string;
+  provider: WalletProviders;
   address: string;
 }
 

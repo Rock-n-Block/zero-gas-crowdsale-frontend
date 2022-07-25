@@ -8,6 +8,7 @@ export type TOptionable<T> = T | undefined;
 // eslint-disable-next-line no-shadow
 export enum WalletProviders {
   metamask = 'MetaMask',
+  walletconnect = 'WalletConnect',
 }
 
 export type TReferrals = {

@@ -17,11 +17,12 @@ import uiSelectors from '@/store/ui/selectors';
 import { getUserInfo } from '@/store/user/actions';
 import userActionTypes from '@/store/user/actionTypes';
 import userSelector from '@/store/user/selectors';
-import { RequestStatus } from '@/types';
+import { Modals, RequestStatus } from '@/types';
 
 import { useOverlay } from '../Overlay';
 
 import s from './App.module.scss';
+import { ConnectWalletModal } from '@/components/ConnectWalletModal';
 
 const App: FC = () => {
   const isAuthenticated = useShallowSelector(userSelector.getIsAuthenticated);
@@ -40,6 +41,7 @@ const App: FC = () => {
   const {
     modalState: { txHash },
   } = useShallowSelector(modalsSelectors.getModals);
+  const { activeModal } = useShallowSelector(modalsSelectors.getProp('modalState'));
 
   useEffect(() => {
     setShouldRender(isBuyOpen);
@@ -85,6 +87,10 @@ const App: FC = () => {
     [buyStatus, claimRisedStatus, claimStatus, refundStatus],
   );
 
+  const handleActiveModalClose = useCallback(() => {
+    dispatch(closeModal());
+  }, [dispatch]);
+
   return (
     <>
       <div className={s.mainWrapper}>
@@ -103,6 +109,10 @@ const App: FC = () => {
         onClose={handleCloseModal}
       />
       <ErrorModal visible={shouldShowError} onClose={handleCloseModal} />
+      <ConnectWalletModal
+        visible={!isAuthenticated && activeModal === Modals.Connect}
+        onClose={handleActiveModalClose}
+      />
     </>
   );
 };
