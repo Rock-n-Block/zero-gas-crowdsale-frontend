@@ -12,25 +12,25 @@ import { Typography } from '../Typography';
 
 import s from './styles.module.scss';
 
-export interface SuccessModalProps {
+export interface ConnectWalletModalProps {
   className?: ModalProps['className'];
   visible: ModalProps['visible'];
   onClose: ModalProps['onClose'];
 }
 
-export const ConnectWalletModal: FC<SuccessModalProps> = ({ ...rest }) => {
+export const ConnectWalletModal: FC<ConnectWalletModalProps> = ({ ...rest }) => {
   const { connect } = useWalletConnectorContext();
   const dispatch = useDispatch();
 
   const handleMetaMaskConnect = useCallback(() => {
     connect(WalletProviders.metamask, Chains.Kovan);
     dispatch(closeModal());
-  }, [connect]);
+  }, [connect, dispatch]);
 
   const handleWalletConnectConnect = useCallback(() => {
     connect(WalletProviders.walletconnect, Chains.Kovan);
     dispatch(closeModal());
-  }, [connect]);
+  }, [connect, dispatch]);
 
   return (
     <Modal closeable closeIcon={<CrossIcon />} {...rest}>

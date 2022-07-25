@@ -5,7 +5,7 @@ import { UserState } from '@/types';
 
 const initialState: UserState = {
   address: NULL_ADDRESS,
-  provider: null,
+  provider: '',
 
   tokenBalances: {},
   key: '',
