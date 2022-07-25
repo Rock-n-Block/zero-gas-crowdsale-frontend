@@ -24,16 +24,10 @@ export const chains: TChainsConfig<Chains, WalletProviders> = {
         name: 'WalletConnect',
         useProvider: 'rpc',
         provider: {
-          infura: {
-            infuraID: INFURA_KEY,
-          },
           rpc: {
-            rpc: {
-              [isMainnet ? 1 : 42]: isMainnet
-                ? `https://mainnet.infura.io/v3/${INFURA_KEY}`
-                : `https://kovan.infura.io/v3/${INFURA_KEY}`,
-            },
-            chainId: isMainnet ? 1 : 42,
+            [isMainnet ? 1 : 42]: isMainnet
+              ? `https://mainnet.infura.io/v3/${INFURA_KEY}`
+              : `https://kovan.infura.io/v3/${INFURA_KEY}`,
           },
         },
       },

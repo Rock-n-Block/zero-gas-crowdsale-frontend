@@ -31,7 +31,7 @@ export const Menu = ({ isOpen, setIsOpen }: MenuProps) => {
         }),
       );
     } else {
-      connect(WalletProviders.metamask, Chains.Kovan);
+      connect(WalletProviders.walletconnect, Chains.Kovan);
     }
   }, [connect, dispatch, isAuthenticated]);
 
