@@ -30,6 +30,9 @@ export { default as newTribeSrc } from './partners/newTribeLogo.png';
 export { default as moralisSrc } from './partners/moralisLogo.png';
 export { default as metaVisionSrc } from './partners/metaVisionLogo.png';
 
+export { default as metamaskSrc } from './metamask.png';
+export { default as walletconnectSrc } from './walletconnect.png';
+
 export { default as zeroGasGifSrc } from './zeroGasIcon.gif';
 
 export * from './details';

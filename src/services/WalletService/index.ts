@@ -1,9 +1,10 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Web3 from 'web3';
 import { ConnectWallet } from '@amfi/connect-wallet';
 import { IConnect, IError } from '@amfi/connect-wallet/dist/interface';
 import { MetaMask } from 'metamask-wallet/dist';
+import { WalletsConnect } from 'wallet-connect/dist';
+import Web3 from 'web3';
 
 import { connectWallet as connectWalletConfig, networkDataForAddToMetamask } from '@/config';
 import { Chains, WalletProviders } from '@/types';
@@ -14,7 +15,7 @@ export class WalletService {
   constructor() {
     this.connectWallet = new ConnectWallet(
       new Web3(networkDataForAddToMetamask.rpcUrls[0]).currentProvider,
-    ).use([MetaMask]);
+    ).use([MetaMask, WalletsConnect]);
   }
 
   public async initWalletConnect(

@@ -21,7 +21,6 @@ export const Menu = ({ isOpen, setIsOpen }: MenuProps) => {
   const userAddress = useShallowSelector(userSelector.getProp('address'));
   const isAuthenticated = useShallowSelector(userSelector.getIsAuthenticated);
   const dispatch = useDispatch();
-  const { connect } = useWalletConnectorContext();
 
   const handleClickConnect = useCallback(() => {
     if (isAuthenticated) {
@@ -31,9 +30,13 @@ export const Menu = ({ isOpen, setIsOpen }: MenuProps) => {
         }),
       );
     } else {
-      connect(WalletProviders.metamask, Chains.Kovan);
+      dispatch(
+        setActiveModal({
+          activeModal: Modals.Connect,
+        }),
+      );
     }
-  }, [connect, dispatch, isAuthenticated]);
+  }, [dispatch, isAuthenticated]);
 
   const handleBuyClick = useHandleBuyClick();
 

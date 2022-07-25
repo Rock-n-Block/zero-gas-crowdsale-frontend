@@ -20,6 +20,17 @@ export const chains: TChainsConfig<Chains, WalletProviders> = {
     },
     provider: {
       MetaMask: { name: 'MetaMask' },
+      WalletConnect: {
+        name: 'WalletConnect',
+        useProvider: 'rpc',
+        provider: {
+          rpc: {
+            [isMainnet ? 1 : 42]: isMainnet
+              ? `https://mainnet.infura.io/v3/${INFURA_KEY}`
+              : `https://kovan.infura.io/v3/${INFURA_KEY}`,
+          },
+        },
+      },
     },
     keys: {
       infuraId: INFURA_KEY,
@@ -31,7 +42,7 @@ export const connectWallet = (chainName: Chains): IConnectWallet => {
   const chain = chains[chainName];
 
   return {
-    wallets: ['MetaMask'],
+    wallets: ['MetaMask', 'WalletConnect'],
     network: chain.network,
     provider: chain.provider,
     settings: { providerType: true },
