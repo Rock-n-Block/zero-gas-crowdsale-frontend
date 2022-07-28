@@ -16,6 +16,7 @@ import { Subscription } from 'rxjs';
 import { chains, networkDataForAddToMetamask } from '@/config';
 import { useShallowSelector } from '@/hooks';
 import { WalletService } from '@/services';
+import { getCrowdsaleInfo } from '@/store/crowdsale/actions';
 import { getUserInfo, login } from '@/store/user/actions';
 import { disconnectWalletState } from '@/store/user/reducer';
 import userSelector from '@/store/user/selectors';
@@ -99,6 +100,8 @@ const WalletConnectContext: FC<PropsWithChildren<any>> = ({ children }) => {
             if (key.length && address === accountInfo.address) {
               // Refresh backend data
               dispatch(getUserInfo({ web3Provider: WalletConnect.Web3() }));
+
+              dispatch(getCrowdsaleInfo({ web3Provider: WalletConnect.Web3() }));
             } else {
               // If auth on backend => fetch and save backend data
               dispatch(
