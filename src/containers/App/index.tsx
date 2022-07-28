@@ -2,6 +2,7 @@ import { FC, useCallback, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { ErrorModal, Loader, SuccessModal } from '@/components';
+import { ConnectWalletModal } from '@/components/ConnectWalletModal';
 import { LoadingModal } from '@/components/LoadingModal';
 import { Header, RouterManager } from '@/containers';
 import { useAnchorLink, useInterval, useShallowSelector } from '@/hooks';
@@ -49,6 +50,7 @@ const App: FC = () => {
 
   useEffect(() => {
     // If the user is authenticated fetch profile
+    // TODO: redundant to authenticated getUserInfo in WalletConnect/useEffect/connect
     if (isAuthenticated) {
       dispatch(getUserInfo({ web3Provider: walletService.Web3() }));
     }
