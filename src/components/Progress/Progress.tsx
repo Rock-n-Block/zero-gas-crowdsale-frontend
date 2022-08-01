@@ -21,7 +21,7 @@ export const Progress: FC<PropsWithChildren<ProgressProps>> = ({
     <div className={cn(s.container, className)}>
       <div
         className={s.bar}
-        style={cssVariable({ width: `${Math.floor(value / maxValue) * 100}%` })}
+        style={cssVariable({ width: `${Math.floor((value / maxValue) * 100)}%` })}
       />
       <div className={s.title}>{children}</div>
     </div>

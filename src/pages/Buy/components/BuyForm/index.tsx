@@ -299,7 +299,7 @@ export const BuyForm = ({ className, stage }: BuyFormProps) => {
         <Typography type="body2">
           Sold{' '}
           <Typography type="body2" weight={600} className={s.displayInline}>
-            {Math.floor(totalBought)}{' '}
+            {getFormatNumber(Math.floor(totalBought))}{' '}
           </Typography>
           out of{' '}
           <Typography type="body2" weight={600} className={s.displayInline}>
